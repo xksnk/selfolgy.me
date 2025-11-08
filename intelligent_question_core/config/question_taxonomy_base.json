@@ -1,0 +1,134 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "creation_date": "2025-09-07",
+    "total_domains": 12,
+    "total_subcategories": 48,
+    "total_micro_tags": 150,
+    "validation_pending": true
+  },
+  "hierarchy": {
+    "primary_domains": {
+      "IDENTITY": {
+        "description": "Самопонимание, роли, характер, 'кто я'",
+        "subcategories": [
+          "self_concept",
+          "personal_roles",
+          "core_values",
+          "character_traits",
+          "life_narrative"
+        ]
+      },
+      "EMOTIONS": {
+        "description": "Чувства, эмоциональная регуляция, настроения",
+        "subcategories": [
+          "emotional_awareness",
+          "emotion_regulation",
+          "emotional_expression",
+          "mood_patterns",
+          "emotional_triggers"
+        ]
+      },
+      "RELATIONSHIPS": {
+        "description": "Близость, любовь, семья, социальные связи",
+        "subcategories": [
+          "romantic_love",
+          "family_dynamics",
+          "friendships",
+          "social_skills",
+          "boundaries"
+        ]
+      },
+      "WORK": {
+        "description": "Карьера, призвание, профессиональная самореализация",
+        "subcategories": [
+          "career_path",
+          "professional_identity",
+          "work_satisfaction",
+          "leadership",
+          "entrepreneurship"
+        ]
+      },
+      "MONEY": {
+        "description": "Финансы, отношение к деньгам, материальная сфера",
+        "subcategories": [
+          "money_beliefs",
+          "financial_behavior",
+          "wealth_goals",
+          "money_fears",
+          "abundance_mindset"
+        ]
+      },
+      "HEALTH": {
+        "description": "Здоровье, телесность, физические ощущения",
+        "subcategories": [
+          "physical_health",
+          "mental_health",
+          "body_awareness",
+          "health_habits",
+          "energy_management"
+        ]
+      },
+      "CREATIVITY": {
+        "description": "Самовыражение, хобби, таланты, искусство",
+        "subcategories": [
+          "creative_expression",
+          "artistic_talents",
+          "hobbies",
+          "innovation",
+          "aesthetic_sense"
+        ]
+      },
+      "SPIRITUALITY": {
+        "description": "Смысл жизни, ценности, предназначение, вера",
+        "subcategories": [
+          "life_meaning",
+          "spiritual_beliefs",
+          "life_purpose",
+          "transcendence",
+          "wisdom_seeking"
+        ]
+      },
+      "PAST": {
+        "description": "Детство, травмы, опыт, воспоминания, история",
+        "subcategories": [
+          "childhood_memories",
+          "family_influence",
+          "past_traumas",
+          "life_lessons",
+          "formative_experiences"
+        ]
+      },
+      "FUTURE": {
+        "description": "Мечты, планы, цели, видение, стремления",
+        "subcategories": [
+          "life_goals",
+          "dreams_aspirations",
+          "future_vision",
+          "legacy_planning",
+          "growth_direction"
+        ]
+      },
+      "LIFESTYLE": {
+        "description": "Привычки, распорядок, образ жизни",
+        "subcategories": [
+          "daily_habits",
+          "time_management",
+          "life_rhythm",
+          "environment_design",
+          "wellness_practices"
+        ]
+      },
+      "THOUGHTS": {
+        "description": "Убеждения, паттерны мышления, когнитивные процессы",
+        "subcategories": [
+          "belief_systems",
+          "thinking_patterns",
+          "cognitive_biases",
+          "decision_making",
+          "mental_frameworks"
+        ]
+      }
+    }
+  }
+}

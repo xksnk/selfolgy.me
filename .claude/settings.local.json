@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "Bash(git clone:*)",
+      "Read(//tmp/n8n-mcp/**)",
+      "Bash(npm run build:*)",
+      "Bash(n8n-mcp-server:*)",
+      "WebFetch(domain:n8n.xksnk.com)",
+      "Bash(tree:*)",
+      "Bash(docker exec:*)",
+      "Bash(PGPASSWORD='sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU=' psql -h localhost -U postgres -c \"CREATE DATABASE selfology;\")",
+      "Bash(python3:*)",
+      "Bash(pip3 install:*)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(docker port:*)",
+      "Read(//home/ksnk/n8n-enterprise/**)",
+      "Bash(chmod:*)",
+      "Bash(python:*)",
+      "Bash(docker build:*)",
+      "Bash(pkill:*)",
+      "Bash(timeout 3 python:*)",
+      "Bash(docker-compose:*)",
+      "Bash(docker:*)",
+      "Bash(find:*)",
+      "Bash(lsof:*)",
+      "Bash(PGPASSWORD='sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU=' psql -h localhost -U postgres -c \"SELECT 1;\" --port=5432)",
+      "Bash(timeout:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

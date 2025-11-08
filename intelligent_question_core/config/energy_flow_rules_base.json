@@ -1,0 +1,108 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "creation_date": "2025-09-07",
+    "based_on": "psychological_safety_principles",
+    "validation_pending": true
+  },
+  "transition_rules": {
+    "OPENING": {
+      "description": "Открывающие, дающие энергию вопросы",
+      "can_lead_to": [
+        "PROCESSING",
+        "NEUTRAL",
+        "OPENING"
+      ],
+      "optimal_next": "PROCESSING",
+      "session_starter": true,
+      "energy_impact": 0.3
+    },
+    "NEUTRAL": {
+      "description": "Нейтральные, информативные вопросы",
+      "can_lead_to": [
+        "OPENING",
+        "PROCESSING",
+        "NEUTRAL"
+      ],
+      "optimal_next": "any",
+      "session_filler": true,
+      "energy_impact": 0.0
+    },
+    "PROCESSING": {
+      "description": "Требующие глубокой переработки",
+      "can_lead_to": [
+        "NEUTRAL",
+        "HEALING",
+        "PROCESSING"
+      ],
+      "cannot_follow": [
+        "HEAVY"
+      ],
+      "max_consecutive": 3,
+      "energy_impact": -0.1
+    },
+    "HEAVY": {
+      "description": "Эмоционально тяжелые, болезненные",
+      "must_follow_with": [
+        "HEALING",
+        "NEUTRAL"
+      ],
+      "cannot_follow": [
+        "HEAVY",
+        "PROCESSING"
+      ],
+      "max_consecutive": 1,
+      "requires_preparation": true,
+      "recovery_time": 2,
+      "energy_impact": -0.5
+    },
+    "HEALING": {
+      "description": "Исцеляющие, восстанавливающие",
+      "can_lead_to": [
+        "OPENING",
+        "NEUTRAL",
+        "PROCESSING"
+      ],
+      "session_ender": true,
+      "after_heavy_required": true,
+      "energy_impact": 0.4
+    }
+  },
+  "session_balancing": {
+    "ideal_energy_distribution": {
+      "OPENING": 0.25,
+      "PROCESSING": 0.35,
+      "NEUTRAL": 0.25,
+      "HEALING": 0.15
+    },
+    "safety_constraints": {
+      "max_heavy_per_session": 2,
+      "min_healing_after_heavy": 1,
+      "session_must_end_positive": true,
+      "max_session_length": 15,
+      "min_trust_for_heavy": 4
+    },
+    "flow_patterns": {
+      "gentle_exploration": [
+        "OPENING",
+        "NEUTRAL",
+        "PROCESSING",
+        "NEUTRAL",
+        "HEALING"
+      ],
+      "deep_work": [
+        "OPENING",
+        "PROCESSING",
+        "HEAVY",
+        "HEALING",
+        "INTEGRATION"
+      ],
+      "maintenance": [
+        "NEUTRAL",
+        "PROCESSING",
+        "NEUTRAL",
+        "OPENING"
+      ]
+    }
+  }
+}

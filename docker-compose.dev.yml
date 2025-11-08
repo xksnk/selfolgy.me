@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  selfology-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=true
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql+asyncpg://n8n:sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU=@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - QDRANT_URL=http://qdrant:6333
+      - PYTHONUNBUFFERED=1  # Важно для логов в реальном времени
+    env_file:
+      - .env.development
+    networks:
+      - n8n-network
+    volumes:
+      # Mount the entire project for hot reload
+      - .:/app
+      - /app/venv  # Exclude virtual environment
+      - /app/__pycache__  # Exclude Python cache
+      - /app/.git  # Exclude git files
+      - /app/.pytest_cache  # Exclude pytest cache
+      - /app/logs  # Exclude logs to avoid permission issues
+    # УБРАЛИ command - теперь использует CMD из Dockerfile.dev
+    restart: unless-stopped
+    # Подключаемся к существующим сервисам через сеть
+    external_links:
+      - "n8n-postgres:n8n-postgres"
+      - "n8n-redis:n8n-redis"
+      - "qdrant:qdrant"
+
+networks:
+  n8n-network:
+    name: docker-compose_n8n-network
+    external: true

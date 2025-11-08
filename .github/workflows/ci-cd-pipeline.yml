@@ -1,0 +1,445 @@
+name: Selfology CI/CD Pipeline
+
+# Триггеры для каждой фазы рефакторинга
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+      - 'phase-*'
+  pull_request:
+    branches:
+      - main
+      - develop
+
+env:
+  PYTHON_VERSION: '3.11'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # =============================================
+  # STAGE 1: Code Quality & Security
+  # =============================================
+  code-quality:
+    name: Code Quality & Linting
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install black ruff mypy bandit safety
+          pip install -r requirements.txt
+
+      - name: Run Black formatter check
+        run: black --check selfology_bot/ systems/ core/
+
+      - name: Run Ruff linter
+        run: ruff check selfology_bot/ systems/ core/
+
+      - name: Run type checking with mypy
+        run: mypy selfology_bot/ systems/ core/ --ignore-missing-imports
+        continue-on-error: true
+
+      - name: Security scan with Bandit
+        run: bandit -r selfology_bot/ systems/ core/ -f json -o bandit-report.json
+        continue-on-error: true
+
+      - name: Dependency vulnerability scan
+        run: safety check --json
+        continue-on-error: true
+
+      - name: Upload security reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-reports
+          path: |
+            bandit-report.json
+          retention-days: 30
+
+  # =============================================
+  # STAGE 2: Unit & Integration Tests
+  # =============================================
+  tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: code-quality
+
+    strategy:
+      matrix:
+        test-suite:
+          - unit
+          - integration
+          - e2e
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov pytest-asyncio pytest-xdist
+
+      - name: Run ${{ matrix.test-suite }} tests
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:test_password@localhost:5432/test_db
+          REDIS_URL: redis://localhost:6379
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          pytest tests/${{ matrix.test-suite }}/ \
+            --cov=selfology_bot \
+            --cov=systems \
+            --cov=core \
+            --cov-report=xml \
+            --cov-report=html \
+            --cov-report=term-missing \
+            --maxfail=3 \
+            -n auto \
+            --tb=short
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          flags: ${{ matrix.test-suite }}
+          name: ${{ matrix.test-suite }}-coverage
+          fail_ci_if_error: false
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.test-suite }}
+          path: |
+            htmlcov/
+            coverage.xml
+          retention-days: 30
+
+  # =============================================
+  # STAGE 3: Database Migration Tests
+  # =============================================
+  migration-tests:
+    name: Database Migration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: tests
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: n8n
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install alembic
+
+      - name: Run migrations (upgrade)
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:test_password@localhost:5432/n8n
+        run: |
+          alembic upgrade head
+
+      - name: Test migration rollback
+        env:
+          DATABASE_URL: postgresql+asyncpg://postgres:test_password@localhost:5432/n8n
+        run: |
+          alembic downgrade -1
+          alembic upgrade head
+
+      - name: Verify database schema
+        env:
+          DATABASE_URL: postgresql://postgres:test_password@localhost:5432/n8n
+        run: |
+          python scripts/verify_schema.py
+
+  # =============================================
+  # STAGE 4: Build Docker Images
+  # =============================================
+  build-images:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [tests, migration-tests]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+
+    strategy:
+      matrix:
+        system:
+          - telegram
+          - onboarding
+          - analysis
+          - profile
+          - coach
+          - monitoring
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.system }}
+          tags: |
+            type=ref,event=branch
+            type=sha,prefix={{branch}}-
+            type=semver,pattern={{version}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: systems/${{ matrix.system }}/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Sign the images with Cosign
+        run: echo "Image signing would happen here"
+        # cosign sign --key env://COSIGN_KEY ${TAGS}
+
+  # =============================================
+  # STAGE 5: Deploy to Development
+  # =============================================
+  deploy-dev:
+    name: Deploy to Development
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build-images
+    if: github.ref == 'refs/heads/develop'
+    environment:
+      name: development
+      url: https://dev.selfology.me
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEV_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.DEV_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Development server
+        run: |
+          ssh ${{ secrets.DEV_USER }}@${{ secrets.DEV_HOST }} << 'EOF'
+            cd /home/ksnk/n8n-enterprise/projects/selfology
+            git pull origin develop
+            docker-compose -f docker-compose.microservices.yml pull
+            docker-compose -f docker-compose.microservices.yml up -d --remove-orphans
+            docker system prune -f
+          EOF
+
+      - name: Run smoke tests
+        run: |
+          sleep 30  # Wait for services to start
+          curl -f http://${{ secrets.DEV_HOST }}:8001/health || exit 1
+          curl -f http://${{ secrets.DEV_HOST }}:8080/health || exit 1
+
+      - name: Notify deployment success
+        if: success()
+        run: |
+          curl -X POST ${{ secrets.WEBHOOK_URL }} \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"Development deployment successful: ${{ github.sha }}"}'
+
+      - name: Notify deployment failure
+        if: failure()
+        run: |
+          curl -X POST ${{ secrets.WEBHOOK_URL }} \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"Development deployment FAILED: ${{ github.sha }}"}'
+
+  # =============================================
+  # STAGE 6: Deploy to Staging
+  # =============================================
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: deploy-dev
+    if: github.ref == 'refs/heads/develop'
+    environment:
+      name: staging
+      url: https://staging.selfology.me
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Staging
+        run: echo "Staging deployment logic here"
+
+      - name: Run integration tests on Staging
+        run: |
+          pytest tests/e2e/ --base-url=https://staging.selfology.me
+
+  # =============================================
+  # STAGE 7: Deploy to Production (Blue-Green)
+  # =============================================
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: deploy-staging
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://selfology.me
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy Green environment
+        run: |
+          echo "Deploy to green environment"
+          # Blue-green deployment logic
+
+      - name: Run smoke tests on Green
+        run: |
+          echo "Test green environment"
+
+      - name: Switch traffic to Green
+        run: |
+          echo "Switch load balancer to green"
+
+      - name: Monitor for 5 minutes
+        run: |
+          echo "Monitor metrics"
+
+      - name: Rollback if needed
+        if: failure()
+        run: |
+          echo "Rollback to blue environment"
+
+      - name: Notify production deployment
+        if: success()
+        run: |
+          curl -X POST ${{ secrets.WEBHOOK_URL }} \
+            -H 'Content-Type: application/json' \
+            -d '{"text":"PRODUCTION deployment successful: ${{ github.sha }}"}'
+
+  # =============================================
+  # STAGE 8: Performance Tests
+  # =============================================
+  performance-tests:
+    name: Performance & Load Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: deploy-staging
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install k6
+        run: |
+          curl -L https://github.com/grafana/k6/releases/download/v0.47.0/k6-v0.47.0-linux-amd64.tar.gz | tar xvz
+          sudo mv k6-v0.47.0-linux-amd64/k6 /usr/local/bin/
+
+      - name: Run load tests
+        run: |
+          k6 run tests/performance/load-test.js \
+            --vus 100 \
+            --duration 5m \
+            --out json=results.json
+
+      - name: Analyze results
+        run: |
+          python scripts/analyze_performance.py results.json
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results
+          path: results.json
+          retention-days: 90

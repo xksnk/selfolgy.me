@@ -1,0 +1,319 @@
+version: '3.8'
+
+# Docker Compose для 6 микросервисов Selfology
+# Используется в Фазах 1-8 рефакторинга
+
+services:
+  # ========================================
+  # 1. TELEGRAM SYSTEM - Gateway для пользователей
+  # ========================================
+  telegram-system:
+    build:
+      context: .
+      dockerfile: systems/telegram/Dockerfile
+    container_name: selfology-telegram
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - EVENT_BUS_STREAM=selfology:events
+      - SYSTEM_NAME=telegram
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8001:8001"
+    networks:
+      - n8n-network
+    depends_on:
+      - event-bus-monitor
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8001/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    volumes:
+      - ./logs/telegram:/app/logs
+
+  # ========================================
+  # 2. ONBOARDING SYSTEM - Smart Mix questioning
+  # ========================================
+  onboarding-system:
+    build:
+      context: .
+      dockerfile: systems/onboarding/Dockerfile
+    container_name: selfology-onboarding
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - EVENT_BUS_STREAM=selfology:events
+      - SYSTEM_NAME=onboarding
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    networks:
+      - n8n-network
+    depends_on:
+      - event-bus-monitor
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    volumes:
+      - ./logs/onboarding:/app/logs
+
+  # ========================================
+  # 3. ANALYSIS SYSTEM - AI анализ ответов
+  # ========================================
+  analysis-system:
+    build:
+      context: .
+      dockerfile: systems/analysis/Dockerfile
+    container_name: selfology-analysis
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - EVENT_BUS_STREAM=selfology:events
+      - SYSTEM_NAME=analysis
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+      - AI_TIMEOUT=30
+      - MAX_RETRIES=3
+    networks:
+      - n8n-network
+    depends_on:
+      - event-bus-monitor
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    volumes:
+      - ./logs/analysis:/app/logs
+
+  # Масштабируемый worker для фонового анализа
+  analysis-worker:
+    build:
+      context: .
+      dockerfile: systems/analysis/Dockerfile.worker
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - EVENT_BUS_STREAM=selfology:events
+      - WORKER_ID=${HOSTNAME}
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    networks:
+      - n8n-network
+    depends_on:
+      - analysis-system
+    restart: unless-stopped
+    deploy:
+      replicas: 2  # 2 воркера для параллельной обработки
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1.5G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    volumes:
+      - ./logs/analysis-workers:/app/logs
+
+  # ========================================
+  # 4. PROFILE SYSTEM - Soul Architect (693D personality)
+  # ========================================
+  profile-system:
+    build:
+      context: .
+      dockerfile: systems/profile/Dockerfile
+    container_name: selfology-profile
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - QDRANT_URL=http://qdrant:6333
+      - EVENT_BUS_STREAM=selfology:events
+      - SYSTEM_NAME=profile
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    networks:
+      - n8n-network
+    depends_on:
+      - event-bus-monitor
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    volumes:
+      - ./logs/profile:/app/logs
+
+  # ========================================
+  # 5. COACH SYSTEM - Персонализированный AI коучинг
+  # ========================================
+  coach-system:
+    build:
+      context: .
+      dockerfile: systems/coach/Dockerfile
+    container_name: selfology-coach
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - QDRANT_URL=http://qdrant:6333
+      - EVENT_BUS_STREAM=selfology:events
+      - SYSTEM_NAME=coach
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    networks:
+      - n8n-network
+    depends_on:
+      - profile-system
+      - event-bus-monitor
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    volumes:
+      - ./logs/coach:/app/logs
+
+  # ========================================
+  # 6. MONITORING SYSTEM - Метрики и алерты
+  # ========================================
+  monitoring-system:
+    build:
+      context: .
+      dockerfile: systems/monitoring/Dockerfile
+    container_name: selfology-monitoring
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://n8n:${DB_PASSWORD}@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - EVENT_BUS_STREAM=selfology:events
+      - SYSTEM_NAME=monitoring
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+      - ALERT_WEBHOOK_URL=${ALERT_WEBHOOK_URL}
+    ports:
+      - "9090:9090"  # Prometheus metrics
+      - "3000:3000"  # Grafana dashboard
+    networks:
+      - n8n-network
+    depends_on:
+      - event-bus-monitor
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    volumes:
+      - ./logs/monitoring:/app/logs
+      - monitoring-data:/var/lib/monitoring
+
+  # ========================================
+  # EVENT BUS MONITOR - Центральный мониторинг событий
+  # ========================================
+  event-bus-monitor:
+    build:
+      context: .
+      dockerfile: core/Dockerfile.event-monitor
+    container_name: selfology-event-monitor
+    environment:
+      - REDIS_URL=redis://n8n-redis:6379
+      - EVENT_BUS_STREAM=selfology:events
+      - LOG_LEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8080:8080"  # Web UI для мониторинга событий
+    networks:
+      - n8n-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
+    volumes:
+      - ./logs/event-bus:/app/logs
+
+# ========================================
+# NETWORKS
+# ========================================
+networks:
+  n8n-network:
+    name: docker-compose_n8n-network
+    external: true
+
+# ========================================
+# VOLUMES
+# ========================================
+volumes:
+  monitoring-data:
+    driver: local

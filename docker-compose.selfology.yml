@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  selfology-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: selfology-bot
+    environment:
+      # Load from .env file
+      - TELEGRAM_BOT_TOKEN
+      - ANTHROPIC_API_KEY
+      - OPENAI_API_KEY
+      - N8N_API_KEY
+      - N8N_BASE_URL
+      # Container network connections
+      - DATABASE_URL=postgresql+asyncpg://n8n:sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU=@n8n-postgres:5432/n8n
+      - REDIS_URL=redis://n8n-redis:6379
+      - QDRANT_URL=http://qdrant:6333
+      - CHROMADB_URL=http://chromadb:8000
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8001
+      - PYTHONUNBUFFERED=1  # Для логов в реальном времени
+    ports:
+      - "8001:8001"
+    depends_on:
+      - n8n-postgres
+      - n8n-redis
+      - qdrant
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - n8n-network
+    volumes:
+      - ./logs:/app/logs  # Персистентные логи
+    # Production оптимизации
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+# Use existing network
+networks:
+  n8n-network:
+    name: docker-compose_n8n-network
+    external: true

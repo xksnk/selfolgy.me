@@ -1,0 +1,44 @@
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies including development tools
+RUN apt-get update && apt-get install -y \
+    gcc \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better Docker layer caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install watchdog for file monitoring (автоматический перезапуск при изменениях)
+RUN pip install --no-cache-dir watchdog watchfiles
+
+# Create non-root user for security
+RUN useradd --create-home --shell /bin/bash selfology
+
+# Set up proper permissions (will be overridden by volumes)
+RUN chown -R selfology:selfology /app
+USER selfology
+
+# Expose port
+EXPOSE 8000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+
+# Команда с автоматическим перезапуском при изменении файлов
+# watchmedo следит за изменениями .py файлов и перезапускает бот
+CMD ["watchmedo", "auto-restart", \
+     "--directory=/app", \
+     "--pattern=*.py", \
+     "--recursive", \
+     "--ignore-patterns=*/logs/*;*/venv/*;*/__pycache__/*;*.pyc;*/tests/*", \
+     "--", \
+     "python", "selfology_controller.py"]

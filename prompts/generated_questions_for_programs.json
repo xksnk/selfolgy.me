@@ -1,0 +1,3384 @@
+{
+  "metadata": {
+    "generated_at": "2025-10-06T19:53:50.164245",
+    "total_programs": 13,
+    "successful_programs": 13,
+    "total_questions": 182
+  },
+  "programs": [
+    {
+      "program": "AI-тревожность и будущее работы",
+      "questions": [
+        {
+          "text": "Какие профессиональные навыки делают тебя незаменимым?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_001",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661462",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего ты боишься больше: потерять работу или стать неактуальным?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "WORK",
+          "theme": "страх замены AI",
+          "id": "gen_ai-_002",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661477",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Если бы AI мог делать твою работу, что бы ты предложил взамен?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "адаптация к изменениям",
+          "id": "gen_ai-_003",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661481",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую часть своей профессиональной идентичности ты боишься потерять?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "WORK",
+          "theme": "страх замены AI",
+          "id": "gen_ai-_004",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661485",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "WORK",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты профессионально без технических навыков?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_005",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661488",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "WORK",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Сколько часов в неделю ты тратишь на переобучение?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "WORK",
+          "theme": "адаптация к изменениям",
+          "id": "gen_ai-_006",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661491",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что в твоей работе невозможно заменить машиной?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_007",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661493",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как изменится твоя ценность, если AI станет твоим ассистентом?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "WORK",
+          "theme": "адаптация к изменениям",
+          "id": "gen_ai-_008",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661496",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем ты компенсируешь страх профессиональной неадекватности?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "HEAVY",
+          "domain": "WORK",
+          "theme": "страх замены AI",
+          "id": "gen_ai-_009",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661499",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой навык человека AI никогда не скопирует?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_010",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661502",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "О чем молчит твой профессиональный LinkedIn?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "WORK",
+          "theme": "страх замены AI",
+          "id": "gen_ai-_011",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661505",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "WORK",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой твой профессиональный страх живет глубже резюме?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "HEAVY",
+          "domain": "WORK",
+          "theme": "страх замены AI",
+          "id": "gen_ai-_012",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661507",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем ты занимаешься сверх должностной инструкции?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_013",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661510",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Твоя эмоциональная intelligence - это профессиональный актив?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "навыки будущего",
+          "id": "gen_ai-_014",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661513",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что в тебе сломается при полной автоматизации?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "WORK",
+          "theme": "страх замены AI",
+          "id": "gen_ai-_015",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661516",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как меняется твоя самооценка с развитием технологий?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "адаптация к изменениям",
+          "id": "gen_ai-_016",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661519",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где твоя уникальность важнее алгоритма?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEALING",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_017",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661521",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что в тебе живет beyond performance metrics?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "WORK",
+          "theme": "уникальность человека",
+          "id": "gen_ai-_018",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661524",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "WORK",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты профессионально без внешних оценок?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "WORK",
+          "theme": "навыки будущего",
+          "id": "gen_ai-_019",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661527",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "WORK",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как быстро ты готов переучиваться?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "WORK",
+          "theme": "адаптация к изменениям",
+          "id": "gen_ai-_020",
+          "program": "AI-тревожность и будущее работы",
+          "generated_at": "2025-10-06T19:50:30.661530",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "страх замены AI",
+          "уникальность человека",
+          "адаптация к изменениям",
+          "навыки будущего"
+        ],
+        "domains": [
+          "WORK",
+          "FEARS",
+          "FUTURE",
+          "IDENTITY"
+        ],
+        "priority": 3,
+        "generated_count": 20,
+        "target_count": 20
+      }
+    },
+    {
+      "program": "Война за внимание",
+      "questions": [
+        {
+          "text": "Сколько времени ты проводишь в коротких видео за день?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "shorts/reels",
+          "id": "gen_вой_001",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488875",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие уведомления вызывают у тебя самую сильную тревогу?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "EMOTIONS",
+          "theme": "FOMO",
+          "id": "gen_вой_002",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488893",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Когда последний раз ты был полностью без смартфона?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "управление вниманием",
+          "id": "gen_вой_003",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488898",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоей голове между нажатиями на обновление ленты?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "COGNITIVE",
+          "theme": "дофаминовая зависимость",
+          "id": "gen_вой_004",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488902",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "COGNITIVE",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие эмоции скрываются за твоим бесконечным скроллингом?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "FOMO",
+          "id": "gen_вой_005",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488907",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От чего ты прячешься, открывая социальные сети?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "дофаминовая зависимость",
+          "id": "gen_вой_006",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488911",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что чувствует твоё тело, когда ты не можешь проверить телефон?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "SOMATIC",
+          "theme": "управление вниманием",
+          "id": "gen_вой_007",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488916",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "SOMATIC",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие внутренние диалоги сопровождают твой просмотр контента?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "COGNITIVE",
+          "theme": "shorts/reels",
+          "id": "gen_вой_008",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488920",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "COGNITIVE",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто управляет твоим вниманием - ты или алгоритмы?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "управление вниманием",
+          "id": "gen_вой_009",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488925",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что тебе мешает создавать, а не только потреблять?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "MOTIVATIONAL",
+          "theme": "дофаминовая зависимость",
+          "id": "gen_вой_010",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488929",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "MOTIVATIONAL",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой твой истинный голод скрывается за hunger scrolling?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "FOMO",
+          "id": "gen_вой_011",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488934",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего ты боишься пропустить в своей реальной жизни?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "EMOTIONS",
+          "theme": "FOMO",
+          "id": "gen_вой_012",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488938",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую часть себя ты теряешь в цифровом потоке?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "управление вниманием",
+          "id": "gen_вой_013",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488952",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что будет, если ты перестанешь себя сравнивать?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "shorts/reels",
+          "id": "gen_вой_014",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488957",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какая твоя самая болезненная незаживающая история?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "FOMO",
+          "id": "gen_вой_015",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488961",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что умрёт в тебе без validation от незнакомцев?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGICAL",
+          "theme": "дофаминовая зависимость",
+          "id": "gen_вой_016",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488966",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "PSYCHOLOGICAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без цифровых масок и фильтров?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "EXISTENTIAL",
+          "theme": "управление вниманием",
+          "id": "gen_вой_017",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488970",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "EXISTENTIAL",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Существуешь ли ты вне своего цифрового следа?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "EXISTENTIAL",
+          "theme": "shorts/reels",
+          "id": "gen_вой_018",
+          "program": "Война за внимание",
+          "generated_at": "2025-10-06T19:50:52.488974",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "EXISTENTIAL",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "дофаминовая зависимость",
+          "FOMO",
+          "глубокий фокус",
+          "управление вниманием",
+          "shorts/reels"
+        ],
+        "domains": [
+          "EMOTIONS",
+          "VALUES",
+          "WORK",
+          "CREATIVITY"
+        ],
+        "priority": 3,
+        "generated_count": 18,
+        "target_count": 20
+      }
+    },
+    {
+      "program": "Инфо-ожирение",
+      "questions": [
+        {
+          "text": "Сколько времени ты проводишь в онлайн-потоке без осознанной цели?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "информационная перегрузка",
+          "id": "gen_инф_001",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579242",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие три приложения первыми открываются утром?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "HABITS",
+          "theme": "цифровой минимализм",
+          "id": "gen_инф_002",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579261",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "HABITS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Когда последний раз ты полностью отключал уведомления?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BOUNDARIES",
+          "theme": "информационная перегрузка",
+          "id": "gen_инф_003",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579266",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BOUNDARIES",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда notifications переполняют экран?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "SENSATIONS",
+          "theme": "информационная перегрузка",
+          "id": "gen_инф_004",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579270",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "SENSATIONS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие эмоции скрываются за твоим бесконечным скроллингом?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "потребление vs применение",
+          "id": "gen_инф_005",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579274",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем ты заменяешь внутреннюю пустоту, открывая новую вкладку?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "MOTIVATION",
+          "theme": "потребление vs применение",
+          "id": "gen_инф_006",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579278",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "MOTIVATION",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какого реального контакта ты убегаешь в интернет?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровой минимализм",
+          "id": "gen_инф_007",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579283",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие темы в твоей ленте провоцируют наибольшее напряжение?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "TRIGGERS",
+          "theme": "парадокс выбора",
+          "id": "gen_инф_008",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579292",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "TRIGGERS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего ты боишься пропустить в бесконечном информационном потоке?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "FEARS",
+          "theme": "информационная перегрузка",
+          "id": "gen_инф_009",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579296",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "FEARS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что случится, если ты перестанешь потреблять, а начнешь создавать?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "POTENTIAL",
+          "theme": "потребление vs применение",
+          "id": "gen_инф_010",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579300",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "POTENTIAL",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой твой внутренний ресурс истощается от бесцельного серфинга?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "ENERGY",
+          "theme": "цифровой минимализм",
+          "id": "gen_инф_011",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579304",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "ENERGY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где граница между информированностью и информационным насилием над собой?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "BOUNDARIES",
+          "theme": "информационная перегрузка",
+          "id": "gen_инф_012",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579308",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "BOUNDARIES",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой части себя ты не даешь проявиться через цифровые маски?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "AUTHENTICITY",
+          "theme": "потребление vs применение",
+          "id": "gen_инф_013",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579312",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "AUTHENTICITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что произойдет, если ты полностью исчезнешь из цифрового мира?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "IDENTITY",
+          "theme": "цифровой минимализм",
+          "id": "gen_инф_014",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579317",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какая твоя самая глубокая незаживленная рана прячется за лайками?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "WOUNDS",
+          "theme": "парадокс выбора",
+          "id": "gen_инф_015",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579321",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "WOUNDS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без цифрового следа и чужих оценок?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "ESSENCE",
+          "theme": "цифровой минимализм",
+          "id": "gen_инф_016",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579325",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "ESSENCE",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Существуешь ли ты independently от информационного потока?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "EXISTENCE",
+          "theme": "информационная перегрузка",
+          "id": "gen_инф_017",
+          "program": "Инфо-ожирение",
+          "generated_at": "2025-10-06T19:51:13.579329",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "EXISTENCE",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "информационная перегрузка",
+          "потребление vs применение",
+          "цифровой минимализм",
+          "парадокс выбора"
+        ],
+        "domains": [
+          "VALUES",
+          "WORK",
+          "GOALS"
+        ],
+        "priority": 3,
+        "generated_count": 17,
+        "target_count": 18
+      }
+    },
+    {
+      "program": "Скорость изменений",
+      "questions": [
+        {
+          "text": "Сколько раз за день ты меняешь свои планы?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "VUCA мир",
+          "id": "gen_ско_001",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747432",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие навыки ты осваиваешь параллельно с основной работой?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "PROFESSIONAL",
+          "theme": "Адаптивность",
+          "id": "gen_ско_002",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747448",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "PROFESSIONAL",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как быстро ты адаптируешься к новым технологическим изменениям?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "SKILLS",
+          "theme": "Неопределенность",
+          "id": "gen_ско_003",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747452",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "SKILLS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие внутренние барьеры мешают тебе быстро реагировать на изменения?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "Устойчивость",
+          "id": "gen_ско_004",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747456",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда мир вокруг меняется слишком быстро?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "BODY",
+          "theme": "VUCA мир",
+          "id": "gen_ско_005",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747459",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "BODY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Когда последний раз ты чувствовал полную беспомощность перед обстоятельствами?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "Неопределенность",
+          "id": "gen_ско_006",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747469",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От чего ты готов отказаться ради большей гибкости?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "VALUES",
+          "theme": "Антихрупкость",
+          "id": "gen_ско_007",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747473",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "VALUES",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие твои привычки уже не работают в современном мире?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "BEHAVIOR",
+          "theme": "Адаптивность",
+          "id": "gen_ско_008",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747477",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что внутри тебя сопротивляется непредсказуемости?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "EMOTIONS",
+          "theme": "Устойчивость",
+          "id": "gen_ско_009",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747480",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где заканчивается твоя адаптация и начинается самоуничтожение?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "IDENTITY",
+          "theme": "Антихрупкость",
+          "id": "gen_ско_010",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747484",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой части себя ты боишься лишиться в условиях постоянных изменений?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "FEARS",
+          "theme": "VUCA мир",
+          "id": "gen_ско_011",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747487",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "FEARS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Через какую личную трансформацию ты готов пройти ради развития?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "GROWTH",
+          "theme": "Адаптивность",
+          "id": "gen_ско_012",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747490",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "GROWTH",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие твои внутренние травмы мешают быть гибким?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "TRAUMA",
+          "theme": "Устойчивость",
+          "id": "gen_ско_013",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747494",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "TRAUMA",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что умрет в тебе, если ты примешь тотальную неопределенность?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEALING",
+          "domain": "TRANSFORMATION",
+          "theme": "Неопределенность",
+          "id": "gen_ско_014",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747497",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "TRANSFORMATION",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты в момент, когда все привычные опоры исчезают?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEAVY",
+          "domain": "IDENTITY",
+          "theme": "VUCA мир",
+          "id": "gen_ско_015",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747500",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Способен ли ты любить себя вне зависимости от внешних обстоятельств?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEALING",
+          "domain": "SELF-LOVE",
+          "theme": "Антихрупкость",
+          "id": "gen_ско_016",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747504",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "SELF-LOVE",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как меняется твоя энергия, когда ты принимаешь неопределенность?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "ENERGY",
+          "theme": "Неопределенность",
+          "id": "gen_ско_017",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747507",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "ENERGY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что даст тебе больше силы: сопротивление или принятие?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RESILIENCE",
+          "theme": "Устойчивость",
+          "id": "gen_ско_018",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747510",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RESILIENCE",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Существуешь ли ты вне социальных ролей и expectations?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "ESSENCE",
+          "theme": "Адаптивность",
+          "id": "gen_ско_019",
+          "program": "Скорость изменений",
+          "generated_at": "2025-10-06T19:51:34.747514",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "ESSENCE",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "VUCA мир",
+          "антихрупкость",
+          "адаптивность",
+          "неопределенность",
+          "устойчивость"
+        ],
+        "domains": [
+          "EMOTIONS",
+          "GOALS",
+          "FUTURE",
+          "GROWTH"
+        ],
+        "priority": 3,
+        "generated_count": 19,
+        "target_count": 18
+      }
+    },
+    {
+      "program": "Выученная беспомощность 2.0",
+      "questions": [
+        {
+          "text": "Сколько времени в день ты тратишь на бесцельное потребление информации?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "глобальная тревога",
+          "id": "gen_выу_001",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974061",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие источники новостей формируют твою картину мира?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "INFORMATION",
+          "theme": "круг влияния",
+          "id": "gen_выу_002",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974081",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "INFORMATION",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что тебя парализует сильнее всего в моменты необходимости действовать?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "выученная беспомощность",
+          "id": "gen_выу_003",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974086",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие микро-действия ты можешь сделать прямо сейчас, чтобы изменить ситуацию?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "AGENCY",
+          "theme": "микро-активизм",
+          "id": "gen_выу_004",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974091",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "AGENCY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего ты боишься больше: неудачи или бездействия?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "агентность",
+          "id": "gen_выу_005",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974096",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие внутренние диалоги тебя останавливают?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "PSYCHOLOGY",
+          "theme": "выученная беспомощность",
+          "id": "gen_выу_006",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974101",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PSYCHOLOGY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда ты чувствуешь бессилие?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "BODY",
+          "theme": "глобальная тревога",
+          "id": "gen_выу_007",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974106",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "BODY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где заканчивается твой реальный круг влияния?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "AGENCY",
+          "theme": "круг влияния",
+          "id": "gen_выу_008",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974111",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "AGENCY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какой надежды ты already отказался?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "EMOTIONS",
+          "theme": "надежда",
+          "id": "gen_выу_009",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974115",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что будет, если ты перестанешь контролировать неконтролируемое?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGY",
+          "theme": "глобальная тревога",
+          "id": "gen_выу_010",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974120",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой parts тебя боится действовать?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "PSYCHOLOGY",
+          "theme": "выученная беспомощность",
+          "id": "gen_выу_011",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974156",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что означает для тебя личная агентность в 2024 году?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "AGENCY",
+          "theme": "агентность",
+          "id": "gen_выу_012",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974163",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "AGENCY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую часть себя ты прячешь за страхом изменений?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "PSYCHOLOGY",
+          "theme": "выученная беспомощность",
+          "id": "gen_выу_013",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974167",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "PSYCHOLOGY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит, когда ты позволяешь себе не быть идеальным?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEALING",
+          "domain": "EMOTIONS",
+          "theme": "надежда",
+          "id": "gen_выу_014",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974172",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без страха и сомнений?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "EXISTENTIAL",
+          "theme": "агентность",
+          "id": "gen_выу_015",
+          "program": "Выученная беспомощность 2.0",
+          "generated_at": "2025-10-06T19:51:51.974177",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "EXISTENTIAL",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "глобальная тревога",
+          "круг влияния",
+          "микро-активизм",
+          "агентность",
+          "надежда"
+        ],
+        "domains": [
+          "EMOTIONS",
+          "VALUES",
+          "GOALS"
+        ],
+        "priority": 3,
+        "generated_count": 15,
+        "target_count": 15
+      }
+    },
+    {
+      "program": "Паразоциальная зависимость",
+      "questions": [
+        {
+          "text": "Сколько виртуальных знакомых у тебя больше, чем реальных друзей?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровая близость",
+          "id": "gen_пар_001",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040847",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой контент тебя успокаивает, когда становится одиноко?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "RELATIONSHIPS",
+          "theme": "одиночество",
+          "id": "gen_пар_002",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040867",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какого блогера ты чувствуешь максимальную эмоциональную поддержку?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "отношения с блогерами",
+          "id": "gen_пар_003",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040873",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем заменяется живое человеческое прикосновение в твоем мире?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "реальные связи",
+          "id": "gen_пар_004",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040878",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Когда последний раз ты чувствовал настоящую близость не через экран?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "реальные связи",
+          "id": "gen_пар_005",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040883",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие эмоции замещает для тебя общение с AI собеседником?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "AI друзья",
+          "id": "gen_пар_006",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040887",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоей душе между просмотрами чужой истории?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "одиночество",
+          "id": "gen_пар_007",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040909",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую потребность закрывает для тебя виртуальный собеседник?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровая близость",
+          "id": "gen_пар_008",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040915",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От чего убегаешь, когда проваливаешься в бесконечный скролл?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "одиночество",
+          "id": "gen_пар_009",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040920",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую боль заглушает для тебя цифровое пространство?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "реальные связи",
+          "id": "gen_пар_010",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040925",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что теряется в твоей душе при замене живого контакта виртуальным?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровая близость",
+          "id": "gen_пар_011",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040930",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую часть себя ты никогда не покажешь даже самому близкому AI?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "AI друзья",
+          "id": "gen_пар_012",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040934",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что умрет внутри тебя, если исчезнут все подписчики?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "отношения с блогерами",
+          "id": "gen_пар_013",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040939",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без цифровых масок и виртуальных аватаров?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "RELATIONSHIPS",
+          "theme": "реальные связи",
+          "id": "gen_пар_014",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040944",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Существуешь ли ты по-настоящему вне своего цифрового следа?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровая близость",
+          "id": "gen_пар_015",
+          "program": "Паразоциальная зависимость",
+          "generated_at": "2025-10-06T19:52:10.040949",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "отношения с блогерами",
+          "AI друзья",
+          "цифровая близость",
+          "одиночество",
+          "реальные связи"
+        ],
+        "domains": [
+          "RELATIONSHIPS",
+          "EMOTIONS",
+          "VALUES"
+        ],
+        "priority": 3,
+        "generated_count": 15,
+        "target_count": 15
+      }
+    },
+    {
+      "program": "Гибридная жизнь",
+      "questions": [
+        {
+          "text": "Как изменилось твое личное пространство после перехода на удаленку?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "WORK",
+          "theme": "remote work",
+          "id": "gen_гиб_001",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806408",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Сколько виртуальных встреч в неделю истощают твои внутренние ресурсы?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "zoom усталость",
+          "id": "gen_гиб_002",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806426",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие цифровые привычки стали твоими невидимыми оковами?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PERSONAL",
+          "theme": "новая социальность",
+          "id": "gen_гиб_003",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806430",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PERSONAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где заканчивается твоя профессиональная роль и начинается личность?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "WORK",
+          "theme": "границы дом-работа",
+          "id": "gen_гиб_004",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806434",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какого реального контакта ты прячешься за экраном?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PERSONAL",
+          "theme": "online/offline баланс",
+          "id": "gen_гиб_005",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806438",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "PERSONAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем ты жертвуешь, чтобы быть постоянно онлайн?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "PERSONAL",
+          "theme": "новая социальность",
+          "id": "gen_гиб_006",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806442",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PERSONAL",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие части себя ты теряешь в бесконечных видеоконференциях?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "WORK",
+          "theme": "zoom усталость",
+          "id": "gen_гиб_007",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806446",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "WORK",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит с твоим телом между рабочими задачами?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "HEALING",
+          "domain": "PERSONAL",
+          "theme": "remote work",
+          "id": "gen_гиб_008",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806450",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PERSONAL",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как меняется твоя идентичность в гибридном мире?",
+          "depth_level": "CORE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PERSONAL",
+          "theme": "новая социальность",
+          "id": "gen_гиб_009",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806460",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "PERSONAL",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что было бы, если бы интернет исчез завтра?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "PERSONAL",
+          "theme": "online/offline баланс",
+          "id": "gen_гиб_010",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806465",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PERSONAL",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где твои настоящие границы между работой и личной жизнью?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "WORK",
+          "theme": "границы дом-работа",
+          "id": "gen_гиб_011",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806469",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "WORK",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие эмоции прячутся за твоим профессиональным аватаром?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "WORK",
+          "theme": "zoom усталость",
+          "id": "gen_гиб_012",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806473",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "WORK",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без статусов и уведомлений?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "PERSONAL",
+          "theme": "новая социальность",
+          "id": "gen_гиб_013",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806477",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "PERSONAL",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Сколько энергии ты тратишь на поддержание цифровой версии себя?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "PERSONAL",
+          "theme": "online/offline баланс",
+          "id": "gen_гиб_014",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806481",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PERSONAL",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем для тебя стал дом после тотальной цифровизации?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "WORK",
+          "theme": "remote work",
+          "id": "gen_гиб_015",
+          "program": "Гибридная жизнь",
+          "generated_at": "2025-10-06T19:52:26.806485",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "WORK",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "remote work",
+          "границы дом-работа",
+          "zoom усталость",
+          "новая социальность",
+          "баланс online/offline"
+        ],
+        "domains": [
+          "WORK",
+          "RELATIONSHIPS",
+          "VALUES"
+        ],
+        "priority": 3,
+        "generated_count": 15,
+        "target_count": 15
+      }
+    },
+    {
+      "program": "Аутентичность vs Алгоритмы",
+      "questions": [
+        {
+          "text": "Сколько версий себя ты транслируешь в разных соцсетях?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "IDENTITY",
+          "theme": "личный бренд",
+          "id": "gen_аут_001",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318588",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой контент ты создаёшь от скуки, а не от искренности?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "IDENTITY",
+          "theme": "искренность",
+          "id": "gen_аут_002",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318605",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Сколько раз в день ты редактируешь свой образ онлайн?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "IDENTITY",
+          "theme": "версии себя",
+          "id": "gen_аут_003",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318609",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие части твоей личности становятся невидимыми в цифровом пространстве?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "IDENTITY",
+          "theme": "уязвимость онлайн",
+          "id": "gen_аут_004",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318613",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "IDENTITY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чем ты рискуешь, когда показываешь настоящие эмоции?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "IDENTITY",
+          "theme": "искренность",
+          "id": "gen_аут_005",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318616",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "IDENTITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где граница между самопрезентацией и самоцензурой?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "IDENTITY",
+          "theme": "cancel culture",
+          "id": "gen_аут_006",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318620",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "IDENTITY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой страх управляет твоими постами?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "IDENTITY",
+          "theme": "уязвимость онлайн",
+          "id": "gen_аут_007",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318624",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "IDENTITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какого общественного приговора ты прячешь свою суть?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "IDENTITY",
+          "theme": "cancel culture",
+          "id": "gen_аут_008",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318628",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что в тебе умрёт, если алгоритмы перестанут тебя оценивать?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "IDENTITY",
+          "theme": "личный бренд",
+          "id": "gen_аут_009",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318631",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую боль ты компенсируешь виртуальной популярностью?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "IDENTITY",
+          "theme": "версии себя",
+          "id": "gen_аут_010",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318635",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие части себя ты принципиально не покажешь публично?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "IDENTITY",
+          "theme": "искренность",
+          "id": "gen_аут_011",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318639",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит с твоей душой между лайками?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "IDENTITY",
+          "theme": "уязвимость онлайн",
+          "id": "gen_аут_012",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318643",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "IDENTITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без цифрового следа и чужих оценок?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "IDENTITY",
+          "theme": "аутентичность",
+          "id": "gen_аут_013",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318646",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где твоя подлинность в эпоху тотальной симуляции?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "IDENTITY",
+          "theme": "версии себя",
+          "id": "gen_аут_014",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318650",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что останется от тебя, если убрать все социальные роли?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "IDENTITY",
+          "theme": "личный бренд",
+          "id": "gen_аут_015",
+          "program": "Аутентичность vs Алгоритмы",
+          "generated_at": "2025-10-06T19:52:44.318654",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "личный бренд",
+          "искренность",
+          "cancel culture",
+          "уязвимость онлайн",
+          "версии себя"
+        ],
+        "domains": [
+          "IDENTITY",
+          "VALUES",
+          "RELATIONSHIPS"
+        ],
+        "priority": 3,
+        "generated_count": 15,
+        "target_count": 15
+      }
+    },
+    {
+      "program": "Эко-вина и климат-тревога",
+      "questions": [
+        {
+          "text": "Сколько килограммов пластика ты потребляешь лично за месяц?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "FACTS",
+          "theme": "устойчивое потребление",
+          "id": "gen_эко_001",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970111",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "FACTS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие личные привычки тебе сложно изменить ради экологии?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "BEHAVIOR",
+          "theme": "личная ответственность",
+          "id": "gen_эко_002",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970127",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего ты боишься больше: личного дискомфорта или климатической катастрофы?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "личная ответственность",
+          "id": "gen_эко_003",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970132",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие потребительские привычки достались тебе от родителей?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "ORIGINS",
+          "theme": "устойчивое потребление",
+          "id": "gen_эко_004",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970151",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "ORIGINS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда ты думаешь о будущем планеты?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "BODY",
+          "theme": "климат-тревога",
+          "id": "gen_эко_005",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970156",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "BODY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Где заканчивается твоя личная ответственность и начинается системная?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "BOUNDARIES",
+          "theme": "системные изменения",
+          "id": "gen_эко_006",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970160",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "BOUNDARIES",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую боль о природе ты прячешь внутри себя?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONS",
+          "theme": "климат-тревога",
+          "id": "gen_эко_007",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970163",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Сколько энергии ты тратишь на вину, а не на действие?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "ENERGY",
+          "theme": "личная ответственность",
+          "id": "gen_эко_008",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970167",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "ENERGY",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что в тебе умрет, если ты откажешься от потребительства?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "TRANSFORMATION",
+          "theme": "устойчивое потребление",
+          "id": "gen_эко_009",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970171",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "TRANSFORMATION",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой твой выбор может изменить целую экосистему?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "HEALING",
+          "domain": "IMPACT",
+          "theme": "системные изменения",
+          "id": "gen_эко_010",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970175",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "IMPACT",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без своих привычек и потребительских стратегий?",
+          "depth_level": "CORE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "IDENTITY",
+          "theme": "личная ответственность",
+          "id": "gen_эко_011",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970179",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Существуешь ли ты отдельно от глобальных экологических процессов?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEAVY",
+          "domain": "INTERCONNECTEDNESS",
+          "theme": "системные изменения",
+          "id": "gen_эко_012",
+          "program": "Эко-вина и климат-тревога",
+          "generated_at": "2025-10-06T19:52:58.970183",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "INTERCONNECTEDNESS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "личная ответственность",
+          "системные изменения",
+          "устойчивое потребление",
+          "экологичность"
+        ],
+        "domains": [
+          "VALUES",
+          "EMOTIONS"
+        ],
+        "priority": 3,
+        "generated_count": 12,
+        "target_count": 12
+      }
+    },
+    {
+      "program": "Поляризация и эмпатия",
+      "questions": [
+        {
+          "text": "Как ты реагируешь, когда собеседник имеет диаметрально противоположное мнение?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "COMMUNICATION",
+          "theme": "диалог с другой стороной",
+          "id": "gen_пол_001",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190894",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "COMMUNICATION",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "В каких онлайн-группах ты чувствуешь себя полностью комфортно?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "DIGITAL_IDENTITY",
+          "theme": "эхо-камеры",
+          "id": "gen_пол_002",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190913",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "DIGITAL_IDENTITY",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда ты слышишь аргументы, которые тебе не нравятся?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONAL_INTELLIGENCE",
+          "theme": "сложность мышления",
+          "id": "gen_пол_003",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190918",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "EMOTIONAL_INTELLIGENCE",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие внутренние барьеры мешают тебе по-настоящему услышать другого?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "диалог с другой стороной",
+          "id": "gen_пол_004",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190922",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Сколько информационных источников ты используешь ежедневно?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "DIGITAL_ENVIRONMENT",
+          "theme": "эхо-камеры",
+          "id": "gen_пол_005",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190925",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "DIGITAL_ENVIRONMENT",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Когда ты последний раз действительно изменил свое мнение?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "PERSONAL_GROWTH",
+          "theme": "сложность мышления",
+          "id": "gen_пол_006",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190928",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "PERSONAL_GROWTH",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какой части себя ты защищаешься, споря с оппонентом?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "PSYCHOLOGICAL_DEFENSE",
+          "theme": "удержание противоречий",
+          "id": "gen_пол_007",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190948",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "PSYCHOLOGICAL_DEFENSE",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что случится, если ты перестанешь быть правым?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "SELF_PERCEPTION",
+          "theme": "диалог с другой стороной",
+          "id": "gen_пол_008",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190954",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "SELF_PERCEPTION",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой диалог внутри тебя происходит параллельно внешней коммуникации?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "INNER_DIALOGUE",
+          "theme": "сложность мышления",
+          "id": "gen_пол_009",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190958",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "INNER_DIALOGUE",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как твой страх быть непонятым влияет на твою открытость?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "EMOTIONAL_VULNERABILITY",
+          "theme": "диалог с другой стороной",
+          "id": "gen_пол_010",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190961",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "EMOTIONAL_VULNERABILITY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты в момент, когда твои убеждения полностью оспаривают?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "SELF_IDENTITY",
+          "theme": "удержание противоречий",
+          "id": "gen_пол_011",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190964",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "SELF_IDENTITY",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда ты слышишь правду о себе?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "EMOTIONAL_INTELLIGENCE",
+          "theme": "сложность мышления",
+          "id": "gen_пол_012",
+          "program": "Поляризация и эмпатия",
+          "generated_at": "2025-10-06T19:53:15.190968",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "EMOTIONAL_INTELLIGENCE",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "эхо-камеры",
+          "диалог с другой стороной",
+          "сложность мышления",
+          "удержание противоречий"
+        ],
+        "domains": [
+          "RELATIONSHIPS",
+          "VALUES",
+          "EMOTIONS"
+        ],
+        "priority": 3,
+        "generated_count": 12,
+        "target_count": 12
+      }
+    },
+    {
+      "program": "Dating apps выгорание",
+      "questions": [
+        {
+          "text": "Сколько времени ты проводишь в dating-приложениях за день?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "RELATIONSHIPS",
+          "theme": "усталость от свайпов",
+          "id": "gen_dat_001",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988778",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какой образ себя ты создаешь в dating-профилях?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровая романтика",
+          "id": "gen_dat_002",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988800",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что происходит в твоем теле, когда приходит новый матч?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "поиск близости",
+          "id": "gen_dat_003",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988805",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие эмоции скрываются за твоими автоматическими свайпами?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "усталость от свайпов",
+          "id": "gen_dat_004",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988810",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какого одиночества ты убегаешь в бесконечный поиск?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "поиск близости",
+          "id": "gen_dat_005",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988815",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего ты на самом деле боишься за виртуальными знакомствами?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровая романтика",
+          "id": "gen_dat_006",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988819",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую часть себя ты не позволяешь увидеть в онлайн-профиле?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "коммодификация отношений",
+          "id": "gen_dat_007",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988824",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без цифровых масок и фильтров?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "RELATIONSHIPS",
+          "theme": "поиск близости",
+          "id": "gen_dat_008",
+          "program": "Dating apps выгорание",
+          "generated_at": "2025-10-06T19:53:25.988829",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "усталость от свайпов",
+          "коммодификация отношений",
+          "поиск близости",
+          "цифровая романтика"
+        ],
+        "domains": [
+          "RELATIONSHIPS",
+          "EMOTIONS"
+        ],
+        "priority": 4,
+        "generated_count": 8,
+        "target_count": 8
+      }
+    },
+    {
+      "program": "Родительская вина за экранное время",
+      "questions": [
+        {
+          "text": "Сколько часов в день твой ребенок проводит перед экраном?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "RELATIONSHIPS",
+          "theme": "экранное время детей",
+          "id": "gen_род_001",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584891",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие приложения чаще всего выбирает твой ребенок?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровое воспитание",
+          "id": "gen_род_002",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584909",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что ты чувствуешь, когда видишь ребенка с гаджетом?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "RELATIONSHIPS",
+          "theme": "родительская вина",
+          "id": "gen_род_003",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584915",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие эмоции скрываются за твоим запретом на гаджеты?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "родительская вина",
+          "id": "gen_род_004",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584919",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Чего на самом деле ты боишься, когда ограничиваешь экранное время?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "цифровое воспитание",
+          "id": "gen_род_005",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584924",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как твой страх технологий влияет на отношения с ребенком?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "RELATIONSHIPS",
+          "theme": "баланс технологий",
+          "id": "gen_род_006",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584928",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую травму собственного детства ты проецируешь на ребенка?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "RELATIONSHIPS",
+          "theme": "родительская вина",
+          "id": "gen_род_007",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584944",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кем ты станешь как родитель, приняв цифровой мир ребенка?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "RELATIONSHIPS",
+          "theme": "баланс технологий",
+          "id": "gen_род_008",
+          "program": "Родительская вина за экранное время",
+          "generated_at": "2025-10-06T19:53:36.584949",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "RELATIONSHIPS",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "экранное время детей",
+          "родительская вина",
+          "цифровое воспитание",
+          "баланс технологий"
+        ],
+        "domains": [
+          "RELATIONSHIPS",
+          "VALUES",
+          "EMOTIONS"
+        ],
+        "priority": 4,
+        "generated_count": 8,
+        "target_count": 8
+      }
+    },
+    {
+      "program": "Криптовалютное FOMO",
+      "questions": [
+        {
+          "text": "Сколько времени в день ты тратишь на мониторинг криптовалютных графиков?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "упущенная выгода",
+          "id": "gen_кри_001",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163788",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие каналы и блогеры определяют твои инвестиционные решения?",
+          "depth_level": "SURFACE",
+          "energy_dynamic": "OPENING",
+          "domain": "BEHAVIOR",
+          "theme": "спекулятивное мышление",
+          "id": "gen_кри_002",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163810",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SURFACE",
+            "domain": "BEHAVIOR",
+            "energy_dynamic": "OPENING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Как страх упустить выгодную сделку влияет на твои финансовые решения?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "NEUTRAL",
+          "domain": "EMOTIONS",
+          "theme": "финансовая тревога",
+          "id": "gen_кри_003",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163816",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "NEUTRAL"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Что на самом деле движет твоим желанием быстро заработать?",
+          "depth_level": "CONSCIOUS",
+          "energy_dynamic": "PROCESSING",
+          "domain": "MOTIVATION",
+          "theme": "быстрые деньги",
+          "id": "gen_кри_004",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163821",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CONSCIOUS",
+            "domain": "MOTIVATION",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какие внутренние пустоты ты пытаешься заполнить погоней за криптовалютными трендами?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "PROCESSING",
+          "domain": "PSYCHOLOGY",
+          "theme": "упущенная выгода",
+          "id": "gen_кри_005",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163825",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGY",
+            "energy_dynamic": "PROCESSING"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "От какого болезненного убеждения о себе ты убегаешь через азарт инвестиций?",
+          "depth_level": "EDGE",
+          "energy_dynamic": "HEAVY",
+          "domain": "PSYCHOLOGY",
+          "theme": "финансовая тревога",
+          "id": "gen_кри_006",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163830",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "EDGE",
+            "domain": "PSYCHOLOGY",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Какую часть своей уязвимости ты прячешь за криптовалютными спекуляциями?",
+          "depth_level": "SHADOW",
+          "energy_dynamic": "HEAVY",
+          "domain": "EMOTIONS",
+          "theme": "спекулятивное мышление",
+          "id": "gen_кри_007",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163835",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "SHADOW",
+            "domain": "EMOTIONS",
+            "energy_dynamic": "HEAVY"
+          },
+          "source_system": "generated_2025"
+        },
+        {
+          "text": "Кто ты без виртуальных активов и цифровых достижений?",
+          "depth_level": "CORE",
+          "energy_dynamic": "HEALING",
+          "domain": "IDENTITY",
+          "theme": "быстрые деньги",
+          "id": "gen_кри_008",
+          "program": "Криптовалютное FOMO",
+          "generated_at": "2025-10-06T19:53:48.163839",
+          "classification": {
+            "journey_stage": "EXPLORING",
+            "depth_level": "CORE",
+            "domain": "IDENTITY",
+            "energy_dynamic": "HEALING"
+          },
+          "source_system": "generated_2025"
+        }
+      ],
+      "metadata": {
+        "themes": [
+          "упущенная выгода",
+          "спекулятивное мышление",
+          "быстрые деньги",
+          "финансовая тревога"
+        ],
+        "domains": [
+          "VALUES",
+          "EMOTIONS",
+          "FEARS"
+        ],
+        "priority": 4,
+        "generated_count": 8,
+        "target_count": 6
+      }
+    }
+  ]
+}

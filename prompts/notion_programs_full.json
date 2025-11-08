@@ -1,0 +1,29 @@
+{
+  "extracted_at": "2025-10-06",
+  "column_lists": [
+    [
+      {
+        "name": "Подведение итогов года",
+        "description": [],
+        "questions": []
+      },
+      {
+        "name": "Планирование следующего",
+        "description": [],
+        "questions": []
+      }
+    ],
+    [
+      {
+        "name": "Начните с этого",
+        "description": [],
+        "questions": []
+      },
+      {
+        "name": "Продолжите тут",
+        "description": [],
+        "questions": []
+      }
+    ]
+  ]
+}

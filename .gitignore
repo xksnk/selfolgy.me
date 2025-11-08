@@ -1,0 +1,56 @@
+# Environment and security files
+.env*
+*.env
+.env.tokens
+.env.local
+.env.production
+.env.development
+
+# API keys and credentials
+config/secrets.json
+tokens.json
+credentials.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+
+# Cache and temporary files
+.cache/
+temp/
+tmp/
+node_modules/
+__pycache__/
+*.pyc
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python virtual environment
+venv/
+env/
+.venv/
+
+# Backup files
+backups/
+*.backup
+.git.old/
+
+# Session files
+*.session
+
+# User data and sensitive content
+data/
+deployment/

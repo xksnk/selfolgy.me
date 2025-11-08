@@ -1,0 +1,31 @@
+{
+  "batch_analysis": {
+    "batch_size": 25,
+    "total_batches": 28,
+    "estimated_cost": 0.42,
+    "analysis_prompt_template": "\nТы эксперт по психологическому анализу. Проанализируй эти {count} вопросов из системы психологического профилирования.\n\nДля КАЖДОГО вопроса определи:\n\n1. **category** (одна из): identity, relationships, career, money, health, family, emotions, future, past, creativity, spirituality, philosophy, trauma, fears, growth\n2. **emotional_weight** (1-5): 1=легкий, 5=эмоционально тяжелый\n3. **complexity** (1-5): 1=простой, 5=требует глубоких размышлений  \n4. **big_five** (массив): какие из [openness, conscientiousness, extraversion, agreeableness, neuroticism] измеряет\n5. **depth_level** (1-5): 1=поверхностный, 5=глубинный/интимный\n6. **time_best** (одно из): morning, afternoon, evening, night, any\n7. **requires_trust** (true/false): нужно ли доверие для честного ответа\n8. **insight_potential** (1-5): насколько может дать глубокие инсайты\n\nВОПРОСЫ:\n{questions_text}\n\nОтветь СТРОГО в JSON формате:\n{{\n  \"analysis\": [\n    {{\n      \"question_id\": \"q_001\",\n      \"category\": \"identity\", \n      \"emotional_weight\": 3,\n      \"complexity\": 4,\n      \"big_five\": [\"openness\", \"neuroticism\"],\n      \"depth_level\": 3,\n      \"time_best\": \"evening\",\n      \"requires_trust\": true,\n      \"insight_potential\": 4,\n      \"reasoning\": \"краткое объяснение\"\n    }}\n  ]\n}}\n",
+    "api_settings": {
+      "model": "gpt-4o-mini",
+      "temperature": 0.1,
+      "max_tokens": 4000,
+      "timeout": 60
+    }
+  },
+  "clustering_config": {
+    "similarity_threshold": 0.75,
+    "min_cluster_size": 3,
+    "max_cluster_size": 15,
+    "embedding_model": "text-embedding-3-small"
+  },
+  "relationship_detection": {
+    "correlation_threshold": 0.6,
+    "max_related_questions": 5,
+    "relationship_types": [
+      "similar_theme",
+      "logical_sequence",
+      "complementary",
+      "deeper_version",
+      "lighter_version"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "n8n-mcp-server": {
+      "command": "n8n-mcp-server",
+      "args": [],
+      "env": {
+        "N8N_API_URL": "https://n8n.xksnk.com",
+        "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYjIzMjU4OC04ZmFhLTQyY2YtOTVjYS05ZmQyYzY4YjgyOGQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU3MDcxNTI4fQ.Qnje1DkTxBLY8CgUOisBfl011bGGgFdCLxMRRFVAq_E"
+      }
+    },
+    "n8n-docs": {
+      "command": "node",
+      "args": ["/tmp/n8n-mcp/dist/index.js"],
+      "env": {}
+    }
+  }
+}
