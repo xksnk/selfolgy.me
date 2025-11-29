@@ -28,6 +28,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent.parent / "intelligent_qu
 
 from intelligent_question_core.api.core_api import SelfologyQuestionCore
 from .question_router import QuestionRouter
+from .program_router import ProgramRouter
 from .session_reporter import SessionReportGenerator
 
 # Импортируем систему анализа (Phase 2)
@@ -91,6 +92,9 @@ class OnboardingOrchestrator:
         # Остальные компоненты
         self.session_manager = None     # Будет создан в следующих задачах
 
+        # 📦 ProgramRouter для блочной структуры программ (Phase 4)
+        self.program_router = None  # Будет инициализирован после DB
+
         # Временное хранение сессий (заменим на SessionManager)
         self.active_sessions = {}       # {user_id: session_data}
 
@@ -135,6 +139,11 @@ class OnboardingOrchestrator:
                 if not self.session_reporter:
                     self.session_reporter = SessionReportGenerator(self.onboarding_dao)
                     logger.info("📊 SessionReportGenerator initialized")
+
+                # 📦 Инициализируем ProgramRouter для блочной структуры (Phase 4)
+                if not self.program_router and self.db_service and self.db_service.pool:
+                    self.program_router = ProgramRouter(db_pool=self.db_service.pool)
+                    logger.info("📦 ProgramRouter initialized for block-based programs")
 
                 logger.info("🗄️ Database connection established for onboarding")
 
@@ -1373,3 +1382,354 @@ class OnboardingOrchestrator:
             "tasks": tasks_info,
             "shutdown_initiated": self._shutdown_event.is_set()
         }
+
+    # ============================================================
+    # МЕТОДЫ ДЛЯ РАБОТЫ С ПРОГРАММАМИ (Phase 4)
+    # ============================================================
+
+    async def _ensure_database_initialized(self):
+        """Инициализировать БД и ProgramRouter если ещё не инициализированы."""
+        if not self.db_service:
+            from os import environ
+            self.db_service = DatabaseService(
+                host=environ.get("DB_HOST", "localhost"),
+                port=int(environ.get("DB_PORT", 5434)),
+                user=environ.get("DB_USER", "selfology_user"),
+                password=environ.get("DB_PASSWORD", "selfology_secure_2024"),
+                database=environ.get("DB_NAME", "selfology")
+            )
+            await self.db_service.initialize()
+            self.onboarding_dao = OnboardingDAO(self.db_service)
+            self.personality_dao = DigitalPersonalityDAO(self.db_service)
+            await self.onboarding_dao.create_onboarding_tables()
+            self.question_router.onboarding_dao = self.onboarding_dao
+            logger.info("🗄️ Database initialized for program mode")
+
+        if not self.program_router and self.db_service and self.db_service.pool:
+            self.program_router = ProgramRouter(db_pool=self.db_service.pool)
+            logger.info("📦 ProgramRouter initialized for block-based programs")
+
+    async def get_available_programs(self, user_id: int) -> List[Dict[str, Any]]:
+        """
+        Получить список доступных программ для пользователя.
+
+        Returns:
+            Список программ с информацией о прогрессе
+        """
+        await self._ensure_database_initialized()
+
+        if not self.program_router:
+            logger.warning("⚠️ ProgramRouter not initialized, returning empty list")
+            return []
+
+        try:
+            programs = await self.program_router.get_available_programs(user_id)
+            logger.info(f"📋 Found {len(programs)} available programs for user {user_id}")
+            return programs
+        except Exception as e:
+            logger.error(f"❌ Error getting programs: {e}")
+            return []
+
+    async def start_program(
+        self,
+        user_id: int,
+        program_id: str
+    ) -> Dict[str, Any]:
+        """
+        Начать программу для пользователя.
+
+        Args:
+            user_id: ID пользователя
+            program_id: ID программы
+
+        Returns:
+            Dict с первым вопросом программы
+        """
+        await self._ensure_database_initialized()
+
+        if not self.program_router:
+            raise Exception("ProgramRouter not initialized")
+
+        try:
+            logger.info(f"📦 Starting program {program_id} for user {user_id}")
+
+            # Получаем контекст программы (создаёт прогресс если нужно)
+            context = await self.program_router.get_program_context(user_id, program_id)
+            if not context:
+                raise Exception(f"Program {program_id} not found")
+
+            # Получаем первый вопрос
+            question = await self.program_router.get_first_question_in_program(
+                user_id, program_id
+            )
+
+            if not question:
+                raise Exception(f"No questions in program {program_id}")
+
+            return {
+                "status": "started",
+                "program_id": program_id,
+                "program_name": context.program_name,
+                "question": question,
+                "block_name": question.get("block_name"),
+                "block_type": question.get("block_type"),
+                "total_blocks": context.total_blocks
+            }
+
+        except Exception as e:
+            logger.error(f"❌ Error starting program: {e}")
+            raise
+
+    async def get_next_program_question(
+        self,
+        user_id: int,
+        program_id: str,
+        answered_question_ids: List[str]
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Получить следующий вопрос в программе.
+
+        Логика:
+        1. Пробуем получить следующий вопрос в текущем блоке
+        2. Если блок закончен, переходим к следующему блоку
+        3. Если программа закончена, возвращаем None
+
+        Args:
+            user_id: ID пользователя
+            program_id: ID программы
+            answered_question_ids: Список отвеченных вопросов
+
+        Returns:
+            Следующий вопрос или None если программа завершена
+        """
+        if not self.program_router:
+            raise Exception("ProgramRouter not initialized")
+
+        try:
+            # Пробуем получить следующий вопрос в текущем блоке
+            question = await self.program_router.get_next_question_in_block(
+                user_id, program_id, answered_question_ids
+            )
+
+            if question:
+                return {
+                    "status": "in_progress",
+                    "question": question,
+                    "block_name": question.get("block_name"),
+                    "block_type": question.get("block_type")
+                }
+
+            # Блок закончен, переходим к следующему
+            next_block = await self.program_router.get_next_block(user_id, program_id)
+
+            if not next_block:
+                # Программа завершена
+                await self.program_router.complete_program(user_id, program_id)
+                return {
+                    "status": "completed",
+                    "message": "Поздравляем! Вы завершили программу."
+                }
+
+            # Получаем первый вопрос нового блока
+            question = await self.program_router.get_next_question_in_block(
+                user_id, program_id, answered_question_ids
+            )
+
+            if question:
+                return {
+                    "status": "new_block",
+                    "block_name": next_block["name"],
+                    "block_type": next_block["type"],
+                    "question": question
+                }
+
+            # Нет вопросов в новом блоке (не должно случиться)
+            logger.warning(f"⚠️ No questions in new block: {next_block['block_id']}")
+            return None
+
+        except Exception as e:
+            logger.error(f"❌ Error getting next program question: {e}")
+            raise
+
+    async def get_program_progress(
+        self,
+        user_id: int,
+        program_id: str
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Получить прогресс пользователя по программе.
+
+        Returns:
+            Dict с информацией о прогрессе
+        """
+        if not self.program_router:
+            return None
+
+        try:
+            context = await self.program_router.get_program_context(user_id, program_id)
+            if not context:
+                return None
+
+            return {
+                "program_id": program_id,
+                "program_name": context.program_name,
+                "current_block": context.current_block_id,
+                "current_block_type": context.current_block_type.value if context.current_block_type else None,
+                "blocks_completed": len(context.blocks_completed),
+                "total_blocks": context.total_blocks,
+                "completion_percentage": context.completion_percentage,
+                "questions_answered": context.questions_answered if hasattr(context, 'questions_answered') else 0
+            }
+
+        except Exception as e:
+            logger.error(f"❌ Error getting program progress: {e}")
+            return None
+
+    async def process_program_answer(
+        self,
+        user_id: int,
+        program_id: str,
+        question_id: str,
+        answer_text: str
+    ) -> Dict[str, Any]:
+        """
+        Обработать ответ пользователя в режиме программы.
+
+        Выполняет:
+        1. Сохранение ответа в БД (с program_id)
+        2. Анализ через AnswerAnalyzer
+        3. Создание embeddings
+        4. Обновление личности
+
+        Returns:
+            Dict с результатами анализа
+        """
+        logger.info(f"📝 Processing program answer: user={user_id}, program={program_id}, question={question_id}")
+
+        try:
+            # 1. Получаем метаданные вопроса из program_questions
+            question_metadata = await self._get_program_question_metadata(question_id)
+
+            # 2. Сохраняем ответ в БД
+            answer_id = await self.onboarding_dao.save_answer(
+                user_id=user_id,
+                question_id=question_id,
+                answer_text=answer_text
+            )
+
+            # 3. Запускаем анализ (background task)
+            asyncio.create_task(self._analyze_program_answer_background(
+                user_id=user_id,
+                answer_id=answer_id,
+                question_id=question_id,
+                answer_text=answer_text,
+                question_metadata=question_metadata,
+                program_id=program_id
+            ))
+
+            # 4. Обновляем сессию
+            session = self.sessions.get(user_id)
+            if session:
+                session['questions_answered'] = session.get('questions_answered', 0) + 1
+
+            return {
+                "status": "success",
+                "answer_id": answer_id,
+                "quick_insight": "Спасибо за ваш ответ! Анализирую..."
+            }
+
+        except Exception as e:
+            logger.error(f"❌ Error processing program answer: {e}")
+            return {
+                "status": "error",
+                "error": str(e)
+            }
+
+    async def _get_program_question_metadata(self, question_id: str) -> Dict[str, Any]:
+        """Получить метаданные вопроса из program_questions."""
+        try:
+            async with self.db_pool.acquire() as conn:
+                row = await conn.fetchrow("""
+                    SELECT
+                        pq.text,
+                        pq.depth_level,
+                        pq.domain,
+                        pq.energy_dynamic,
+                        pq.emotional_weight,
+                        pq.recommended_model,
+                        pb.block_type,
+                        pb.name as block_name
+                    FROM selfology.program_questions pq
+                    JOIN selfology.program_blocks pb ON pq.block_id = pb.block_id
+                    WHERE pq.question_id = $1
+                """, question_id)
+
+                if row:
+                    return dict(row)
+                return {}
+
+        except Exception as e:
+            logger.error(f"❌ Error getting question metadata: {e}")
+            return {}
+
+    async def _analyze_program_answer_background(
+        self,
+        user_id: int,
+        answer_id: int,
+        question_id: str,
+        answer_text: str,
+        question_metadata: Dict[str, Any],
+        program_id: str
+    ):
+        """Background task для анализа ответа в программе."""
+        try:
+            logger.info(f"🔬 Background analysis for program answer: user={user_id}, answer={answer_id}")
+
+            # Формируем question dict
+            question = {
+                "id": question_id,
+                "text": question_metadata.get("text", ""),
+                "classification": {
+                    "depth_level": question_metadata.get("depth_level", "SURFACE"),
+                    "domain": question_metadata.get("domain", "IDENTITY"),
+                    "energy_dynamic": question_metadata.get("energy_dynamic", "NEUTRAL")
+                }
+            }
+
+            # Анализ через AnswerAnalyzer
+            analysis_result = await self.answer_analyzer.analyze_answer(
+                user_id=user_id,
+                question=question,
+                answer=answer_text,
+                session_context={
+                    "program_id": program_id,
+                    "block_type": question_metadata.get("block_type"),
+                    "block_name": question_metadata.get("block_name")
+                }
+            )
+
+            # Сохраняем анализ
+            await self.onboarding_dao.save_answer_analysis(
+                answer_id=answer_id,
+                analysis_result=analysis_result
+            )
+
+            # Создаём embeddings
+            await self.embedding_creator.create_embeddings(
+                user_id=user_id,
+                answer_text=answer_text,
+                analysis=analysis_result,
+                context={
+                    "program_id": program_id,
+                    "question_id": question_id,
+                    "block_type": question_metadata.get("block_type")
+                }
+            )
+
+            # Обновляем профиль личности
+            await self.personality_extractor.update_profile(user_id, analysis_result)
+
+            logger.info(f"✅ Background analysis completed for answer {answer_id}")
+
+        except Exception as e:
+            logger.error(f"❌ Error in background analysis: {e}")

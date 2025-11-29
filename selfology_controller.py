@@ -31,7 +31,7 @@ load_dotenv()
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.redis import RedisStorage
@@ -69,6 +69,13 @@ class OnboardingStates(StatesGroup):
     processing_answer = State()        # Анализируем ответ и выбираем следующий вопрос
     onboarding_paused = State()        # Пауза по просьбе пользователя ("Закончить на сегодня")
     onboarding_complete = State()      # Онбординг завершен, создан профиль
+
+    # 🆕 Состояния для блочной системы программ
+    choosing_mode = State()            # Выбор: авто / вручную
+    choosing_program = State()         # Выбор программы из списка
+    program_active = State()           # Активная программа
+    waiting_program_answer = State()   # Ожидание ответа в программе
+    block_transition = State()         # Переход между блоками
 
 class ChatStates(StatesGroup):
     active = State()
@@ -289,6 +296,28 @@ class SelfologyController:
         self.dp.callback_query.register(self.callback_continue_onboarding, F.data == "continue_onboarding")
         self.dp.callback_query.register(self.callback_process_orphaned, F.data.startswith("process_orphaned:"))
 
+        # 🆕 Блочная система программ - callback handlers
+        self.dp.callback_query.register(self.callback_mode_auto, F.data == "mode_auto")
+        self.dp.callback_query.register(self.callback_mode_program, F.data == "mode_program")
+        self.dp.callback_query.register(self.callback_select_program, F.data.startswith("select_program:"))
+        self.dp.callback_query.register(self.callback_back_to_mode_selection, F.data == "back_to_mode_selection")
+        self.dp.callback_query.register(self.callback_continue_session, F.data == "continue_session")
+        self.dp.callback_query.register(self.callback_continue_program_block, F.data == "continue_program_block")
+        self.dp.callback_query.register(self.callback_pause_program, F.data == "pause_program")
+        self.dp.callback_query.register(self.callback_skip_program_question, F.data == "skip_program_question")
+
+        # 🆕 Обработчик выбора программы по номеру
+        self.dp.message.register(
+            self.handle_program_number_input,
+            OnboardingStates.choosing_program
+        )
+
+        # 🆕 Program answer handler
+        self.dp.message.register(
+            self.handle_program_answer,
+            OnboardingStates.waiting_program_answer
+        )
+
         # 🆕 Chat handlers
         self.dp.callback_query.register(self.callback_start_chat, F.data == "start_chat")
         self.dp.message.register(self.handle_chat_message, ChatStates.active)
@@ -425,52 +454,64 @@ class SelfologyController:
             await target.answer(text, reply_markup=keyboard, parse_mode='HTML')
 
     async def cmd_onboarding(self, message: Message, state: FSMContext):
-        """Команда /onboarding - запуск процесса знакомства с интеллектуальным ядром"""
+        """Команда /onboarding - запуск процесса знакомства с интеллектуальным ядром
+
+        🆕 Два режима:
+        - Авто: AI выбирает блоки из любой программы для быстрого построения профиля
+        - Программа: пользователь выбирает конкретную программу
+        """
 
         telegram_id = str(message.from_user.id)
         current_state = await state.get_state()
         logger.info(f"🧠 Onboarding requested by user {telegram_id} (current_state: {current_state})")
 
         try:
-            # Проверяем активную сессию - продолжить или начать новую
+            # Уведомление о переключении режима (если был в чате)
+            if current_state == ChatStates.active:
+                switch_message = self.messages.get_message('context_switch_to_onboarding', 'ru', 'general')
+                await message.answer(switch_message, parse_mode='HTML')
+
+            # Проверяем активные сессии (программа или авто)
             session = await self.onboarding_orchestrator.restore_session_from_db(int(telegram_id))
 
             if session:
-                # Продолжаем существующую сессию
-                logger.info(f"▶️ Continuing existing onboarding session for user {telegram_id}")
-                result = await self.onboarding_orchestrator.get_next_question(
-                    int(telegram_id),
-                    {"question_number": session.get('question_number', 1)}
+                # Есть незавершённая сессия - спрашиваем продолжить или выбрать новое
+                session_type = session.get('session_type', 'auto')
+                questions_answered = session.get('questions_answered', 0)
+
+                keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text="▶️ Продолжить", callback_data="continue_session")],
+                    [InlineKeyboardButton(text="🎯 Авто-подбор", callback_data="mode_auto")],
+                    [InlineKeyboardButton(text="📚 Выбрать программу", callback_data="mode_program")]
+                ])
+
+                await message.answer(
+                    f"📋 У вас есть незавершённая сессия\n"
+                    f"Отвечено вопросов: {questions_answered}\n\n"
+                    f"Продолжить её или начать что-то новое?",
+                    reply_markup=keyboard,
+                    parse_mode='HTML'
                 )
+                await state.set_state(OnboardingStates.choosing_mode)
             else:
-                # Создаём новую сессию
-                logger.info(f"🚀 Starting NEW onboarding session for user {telegram_id}")
-                result = await self.onboarding_orchestrator.start_onboarding(int(telegram_id))
+                # Новый пользователь или нет активных сессий - выбор режима
+                keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                    [InlineKeyboardButton(text="🎯 Авто-подбор", callback_data="mode_auto")],
+                    [InlineKeyboardButton(text="📚 Выбрать программу", callback_data="mode_program")]
+                ])
 
-            # Уведомление о переключении режима (если был в чате)
-            if current_state == ChatStates.active:
-                session_info = result.get('session_info', {})
-                switch_message = self.messages.get_message(
-                    'context_switch_to_onboarding', 'ru', 'general',
-                    question_number=session_info.get('question_number', 1),
-                    total_questions=session_info.get('total_questions', 20)
+                await message.answer(
+                    "🧠 <b>Как вы хотите начать знакомство?</b>\n\n"
+                    "🎯 <b>Авто-подбор</b> — AI выберет вопросы для быстрого построения вашего профиля\n\n"
+                    "📚 <b>Программа</b> — структурированный путь по конкретной теме",
+                    reply_markup=keyboard,
+                    parse_mode='HTML'
                 )
-                await message.answer(switch_message, parse_mode='HTML')
-
-            # Очищаем старое состояние
-            await state.clear()
-
-            question = result['question']
-            session_info = result['session_info']
-
-            # 📝 Показываем первый вопрос через универсальную функцию
-            await self._show_onboarding_question(question, session_info, telegram_id, message)
-            await state.set_state(OnboardingStates.waiting_for_answer)
+                await state.set_state(OnboardingStates.choosing_mode)
 
         except Exception as e:
-            logger.error(f"❌ Error starting onboarding for {telegram_id}: {e}")
-
-            await message.answer(f"❌ Ошибка запуска нового онбординга: {e}", parse_mode='HTML')
+            logger.error(f"❌ Error in cmd_onboarding for {telegram_id}: {e}")
+            await message.answer(f"❌ Ошибка: {e}", parse_mode='HTML')
 
     async def handle_onboarding_answer(self, message: Message, state: FSMContext):
         """Обработка ответа пользователя в процессе онбординга"""
@@ -746,6 +787,549 @@ class SelfologyController:
         except Exception as e:
             logger.error(f"❌ Error continuing onboarding for {telegram_id}: {e}")
             await callback.answer("❌ Ошибка продолжения онбординга")
+
+    # ═══════════════════════════════════════════════════════════════════════════
+    # 🆕 БЛОЧНАЯ СИСТЕМА ПРОГРАММ - callback handlers
+    # ═══════════════════════════════════════════════════════════════════════════
+
+    async def callback_mode_auto(self, callback: CallbackQuery, state: FSMContext):
+        """Авто-режим - старая логика QuestionRouter (быстрое построение профиля)"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"🎯 Auto mode selected by user {telegram_id}")
+
+        try:
+            await callback.answer("🎯 Авто-режим активирован")
+
+            # Запускаем старую систему онбординга
+            result = await self.onboarding_orchestrator.start_onboarding(int(telegram_id))
+
+            question = result['question']
+            session_info = result['session_info']
+
+            # Показываем первый вопрос
+            await self._show_onboarding_question(question, session_info, telegram_id, callback, is_edit=True)
+            await state.set_state(OnboardingStates.waiting_for_answer)
+
+        except Exception as e:
+            logger.error(f"❌ Error starting auto mode for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def callback_mode_program(self, callback: CallbackQuery, state: FSMContext):
+        """Режим программ - показываем список доступных программ"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"📚 Program mode selected by user {telegram_id}")
+
+        try:
+            await callback.answer("📚 Загружаю программы...")
+
+            # Получаем список программ
+            programs = await self.onboarding_orchestrator.get_available_programs(int(telegram_id))
+
+            if not programs:
+                await callback.message.edit_text(
+                    "❌ Программы не найдены. Попробуйте позже.",
+                    parse_mode='HTML'
+                )
+                return
+
+            # Формируем нумерованный список всех программ
+            program_list = []
+            for i, p in enumerate(programs, 1):
+                blocks_info = f"{p.get('blocks_count', '?')} блоков"
+                status = "✅ " if p.get('user_status') == 'completed' else ""
+                program_list.append(f"{i:02d}. {status}{p['name']} ({blocks_info})")
+
+            # Сохраняем программы в state для выбора по номеру
+            programs_map = {str(i): p['program_id'] for i, p in enumerate(programs, 1)}
+            await state.update_data(programs_map=programs_map)
+
+            # Кнопка "Назад"
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="◀️ Назад", callback_data="back_to_mode_selection")]
+            ])
+
+            await callback.message.edit_text(
+                f"📚 <b>Выберите программу</b>\n\n"
+                f"Введите номер программы (1-{len(programs)}):\n\n"
+                + "\n".join(program_list),
+                reply_markup=keyboard,
+                parse_mode='HTML'
+            )
+            await state.set_state(OnboardingStates.choosing_program)
+
+        except Exception as e:
+            logger.error(f"❌ Error loading programs for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def callback_select_program(self, callback: CallbackQuery, state: FSMContext):
+        """Выбрана конкретная программа - начинаем её"""
+
+        telegram_id = str(callback.from_user.id)
+        program_id = callback.data.split(":")[1]
+        logger.info(f"📚 Program {program_id} selected by user {telegram_id}")
+
+        try:
+            await callback.answer("🚀 Запускаю программу...")
+
+            # Запускаем программу
+            result = await self.onboarding_orchestrator.start_program(
+                int(telegram_id), program_id
+            )
+
+            if not result or 'question' not in result:
+                await callback.message.edit_text(
+                    "❌ Не удалось запустить программу. Попробуйте другую.",
+                    parse_mode='HTML'
+                )
+                return
+
+            # Сохраняем program_id в state
+            await state.update_data(program_id=program_id, onboarding_mode='program')
+
+            question = result['question']
+            block_info = result.get('block_info', {})
+            program_name = result.get('program_name', 'Программа')
+
+            # Показываем первый вопрос программы
+            await self._show_program_question(
+                question=question,
+                block_info=block_info,
+                program_name=program_name,
+                target=callback,
+                is_edit=True
+            )
+            await state.set_state(OnboardingStates.waiting_program_answer)
+
+        except Exception as e:
+            logger.error(f"❌ Error starting program {program_id} for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def handle_program_number_input(self, message: Message, state: FSMContext):
+        """Обработка ввода номера программы"""
+        telegram_id = str(message.from_user.id)
+        user_input = message.text.strip()
+
+        # Получаем карту программ из state
+        data = await state.get_data()
+        programs_map = data.get('programs_map', {})
+
+        if not programs_map:
+            await message.answer("❌ Список программ устарел. Выберите заново через /onboarding")
+            return
+
+        # Проверяем что введён номер
+        if user_input not in programs_map:
+            await message.answer(
+                f"❌ Введите номер от 1 до {len(programs_map)}",
+                parse_mode='HTML'
+            )
+            return
+
+        program_id = programs_map[user_input]
+        logger.info(f"📚 Program {program_id} selected by number {user_input} for user {telegram_id}")
+
+        try:
+            # Запускаем программу
+            result = await self.onboarding_orchestrator.start_program(
+                int(telegram_id), program_id
+            )
+
+            if not result or 'question' not in result:
+                await message.answer("❌ Не удалось запустить программу. Попробуйте другую.")
+                return
+
+            # Сохраняем program_id в state
+            await state.update_data(program_id=program_id, onboarding_mode='program')
+
+            question = result['question']
+            block_info = result.get('block_info', {})
+            program_name = result.get('program_name', 'Программа')
+
+            # Показываем первый вопрос программы
+            await self._show_program_question(
+                question=question,
+                block_info=block_info,
+                program_name=program_name,
+                target=message,
+                is_edit=False
+            )
+            await state.set_state(OnboardingStates.waiting_program_answer)
+
+        except Exception as e:
+            logger.error(f"❌ Error starting program {program_id} for {telegram_id}: {e}")
+            await message.answer(f"❌ Ошибка: {e}")
+
+    async def callback_back_to_mode_selection(self, callback: CallbackQuery, state: FSMContext):
+        """Вернуться к выбору режима"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"◀️ Back to mode selection by user {telegram_id}")
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="🎯 Авто-подбор", callback_data="mode_auto")],
+            [InlineKeyboardButton(text="📚 Выбрать программу", callback_data="mode_program")]
+        ])
+
+        await callback.message.edit_text(
+            "🧠 <b>Как вы хотите начать знакомство?</b>\n\n"
+            "🎯 <b>Авто-подбор</b> — AI выберет вопросы для быстрого построения вашего профиля\n\n"
+            "📚 <b>Программа</b> — структурированный путь по конкретной теме",
+            reply_markup=keyboard,
+            parse_mode='HTML'
+        )
+        await state.set_state(OnboardingStates.choosing_mode)
+
+    async def callback_continue_session(self, callback: CallbackQuery, state: FSMContext):
+        """Продолжить существующую сессию"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"▶️ Continue existing session by user {telegram_id}")
+
+        try:
+            await callback.answer("▶️ Продолжаю сессию...")
+
+            # Восстанавливаем сессию
+            session = await self.onboarding_orchestrator.restore_session_from_db(int(telegram_id))
+
+            if not session:
+                await callback.message.edit_text(
+                    "❌ Сессия не найдена. Начните новую.",
+                    parse_mode='HTML'
+                )
+                return
+
+            # Определяем режим сессии
+            session_type = session.get('session_type', 'auto')
+
+            if session_type == 'program':
+                # Продолжаем программу
+                program_id = session.get('program_id')
+                result = await self.onboarding_orchestrator.get_next_program_question(
+                    int(telegram_id), program_id
+                )
+                if result and 'question' in result:
+                    await state.update_data(program_id=program_id, onboarding_mode='program')
+                    await self._show_program_question(
+                        question=result['question'],
+                        block_info=result.get('block_info', {}),
+                        program_name=result.get('program_name', ''),
+                        target=callback,
+                        is_edit=True
+                    )
+                    await state.set_state(OnboardingStates.waiting_program_answer)
+                else:
+                    await callback.message.edit_text(
+                        "✅ Программа завершена!",
+                        parse_mode='HTML'
+                    )
+            else:
+                # Продолжаем авто-режим
+                result = await self.onboarding_orchestrator.get_next_question(
+                    int(telegram_id),
+                    {"question_number": session.get('question_number', 1)}
+                )
+
+                if result['status'] == 'continue':
+                    await self._show_onboarding_question(
+                        result['question'],
+                        result['session_info'],
+                        telegram_id,
+                        callback,
+                        is_edit=True
+                    )
+                    await state.set_state(OnboardingStates.waiting_for_answer)
+                else:
+                    await callback.message.edit_text(
+                        "✅ Все вопросы пройдены!",
+                        parse_mode='HTML'
+                    )
+
+        except Exception as e:
+            logger.error(f"❌ Error continuing session for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def _show_program_question(
+        self,
+        question: dict,
+        block_info: dict,
+        program_name: str,
+        target,
+        is_edit: bool = False
+    ):
+        """Показать вопрос из программы с информацией о блоке"""
+
+        telegram_id = str(target.from_user.id)
+        is_admin = telegram_id == "98005572"
+
+        # Формируем информацию о блоке
+        block_name = block_info.get('name', 'Блок')
+        block_type = block_info.get('type', 'Foundation')
+        block_emoji = {"Foundation": "🌱", "Exploration": "🔍", "Integration": "🎯"}.get(block_type, "📦")
+        question_num = block_info.get('question_num', 1)
+        total_in_block = block_info.get('total_in_block', '?')
+
+        # Формируем текст вопроса
+        text = (
+            f"📚 <b>{program_name}</b>\n"
+            f"{block_emoji} <i>{block_name}</i> • Вопрос {question_num}/{total_in_block}\n"
+            f"{'─' * 25}\n\n"
+            f"{question.get('text', question)}\n"
+        )
+
+        # Добавляем debug info для админа
+        if is_admin:
+            q_id = question.get('id', question.get('question_id', '?'))
+            text += f"\n\n<code>🔧 ID: {q_id}</code>"
+
+        # Кнопки
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [
+                InlineKeyboardButton(text="⏭ Пропустить", callback_data="skip_program_question"),
+                InlineKeyboardButton(text="⏸ Пауза", callback_data="pause_program")
+            ]
+        ])
+
+        if is_edit:
+            await target.message.edit_text(text, reply_markup=keyboard, parse_mode='HTML')
+        else:
+            await target.answer(text, reply_markup=keyboard, parse_mode='HTML')
+
+    async def handle_program_answer(self, message: Message, state: FSMContext):
+        """Обработка ответа в режиме программы"""
+
+        telegram_id = str(message.from_user.id)
+        user_answer = message.text
+
+        logger.info(f"💬 Program answer from user {telegram_id}: {len(user_answer)} chars")
+
+        try:
+            # Получаем данные из state
+            state_data = await state.get_data()
+            program_id = state_data.get('program_id')
+
+            if not program_id:
+                await message.answer("❌ Ошибка: программа не выбрана. Начните /onboarding заново.")
+                return
+
+            # Получаем текущий вопрос из сессии
+            session = self.onboarding_orchestrator.get_session(int(telegram_id))
+            if not session or not session.get('current_question'):
+                session = await self.onboarding_orchestrator.restore_session_from_db(int(telegram_id))
+
+            if not session or not session.get('current_question'):
+                await message.answer("❌ Ошибка: нет активной сессии. Начните /onboarding заново.")
+                return
+
+            current_question_id = session['current_question'].get('id') or session['current_question'].get('question_id')
+
+            # Показываем мгновенный фидбек
+            await message.answer("✅ Принято! Анализирую ваш ответ...", parse_mode='HTML')
+
+            # Обрабатываем ответ через Orchestrator
+            result = await self.onboarding_orchestrator.process_program_answer(
+                user_id=int(telegram_id),
+                program_id=program_id,
+                question_id=current_question_id,
+                answer_text=user_answer
+            )
+
+            # Получаем следующий вопрос
+            next_result = await self.onboarding_orchestrator.get_next_program_question(
+                int(telegram_id), program_id
+            )
+
+            if next_result and next_result.get('status') == 'continue':
+                # Показываем следующий вопрос
+                await self._show_program_question(
+                    question=next_result['question'],
+                    block_info=next_result.get('block_info', {}),
+                    program_name=next_result.get('program_name', ''),
+                    target=message,
+                    is_edit=False
+                )
+                await state.set_state(OnboardingStates.waiting_program_answer)
+
+            elif next_result and next_result.get('status') == 'block_complete':
+                # Блок завершён - показываем переход
+                await self._show_block_transition(
+                    user_id=int(telegram_id),
+                    program_id=program_id,
+                    next_block=next_result.get('next_block'),
+                    target=message
+                )
+                await state.set_state(OnboardingStates.block_transition)
+
+            else:
+                # Программа завершена
+                await self._complete_program_flow(
+                    user_id=int(telegram_id),
+                    program_id=program_id,
+                    target=message
+                )
+                await state.clear()
+
+        except Exception as e:
+            logger.error(f"❌ Error processing program answer from {telegram_id}: {e}")
+            await message.answer(f"❌ Ошибка: {e}", parse_mode='HTML')
+
+    async def _show_block_transition(self, user_id: int, program_id: str, next_block: dict, target):
+        """Показать сообщение о переходе к следующему блоку"""
+
+        if not next_block:
+            # Программа завершена
+            return await self._complete_program_flow(user_id, program_id, target)
+
+        block_emoji = {"Foundation": "🌱", "Exploration": "🔍", "Integration": "🎯"}.get(
+            next_block.get('type', ''), "📦"
+        )
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="▶️ Продолжить", callback_data="continue_program_block")],
+            [InlineKeyboardButton(text="⏸ Пауза", callback_data="pause_program")]
+        ])
+
+        await target.answer(
+            f"✅ <b>Блок завершён!</b>\n\n"
+            f"Следующий блок:\n"
+            f"{block_emoji} <b>{next_block.get('name', 'Блок')}</b>\n"
+            f"<i>{next_block.get('description', '')}</i>\n\n"
+            f"Вопросов: {next_block.get('questions_count', '?')}",
+            reply_markup=keyboard,
+            parse_mode='HTML'
+        )
+
+    async def _complete_program_flow(self, user_id: int, program_id: str, target):
+        """Завершить программу и показать итоги"""
+
+        # Получаем статистику программы
+        progress = await self.onboarding_orchestrator.get_program_progress(user_id, program_id)
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="📚 Другая программа", callback_data="mode_program")],
+            [InlineKeyboardButton(text="💬 Чат с коучем", callback_data="start_chat")],
+            [InlineKeyboardButton(text="🏠 Главное меню", callback_data="main_menu")]
+        ])
+
+        questions_answered = progress.get('questions_answered', 0) if progress else 0
+        program_name = progress.get('program_name', 'Программа') if progress else 'Программа'
+
+        await target.answer(
+            f"🎉 <b>Поздравляем!</b>\n\n"
+            f"Вы завершили программу «{program_name}»!\n\n"
+            f"📊 <b>Статистика:</b>\n"
+            f"• Вопросов отвечено: {questions_answered}\n\n"
+            f"Что дальше?",
+            reply_markup=keyboard,
+            parse_mode='HTML'
+        )
+
+    async def callback_continue_program_block(self, callback: CallbackQuery, state: FSMContext):
+        """Продолжить программу после перехода блока"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"▶️ Continue program block by user {telegram_id}")
+
+        try:
+            state_data = await state.get_data()
+            program_id = state_data.get('program_id')
+
+            if not program_id:
+                await callback.answer("❌ Программа не найдена", show_alert=True)
+                return
+
+            # Получаем следующий вопрос
+            result = await self.onboarding_orchestrator.get_next_program_question(
+                int(telegram_id), program_id
+            )
+
+            if result and result.get('status') == 'continue':
+                await self._show_program_question(
+                    question=result['question'],
+                    block_info=result.get('block_info', {}),
+                    program_name=result.get('program_name', ''),
+                    target=callback,
+                    is_edit=True
+                )
+                await state.set_state(OnboardingStates.waiting_program_answer)
+            else:
+                await self._complete_program_flow(int(telegram_id), program_id, callback.message)
+                await state.clear()
+
+        except Exception as e:
+            logger.error(f"❌ Error continuing program block for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def callback_pause_program(self, callback: CallbackQuery, state: FSMContext):
+        """Поставить программу на паузу"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"⏸ Program paused by user {telegram_id}")
+
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="▶️ Продолжить", callback_data="continue_session")],
+            [InlineKeyboardButton(text="🏠 Главное меню", callback_data="main_menu")]
+        ])
+
+        await callback.message.edit_text(
+            "⏸ <b>Программа на паузе</b>\n\n"
+            "Ваш прогресс сохранён. Вы можете продолжить в любое время через /onboarding.",
+            reply_markup=keyboard,
+            parse_mode='HTML'
+        )
+        await state.set_state(OnboardingStates.onboarding_paused)
+
+    async def callback_skip_program_question(self, callback: CallbackQuery, state: FSMContext):
+        """Пропустить вопрос в программе"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"⏭ Skip program question by user {telegram_id}")
+
+        try:
+            await callback.answer("⏭ Вопрос пропущен")
+
+            state_data = await state.get_data()
+            program_id = state_data.get('program_id')
+
+            # Записываем пропуск
+            session = self.onboarding_orchestrator.get_session(int(telegram_id))
+            if session and session.get('current_question'):
+                await self.onboarding_orchestrator.record_skipped_question(
+                    int(telegram_id),
+                    session['current_question'].get('id') or session['current_question'].get('question_id')
+                )
+
+            # Получаем следующий вопрос
+            result = await self.onboarding_orchestrator.get_next_program_question(
+                int(telegram_id), program_id
+            )
+
+            if result and result.get('status') == 'continue':
+                await self._show_program_question(
+                    question=result['question'],
+                    block_info=result.get('block_info', {}),
+                    program_name=result.get('program_name', ''),
+                    target=callback,
+                    is_edit=True
+                )
+            elif result and result.get('status') == 'block_complete':
+                await self._show_block_transition(
+                    user_id=int(telegram_id),
+                    program_id=program_id,
+                    next_block=result.get('next_block'),
+                    target=callback.message
+                )
+                await state.set_state(OnboardingStates.block_transition)
+            else:
+                await self._complete_program_flow(int(telegram_id), program_id, callback.message)
+                await state.clear()
+
+        except Exception as e:
+            logger.error(f"❌ Error skipping program question for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    # ═══════════════════════════════════════════════════════════════════════════
 
     async def callback_process_orphaned(self, callback: CallbackQuery):
         """Обработать orphaned ответы (без AI анализа)"""
