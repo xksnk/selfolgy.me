@@ -1,15 +1,21 @@
 """
-Onboarding System - Чистая архитектура для умного онбординга
+Onboarding System v2 - Кластерная архитектура
 
 Компоненты:
-- OnboardingOrchestrator: Главный управляющий
-- QuestionRouter: Умный выбор вопросов (алгоритм "Умный Микс")
-- SessionManager: Управление сессиями
-- FatigueDetector: Определение усталости пользователя
-- OnboardingConfig: Настройки системы
+- ClusterRouter: Навигация по кластерам из JSON
+- OnboardingOrchestratorV2: Управление 3 режимами (авто/программа/закончить)
+
+Legacy (disabled):
+- OnboardingOrchestrator: Старый оркестратор
+- FatigueDetector: Определение усталости
 """
 
-from .orchestrator import OnboardingOrchestrator
-from .fatigue_detector import FatigueDetector
+# v2 - активная система
+from .cluster_router import ClusterRouter
+from .orchestrator_v2 import OnboardingOrchestratorV2
 
-__all__ = ['OnboardingOrchestrator', 'FatigueDetector']
+# Legacy - закомментировано
+# from .orchestrator import OnboardingOrchestrator
+# from .fatigue_detector import FatigueDetector
+
+__all__ = ['ClusterRouter', 'OnboardingOrchestratorV2']
