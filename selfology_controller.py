@@ -42,9 +42,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from selfology_bot.messages import get_message, get_keyboard, get_message_service
 from selfology_bot.messages.human_names import HumanNames
-from selfology_bot.database import DatabaseService, UserDAO, OnboardingDAO
-# from selfology_bot.services.simple_onboarding import SimpleOnboardingService  # DISABLED - используем только новую систему
-from selfology_bot.services.onboarding import OnboardingOrchestrator
+from selfology_bot.database import DatabaseService, UserDAO
+# from selfology_bot.services.simple_onboarding import SimpleOnboardingService  # DISABLED
+# from selfology_bot.services.onboarding import OnboardingOrchestrator  # DISABLED - old system
+from selfology_bot.services.onboarding.orchestrator_v2 import OnboardingOrchestratorV2  # 🆕 v2 cluster system
 from services.chat_coach import ChatCoachService  # 🔥 PHASE 2-3 ACTIVE!
 # Components: Enhanced Router, Adaptive Style, Deep Questions, Micro Interventions, Confidence Calculator, Vector Storytelling
 # All 6 Phase 2-3 components integrated and tested
@@ -137,7 +138,7 @@ class SelfologyController:
 
         # Инициализация системы онбординга - ТОЛЬКО новая система
         # self.onboarding_service = None  # DISABLED - старый SimpleOnboardingService
-        self.onboarding_orchestrator = OnboardingOrchestrator()  # 🆕 Единственная система
+        self.onboarding_orchestrator = OnboardingOrchestratorV2()  # 🆕 v2 cluster system
 
         # 🆕 Инициализация Chat Coach Service
         self.chat_coach = None  # Инициализируется после db_service
@@ -306,6 +307,12 @@ class SelfologyController:
         self.dp.callback_query.register(self.callback_pause_program, F.data == "pause_program")
         self.dp.callback_query.register(self.callback_skip_program_question, F.data == "skip_program_question")
 
+        # 🆕 v2 кластерная система - дополнительные handlers
+        self.dp.callback_query.register(self.callback_mode_finish, F.data == "mode_finish")
+        self.dp.callback_query.register(self.callback_continue_next_cluster, F.data == "continue_next_cluster")
+        self.dp.callback_query.register(self.callback_pause_cluster, F.data == "pause_cluster")
+        self.dp.callback_query.register(self.callback_continue_cluster, F.data.startswith("continue_cluster:"))
+
         # 🆕 Обработчик выбора программы по номеру
         self.dp.message.register(
             self.handle_program_number_input,
@@ -453,12 +460,53 @@ class SelfologyController:
         else:
             await target.answer(text, reply_markup=keyboard, parse_mode='HTML')
 
-    async def cmd_onboarding(self, message: Message, state: FSMContext):
-        """Команда /onboarding - запуск процесса знакомства с интеллектуальным ядром
+    async def _show_cluster_question(
+        self,
+        question: dict,
+        cluster_name: str,
+        program_name: str,
+        progress: str,
+        target,
+        is_edit: bool = False
+    ):
+        """Показать вопрос кластера (v2 система)
 
-        🆕 Два режима:
-        - Авто: AI выбирает блоки из любой программы для быстрого построения профиля
-        - Программа: пользователь выбирает конкретную программу
+        Args:
+            question: Объект вопроса из ClusterRouter
+            cluster_name: Название текущего кластера
+            program_name: Название программы
+            progress: Строка прогресса "2/5"
+            target: Message или CallbackQuery объект
+            is_edit: True если edit_text, False если answer
+        """
+        # Формируем текст вопроса
+        text = (
+            f"📚 <b>{program_name}</b>\n"
+            f"📦 {cluster_name} ({progress})\n"
+            f"{'─' * 30}\n\n"
+            f"💭 {question['text']}"
+        )
+
+        # Кнопки управления
+        keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [
+                InlineKeyboardButton(text="⏸ Пауза", callback_data="pause_cluster"),
+                InlineKeyboardButton(text="⏭ Пропустить", callback_data="skip_question")
+            ]
+        ])
+
+        if is_edit:
+            await target.message.edit_text(text, reply_markup=keyboard, parse_mode='HTML')
+        else:
+            await target.answer(text, reply_markup=keyboard, parse_mode='HTML')
+
+    async def cmd_onboarding(self, message: Message, state: FSMContext):
+        """Команда /onboarding - запуск процесса знакомства (v2 кластерная система)
+
+        Три режима:
+        - Авто: AI выбирает кластеры для быстрого построения цифрового отпечатка
+        - Программа: пользователь выбирает программу из 29 доступных
+        - Закончить: завершить незаконченные кластеры
         """
 
         telegram_id = str(message.from_user.id)
@@ -471,120 +519,139 @@ class SelfologyController:
                 switch_message = self.messages.get_message('context_switch_to_onboarding', 'ru', 'general')
                 await message.answer(switch_message, parse_mode='HTML')
 
-            # Проверяем активные сессии (программа или авто)
-            session = await self.onboarding_orchestrator.restore_session_from_db(int(telegram_id))
+            # Проверяем незаконченные кластеры (v2)
+            unfinished = await self.onboarding_orchestrator.get_unfinished_clusters(int(telegram_id))
 
-            if session:
-                # Есть незавершённая сессия - спрашиваем продолжить или выбрать новое
-                session_type = session.get('session_type', 'auto')
-                questions_answered = session.get('questions_answered', 0)
+            if unfinished:
+                # Есть незавершённые кластеры - показываем третий режим
+                unfinished_text = "\n".join([
+                    f"• {c['cluster_name']} ({c['questions_answered']}/{c['total_questions']})"
+                    for c in unfinished[:3]
+                ])
 
                 keyboard = InlineKeyboardMarkup(inline_keyboard=[
-                    [InlineKeyboardButton(text="▶️ Продолжить", callback_data="continue_session")],
+                    [InlineKeyboardButton(text="🔄 Закончить кластеры", callback_data="mode_finish")],
                     [InlineKeyboardButton(text="🎯 Авто-подбор", callback_data="mode_auto")],
                     [InlineKeyboardButton(text="📚 Выбрать программу", callback_data="mode_program")]
                 ])
 
                 await message.answer(
-                    f"📋 У вас есть незавершённая сессия\n"
-                    f"Отвечено вопросов: {questions_answered}\n\n"
-                    f"Продолжить её или начать что-то новое?",
+                    f"📋 <b>У вас есть незавершённые кластеры:</b>\n\n"
+                    f"{unfinished_text}\n\n"
+                    f"Закончить их или начать новое?",
                     reply_markup=keyboard,
                     parse_mode='HTML'
                 )
-                await state.set_state(OnboardingStates.choosing_mode)
             else:
-                # Новый пользователь или нет активных сессий - выбор режима
+                # Нет незавершённых - выбор режима
                 keyboard = InlineKeyboardMarkup(inline_keyboard=[
                     [InlineKeyboardButton(text="🎯 Авто-подбор", callback_data="mode_auto")],
                     [InlineKeyboardButton(text="📚 Выбрать программу", callback_data="mode_program")]
                 ])
 
                 await message.answer(
-                    "🧠 <b>Как вы хотите начать знакомство?</b>\n\n"
-                    "🎯 <b>Авто-подбор</b> — AI выберет вопросы для быстрого построения вашего профиля\n\n"
-                    "📚 <b>Программа</b> — структурированный путь по конкретной теме",
+                    "🧠 <b>Как вы хотите начать?</b>\n\n"
+                    "🎯 <b>Авто-подбор</b> — AI выберет вопросы для построения вашего профиля\n\n"
+                    "📚 <b>Программа</b> — выбрать одну из 29 программ",
                     reply_markup=keyboard,
                     parse_mode='HTML'
                 )
-                await state.set_state(OnboardingStates.choosing_mode)
+
+            await state.set_state(OnboardingStates.choosing_mode)
 
         except Exception as e:
             logger.error(f"❌ Error in cmd_onboarding for {telegram_id}: {e}")
             await message.answer(f"❌ Ошибка: {e}", parse_mode='HTML')
 
     async def handle_onboarding_answer(self, message: Message, state: FSMContext):
-        """Обработка ответа пользователя в процессе онбординга"""
+        """Обработка ответа пользователя в процессе онбординга (v2 - кластерная система)"""
 
         telegram_id = str(message.from_user.id)
         user_answer = message.text
 
-        # Диагностика: проверяем текущее состояние
         current_state = await state.get_state()
-        logger.info(f"💬 Received onboarding answer from user {telegram_id}: {len(user_answer)} chars (state: {current_state})")
+        logger.info(f"💬 Received answer from user {telegram_id}: {len(user_answer)} chars (state: {current_state})")
 
         try:
-            # ✅ Получаем реальный ID текущего вопроса из активной сессии в памяти Orchestrator
-            session = self.onboarding_orchestrator.get_session(int(telegram_id))
-
-            # 🔄 Если сессии нет в памяти, пытаемся восстановить из БД (после рестарта)
-            if not session:
-                logger.info(f"🔄 Session not in memory, attempting restore from DB for user {telegram_id}")
-                session = await self.onboarding_orchestrator.restore_session_from_db(int(telegram_id))
+            # Получаем сессию из orchestrator
+            session = self.onboarding_orchestrator.get_current_session(int(telegram_id))
 
             if not session or not session.get('current_question'):
-                logger.error(f"❌ No active session or current question for user {telegram_id}")
-                await message.answer("❌ Ошибка: нет активной сессии. Начните с /onboarding", parse_mode='HTML')
+                logger.error(f"❌ No active session for user {telegram_id}")
+                await message.answer("❌ Нет активной сессии. Начните с /onboarding", parse_mode='HTML')
                 return
 
-            current_question_id = session['current_question']['id']
-            logger.info(f"📝 Processing answer for question {current_question_id} (from Orchestrator memory)")
+            current_question = session['current_question']
+            question_id = current_question['id']
+            logger.info(f"📝 Processing answer for question {question_id}")
 
-            # Обрабатываем ответ
-            result = await self.onboarding_orchestrator.process_user_answer(
-                int(telegram_id), current_question_id, user_answer
+            # Обрабатываем ответ (v2)
+            result = await self.onboarding_orchestrator.process_answer(
+                user_id=int(telegram_id),
+                question_id=question_id,
+                answer_text=user_answer
             )
 
-            # Показываем мгновенный фидбек
-            quick_insight = result.get("quick_insight", "Принимаю ваш ответ ✅")
-            await message.answer(
-                f"{quick_insight}\n\n⚡ <i>Анализирую ваш ответ глубже...</i>",
-                parse_mode='HTML'
-            )
+            status = result.get('status')
 
-            # Получаем следующий вопрос
-            next_result = await self.onboarding_orchestrator.get_next_question(
-                int(telegram_id), {"question_number": 2}
-            )
+            if status == 'next_question':
+                # Показываем следующий вопрос в кластере
+                next_question = result['question']
+                data = await state.get_data()
 
-            if next_result["status"] == "continue":
-                # Показываем следующий вопрос
-                next_question = next_result["question"]
-                session_info = next_result["session_info"]
+                # Получаем информацию о кластере из session
+                session = self.onboarding_orchestrator.get_current_session(int(telegram_id))
+                cluster = self.onboarding_orchestrator.cluster_router.get_cluster(data.get('cluster_id', ''))
 
-                # Используем универсальную функцию с шаблонами и клавиатурой
-                await self._show_onboarding_question(next_question, session_info, telegram_id, message)
+                await self._show_cluster_question(
+                    question=next_question,
+                    cluster_name=cluster['name'] if cluster else '',
+                    program_name=cluster['program_name'] if cluster else '',
+                    progress=result.get('progress', ''),
+                    target=message,
+                    is_edit=False
+                )
                 await state.set_state(OnboardingStates.waiting_for_answer)
 
-            else:
-                # Онбординг завершен - получаем информацию о сессии
-                active_session = await self.onboarding_dao.get_active_session(int(telegram_id))
-                questions_answered = active_session.get('questions_answered', 0) if active_session else 0
+            elif status == 'cluster_completed':
+                # Кластер завершён
+                cluster_name = result.get('cluster_name', 'Кластер')
 
-                message_text = get_message(
-                    'session_completed',
-                    locale='ru',
-                    category='onboarding',
-                    questions_answered=questions_answered
-                )
-                keyboard = get_keyboard('session_completed', locale='ru')
+                if result.get('has_next'):
+                    # Есть следующий кластер
+                    next_cluster = result.get('next_cluster', {})
+                    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                        [InlineKeyboardButton(text="▶️ Продолжить", callback_data="continue_next_cluster")],
+                        [InlineKeyboardButton(text="⏸ Пауза", callback_data="pause_onboarding")]
+                    ])
 
-                await message.answer(message_text, parse_mode='HTML', reply_markup=keyboard)
+                    await message.answer(
+                        f"🎉 <b>Кластер «{cluster_name}» завершён!</b>\n\n"
+                        f"Следующий: <b>{next_cluster.get('cluster_name', 'Следующий блок')}</b>\n"
+                        f"Вопросов: {next_cluster.get('questions_count', '?')}",
+                        parse_mode='HTML',
+                        reply_markup=keyboard
+                    )
+                    # Сохраняем next_cluster в state
+                    await state.update_data(next_cluster=next_cluster)
+                else:
+                    # Все кластеры пройдены или программа завершена
+                    msg = result.get('message', '🎉 Все вопросы пройдены!')
+                    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                        [InlineKeyboardButton(text="📚 Выбрать программу", callback_data="mode_program")],
+                        [InlineKeyboardButton(text="💬 Начать чат", callback_data="start_chat")]
+                    ])
+                    await message.answer(msg, parse_mode='HTML', reply_markup=keyboard)
+
                 await state.set_state(OnboardingStates.onboarding_complete)
 
+            else:
+                # Ошибка
+                await message.answer(f"❌ {result.get('message', 'Ошибка')}", parse_mode='HTML')
+
         except Exception as e:
-            logger.error(f"❌ Error processing onboarding answer from {telegram_id}: {e}")
-            await message.answer(f"❌ Ошибка обработки ответа: {e}", parse_mode='HTML')
+            logger.error(f"❌ Error processing answer from {telegram_id}: {e}")
+            await message.answer(f"❌ Ошибка: {e}", parse_mode='HTML')
 
     async def callback_skip_question(self, callback: CallbackQuery, state: FSMContext):
         """Пропустить текущий вопрос"""
@@ -793,7 +860,7 @@ class SelfologyController:
     # ═══════════════════════════════════════════════════════════════════════════
 
     async def callback_mode_auto(self, callback: CallbackQuery, state: FSMContext):
-        """Авто-режим - старая логика QuestionRouter (быстрое построение профиля)"""
+        """Авто-режим - умный подбор кластеров для построения цифрового отпечатка"""
 
         telegram_id = str(callback.from_user.id)
         logger.info(f"🎯 Auto mode selected by user {telegram_id}")
@@ -801,14 +868,28 @@ class SelfologyController:
         try:
             await callback.answer("🎯 Авто-режим активирован")
 
-            # Запускаем старую систему онбординга
-            result = await self.onboarding_orchestrator.start_onboarding(int(telegram_id))
+            # Запускаем умный режим (v2)
+            result = await self.onboarding_orchestrator.start_smart_mode(int(telegram_id))
 
-            question = result['question']
-            session_info = result['session_info']
+            if result.get('status') == 'all_completed':
+                await callback.message.edit_text(
+                    "🎉 Поздравляем! Вы прошли все кластеры.",
+                    parse_mode='HTML'
+                )
+                return
 
-            # Показываем первый вопрос
-            await self._show_onboarding_question(question, session_info, telegram_id, callback, is_edit=True)
+            # Сохраняем режим в state
+            await state.update_data(onboarding_mode='smart_ai', cluster_id=result['cluster_id'])
+
+            # Показываем первый вопрос кластера
+            await self._show_cluster_question(
+                question=result['question'],
+                cluster_name=result['cluster_name'],
+                program_name=result['program_name'],
+                progress=f"1/{result['total_questions']}",
+                target=callback,
+                is_edit=True
+            )
             await state.set_state(OnboardingStates.waiting_for_answer)
 
         except Exception as e:
@@ -824,8 +905,8 @@ class SelfologyController:
         try:
             await callback.answer("📚 Загружаю программы...")
 
-            # Получаем список программ
-            programs = await self.onboarding_orchestrator.get_available_programs(int(telegram_id))
+            # Получаем список программ (v2 - из JSON)
+            programs = self.onboarding_orchestrator.get_all_programs()
 
             if not programs:
                 await callback.message.edit_text(
@@ -837,12 +918,11 @@ class SelfologyController:
             # Формируем нумерованный список всех программ
             program_list = []
             for i, p in enumerate(programs, 1):
-                blocks_info = f"{p.get('blocks_count', '?')} блоков"
-                status = "✅ " if p.get('user_status') == 'completed' else ""
-                program_list.append(f"{i:02d}. {status}{p['name']} ({blocks_info})")
+                blocks_info = f"{p.get('blocks_count', '?')} блоков, {p.get('questions_count', '?')} вопросов"
+                program_list.append(f"{i:02d}. {p['name']} ({blocks_info})")
 
             # Сохраняем программы в state для выбора по номеру
-            programs_map = {str(i): p['program_id'] for i, p in enumerate(programs, 1)}
+            programs_map = {str(i): p['id'] for i, p in enumerate(programs, 1)}
             await state.update_data(programs_map=programs_map)
 
             # Кнопка "Назад"
@@ -931,31 +1011,32 @@ class SelfologyController:
         logger.info(f"📚 Program {program_id} selected by number {user_input} for user {telegram_id}")
 
         try:
-            # Запускаем программу
-            result = await self.onboarding_orchestrator.start_program(
+            # Запускаем программу (v2)
+            result = await self.onboarding_orchestrator.start_program_mode(
                 int(telegram_id), program_id
             )
 
-            if not result or 'question' not in result:
-                await message.answer("❌ Не удалось запустить программу. Попробуйте другую.")
+            if result.get('status') == 'error':
+                await message.answer(f"❌ {result.get('message', 'Ошибка запуска программы')}")
                 return
 
-            # Сохраняем program_id в state
-            await state.update_data(program_id=program_id, onboarding_mode='program')
+            # Сохраняем в state
+            await state.update_data(
+                program_id=program_id,
+                cluster_id=result['cluster_id'],
+                onboarding_mode='program'
+            )
 
-            question = result['question']
-            block_info = result.get('block_info', {})
-            program_name = result.get('program_name', 'Программа')
-
-            # Показываем первый вопрос программы
-            await self._show_program_question(
-                question=question,
-                block_info=block_info,
-                program_name=program_name,
+            # Показываем первый вопрос кластера
+            await self._show_cluster_question(
+                question=result['question'],
+                cluster_name=result['cluster_name'],
+                program_name=result['program_name'],
+                progress=f"1/{result['total_questions']}",
                 target=message,
                 is_edit=False
             )
-            await state.set_state(OnboardingStates.waiting_program_answer)
+            await state.set_state(OnboardingStates.waiting_for_answer)
 
         except Exception as e:
             logger.error(f"❌ Error starting program {program_id} for {telegram_id}: {e}")
@@ -980,6 +1061,168 @@ class SelfologyController:
             parse_mode='HTML'
         )
         await state.set_state(OnboardingStates.choosing_mode)
+
+    # =========================================================================
+    # 🆕 V2 CLUSTER SYSTEM - handlers
+    # =========================================================================
+
+    async def callback_mode_finish(self, callback: CallbackQuery, state: FSMContext):
+        """Режим завершения незаконченных кластеров"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"🔄 Finish mode selected by user {telegram_id}")
+
+        try:
+            await callback.answer("🔄 Загружаю незаконченные кластеры...")
+
+            # Получаем список незаконченных кластеров
+            unfinished = await self.onboarding_orchestrator.get_unfinished_clusters(int(telegram_id))
+
+            if not unfinished:
+                await callback.message.edit_text(
+                    "✅ У вас нет незаконченных кластеров!",
+                    parse_mode='HTML'
+                )
+                return
+
+            # Формируем список кнопок для каждого кластера
+            buttons = []
+            for c in unfinished:
+                buttons.append([InlineKeyboardButton(
+                    text=f"📦 {c['cluster_name']} ({c['questions_answered']}/{c['total_questions']})",
+                    callback_data=f"continue_cluster:{c['cluster_id']}"
+                )])
+
+            buttons.append([InlineKeyboardButton(text="◀️ Назад", callback_data="back_to_mode_selection")])
+
+            await callback.message.edit_text(
+                "📋 <b>Выберите кластер для продолжения:</b>",
+                reply_markup=InlineKeyboardMarkup(inline_keyboard=buttons),
+                parse_mode='HTML'
+            )
+
+        except Exception as e:
+            logger.error(f"❌ Error in mode_finish for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def callback_continue_cluster(self, callback: CallbackQuery, state: FSMContext):
+        """Продолжить выбранный незаконченный кластер"""
+
+        telegram_id = str(callback.from_user.id)
+        cluster_id = callback.data.split(":")[1]
+        logger.info(f"▶️ Continue cluster {cluster_id} by user {telegram_id}")
+
+        try:
+            await callback.answer("▶️ Продолжаю...")
+
+            # Продолжаем кластер
+            result = await self.onboarding_orchestrator.continue_cluster(int(telegram_id), cluster_id)
+
+            if result.get('status') == 'cluster_completed':
+                await callback.message.edit_text(
+                    "✅ Этот кластер уже завершён!",
+                    parse_mode='HTML'
+                )
+                return
+
+            # Сохраняем в state
+            await state.update_data(
+                cluster_id=cluster_id,
+                onboarding_mode='finish'
+            )
+
+            # Показываем вопрос
+            await self._show_cluster_question(
+                question=result['question'],
+                cluster_name=result['cluster_name'],
+                program_name=result['program_name'],
+                progress=result['progress'],
+                target=callback,
+                is_edit=True
+            )
+            await state.set_state(OnboardingStates.waiting_for_answer)
+
+        except Exception as e:
+            logger.error(f"❌ Error continuing cluster for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def callback_continue_next_cluster(self, callback: CallbackQuery, state: FSMContext):
+        """Продолжить со следующим кластером"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"▶️ Continue to next cluster by user {telegram_id}")
+
+        try:
+            await callback.answer("▶️ Продолжаю...")
+
+            # Получаем next_cluster из state
+            data = await state.get_data()
+            next_cluster = data.get('next_cluster', {})
+            mode = data.get('onboarding_mode', 'smart_ai')
+
+            if not next_cluster:
+                await callback.message.edit_text("❌ Нет информации о следующем кластере", parse_mode='HTML')
+                return
+
+            cluster_id = next_cluster.get('cluster_id')
+
+            # Запускаем кластер в зависимости от режима
+            if mode == 'program':
+                program_id = data.get('program_id')
+                result = await self.onboarding_orchestrator.start_program_mode(int(telegram_id), program_id)
+            else:
+                result = await self.onboarding_orchestrator.start_smart_mode(int(telegram_id))
+
+            if result.get('status') == 'error':
+                await callback.message.edit_text(f"❌ {result.get('message')}", parse_mode='HTML')
+                return
+
+            # Сохраняем в state
+            await state.update_data(cluster_id=result['cluster_id'])
+
+            # Показываем первый вопрос
+            await self._show_cluster_question(
+                question=result['question'],
+                cluster_name=result['cluster_name'],
+                program_name=result['program_name'],
+                progress=f"1/{result['total_questions']}",
+                target=callback,
+                is_edit=True
+            )
+            await state.set_state(OnboardingStates.waiting_for_answer)
+
+        except Exception as e:
+            logger.error(f"❌ Error continuing to next cluster for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
+
+    async def callback_pause_cluster(self, callback: CallbackQuery, state: FSMContext):
+        """Поставить кластер на паузу"""
+
+        telegram_id = str(callback.from_user.id)
+        logger.info(f"⏸ Pause cluster by user {telegram_id}")
+
+        try:
+            await callback.answer("⏸ Пауза")
+
+            # Очищаем сессию в orchestrator
+            self.onboarding_orchestrator.clear_session(int(telegram_id))
+
+            keyboard = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text="▶️ Продолжить", callback_data="mode_finish")],
+                [InlineKeyboardButton(text="💬 Чат с коучем", callback_data="start_chat")]
+            ])
+
+            await callback.message.edit_text(
+                "⏸ <b>Сессия на паузе</b>\n\n"
+                "Вы можете продолжить позже. Ваш прогресс сохранён.",
+                reply_markup=keyboard,
+                parse_mode='HTML'
+            )
+            await state.set_state(OnboardingStates.onboarding_paused)
+
+        except Exception as e:
+            logger.error(f"❌ Error pausing cluster for {telegram_id}: {e}")
+            await callback.answer(f"❌ Ошибка: {e}", show_alert=True)
 
     async def callback_continue_session(self, callback: CallbackQuery, state: FSMContext):
         """Продолжить существующую сессию"""
@@ -1780,6 +2023,10 @@ class SelfologyController:
             # Создаем DAO объекты
             self.user_dao = UserDAO(self.db_service)
             self.onboarding_dao = OnboardingDAO(self.db_service)  # 🆕 NEW clean version
+
+            # 🆕 Передаём DB pool в OrchestratorV2
+            await self.onboarding_orchestrator.set_db_pool(self.db_service.pool)
+            logger.info("🎯 OrchestratorV2 connected to database")
 
             # 🔥 PHASE 2-3 ACTIVE! Инициализируем Chat Coach Service
             self.chat_coach = ChatCoachService(self.db_service.pool)
