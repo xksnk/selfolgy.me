@@ -20,6 +20,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent.parent / "intelligent_question_core"))
 
 from intelligent_question_core.api.core_api import SelfologyQuestionCore
+from core.error_collector import error_collector
 
 logger = logging.getLogger(__name__)
 
@@ -140,6 +141,12 @@ class QuestionRouter:
 
         except Exception as e:
             logger.error(f"❌ Error selecting first question for user {user_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="QuestionRouter",
+                component="select_first_question",
+                user_id=user_id
+            )
             return None
     
     async def select_next_question(self, user_id: int, session_history: List[Dict], session_id: int = None) -> Optional[Dict[str, Any]]:
@@ -256,6 +263,13 @@ class QuestionRouter:
 
         except Exception as e:
             logger.exception(f"❌ Error selecting next question for user {user_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="QuestionRouter",
+                component="select_next_question",
+                user_id=user_id,
+                context={"history_length": len(session_history), "session_id": session_id}
+            )
             return None
     
     def _analyze_session_history(self, history: List[Dict], ai_insights: List[Dict] = None) -> Dict[str, Any]:
@@ -486,6 +500,7 @@ class QuestionRouter:
 
         except Exception as e:
             logger.error(f"❌ Error getting candidates for strategy {strategy}: {e}")
+            # Не используем await здесь т.к. метод синхронный - логируем синхронно
             # Fallback - любые безопасные вопросы
             candidates = self.core.search_questions(min_safety=3)
         
@@ -839,5 +854,11 @@ class QuestionRouter:
 
         except Exception as e:
             logger.error(f"❌ Error filtering flagged questions: {e}")
+            await error_collector.collect(
+                error=e,
+                service="QuestionRouter",
+                component="_filter_flagged_questions",
+                context={"questions_count": len(questions)}
+            )
             # В случае ошибки - возвращаем все вопросы (безопасный fallback)
             return questions

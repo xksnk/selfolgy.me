@@ -19,6 +19,18 @@ from .analysis_templates import AnalysisTemplates
 from .ai_model_router import AIModelRouter
 from .trait_extractor import TraitExtractor
 
+# NEW: Детекторы когнитивных искажений, защитных механизмов, убеждений и слепых зон
+from selfology_bot.coach.components.cognitive_distortion_detector import get_distortion_detector
+from selfology_bot.coach.components.defense_mechanism_detector import get_defense_detector
+from selfology_bot.coach.components.core_beliefs_extractor import get_beliefs_extractor
+from selfology_bot.coach.components.blind_spot_detector import get_blind_spot_detector
+from selfology_bot.coach.components.breakthrough_detector import get_breakthrough_detector
+from selfology_bot.coach.components.growth_area_tracker import get_growth_tracker
+from selfology_bot.coach.components.meta_pattern_analyzer import get_meta_analyzer
+
+# Centralized Error Collector
+from core.error_collector import error_collector
+
 # AI clients
 try:
     from openai import AsyncOpenAI
@@ -55,6 +67,16 @@ class AnswerAnalyzer:
         self.templates = AnalysisTemplates()
         self.ai_router = AIModelRouter()
         self.trait_extractor = TraitExtractor()
+
+        # NEW: Детекторы когнитивных искажений, защитных механизмов, убеждений и слепых зон
+        self.distortion_detector = get_distortion_detector()
+        self.defense_detector = get_defense_detector()
+        self.beliefs_extractor = get_beliefs_extractor()
+        self.blind_spot_detector = get_blind_spot_detector()
+        self.breakthrough_detector = get_breakthrough_detector()
+        self.growth_tracker = get_growth_tracker()
+        self.meta_analyzer = get_meta_analyzer()
+        logger.info("✅ Psychological detectors initialized (Distortions + Defenses + Beliefs + Blind Spots + Breakthrough + Growth + Meta)")
 
         # AI клиенты
         self.openai_client = None
@@ -145,7 +167,82 @@ class AnswerAnalyzer:
             trait_analysis = await self.trait_extractor.extract_traits_from_analysis(
                 ai_analysis, question_data, enriched_context
             )
-            
+
+            # 6.0 ИЗВЛЕЧЕНИЕ PSYCHOLOGICAL CONSTRUCTS ОТ AI (приоритет перед детекторами)
+            ai_constructs = ai_analysis.get("psychological_constructs", {})
+
+            # Получаем AI анализ (если есть)
+            ai_cognitive_distortions = ai_constructs.get("cognitive_distortions", [])
+            ai_defense_mechanisms = ai_constructs.get("defense_mechanisms", [])
+            ai_core_beliefs = ai_constructs.get("core_beliefs", [])
+            ai_blind_spots = ai_constructs.get("blind_spots", [])
+
+            if ai_cognitive_distortions:
+                logger.info(f"🤖 AI detected {len(ai_cognitive_distortions)} cognitive distortions")
+            if ai_defense_mechanisms:
+                logger.info(f"🤖 AI detected {len(ai_defense_mechanisms)} defense mechanisms")
+            if ai_core_beliefs:
+                logger.info(f"🤖 AI detected {len(ai_core_beliefs)} core beliefs")
+            if ai_blind_spots:
+                logger.info(f"🤖 AI detected {len(ai_blind_spots)} blind spots")
+
+            # 6.1 NEW: ДЕТЕКЦИЯ КОГНИТИВНЫХ ИСКАЖЕНИЙ (детекторы как дополнение)
+            detector_cognitive_distortions = self.distortion_detector.detect(user_answer)
+            cognitive_distortions = self._merge_ai_and_detector_results(
+                ai_cognitive_distortions,
+                detector_cognitive_distortions,
+                "cognitive_distortions"
+            )
+            if cognitive_distortions:
+                logger.info(f"🧠 Detected {len(cognitive_distortions)} cognitive distortions")
+
+            # 6.2 NEW: ДЕТЕКЦИЯ ЗАЩИТНЫХ МЕХАНИЗМОВ (детекторы как дополнение)
+            detector_defense_mechanisms = self.defense_detector.detect(user_answer)
+            defense_mechanisms = self._merge_ai_and_detector_results(
+                ai_defense_mechanisms,
+                detector_defense_mechanisms,
+                "defense_mechanisms"
+            )
+            if defense_mechanisms:
+                logger.info(f"🛡️ Combined {len(defense_mechanisms)} defense mechanisms")
+
+            # 6.3 NEW: ИЗВЛЕЧЕНИЕ ГЛУБИННЫХ УБЕЖДЕНИЙ (детекторы как дополнение)
+            detector_core_beliefs = self.beliefs_extractor.extract(user_answer)
+            core_beliefs = self._merge_ai_and_detector_results(
+                ai_core_beliefs,
+                detector_core_beliefs,
+                "core_beliefs"
+            )
+            if core_beliefs:
+                logger.info(f"💎 Combined {len(core_beliefs)} core beliefs")
+
+            # 6.4 NEW: ДЕТЕКЦИЯ СЛЕПЫХ ЗОН (детекторы как дополнение)
+            detector_blind_spots = self.blind_spot_detector.detect(user_answer)
+            blind_spots = self._merge_ai_and_detector_results(
+                ai_blind_spots,
+                detector_blind_spots,
+                "blind_spots"
+            )
+            if blind_spots:
+                logger.info(f"🔍 Combined {len(blind_spots)} blind spots")
+
+            # 6.5 NEW: ДЕТЕКЦИЯ ПРОРЫВОВ
+            breakthroughs = self.breakthrough_detector.detect(user_answer)
+            if breakthroughs:
+                logger.info(f"🌟 Detected {len(breakthroughs)} breakthrough moments!")
+
+            # 6.6 NEW: ТРЕКИНГ ЗОН РОСТА
+            user_id = user_context.get("user_id", 0)
+            new_growth_areas = self.growth_tracker.identify_growth_areas(user_id, user_answer)
+            growth_measurements = self.growth_tracker.measure_progress(user_id, user_answer)
+            if growth_measurements:
+                logger.info(f"📈 Growth progress measured in {len(growth_measurements)} areas")
+
+            # 6.7 NEW: АНАЛИЗ МЕТА-ПАТТЕРНОВ
+            meta_patterns = self.meta_analyzer.analyze(user_id, user_answer)
+            if meta_patterns:
+                logger.info(f"🔄 Detected {len(meta_patterns)} meta-patterns")
+
             # 7. ФОРМИРОВАНИЕ ФИНАЛЬНОГО РЕЗУЛЬТАТА
             final_result = self._build_final_analysis(
                 ai_analysis,
@@ -154,7 +251,14 @@ class AnswerAnalyzer:
                 enriched_context,
                 model_name,
                 analysis_depth,
-                special_situation
+                special_situation,
+                cognitive_distortions=cognitive_distortions,
+                defense_mechanisms=defense_mechanisms,
+                core_beliefs=core_beliefs,
+                blind_spots=blind_spots,
+                breakthroughs=breakthroughs,
+                growth_measurements=growth_measurements,
+                meta_patterns=meta_patterns
             )
             
             # 8. ОБНОВЛЕНИЕ СТАТИСТИКИ
@@ -169,11 +273,20 @@ class AnswerAnalyzer:
             
         except Exception as e:
             logger.error(f"❌ Error in comprehensive analysis for user {user_id}: {e}")
-            
+
+            # 🔥 Отправляем в централизованный сборщик ошибок
+            await error_collector.collect(
+                error=e,
+                service="AnswerAnalyzer",
+                component="analyze_answer",
+                user_id=int(user_id) if str(user_id).isdigit() else None,
+                context={"answer_length": len(user_answer)}
+            )
+
             # Fallback анализ
             processing_time = (datetime.now() - start_time).total_seconds() * 1000
             self._update_analysis_stats({}, processing_time, False)
-            
+
             return await self._get_emergency_analysis(question_data, user_answer, user_context, str(e))
     
     async def _enrich_context(
@@ -279,13 +392,23 @@ class AnswerAnalyzer:
             
         except Exception as e:
             logger.error(f"❌ AI analysis failed: {e}")
-            
+
+            # 🔥 Отправляем в централизованный сборщик ошибок
+            user_id = context.get("user_id")
+            await error_collector.collect(
+                error=e,
+                service="AnswerAnalyzer",
+                component="ai_analysis",
+                user_id=int(user_id) if user_id and str(user_id).isdigit() else None,
+                context={"model": model_name, "depth": analysis_depth}
+            )
+
             # Fallback на другую модель
             fallback_model, fallback_config = await self.ai_router.get_fallback_model(model_name, e)
-            
+
             if fallback_model != "rule_based":
                 return await self._get_ai_analysis(
-                    fallback_model, fallback_config, question_data, 
+                    fallback_model, fallback_config, question_data,
                     user_answer, context, analysis_depth, special_situation
                 )
             else:
@@ -456,15 +579,75 @@ class AnswerAnalyzer:
     def _build_final_analysis(
         self,
         ai_analysis: Dict[str, Any],
-        trait_analysis: Dict[str, Any], 
+        trait_analysis: Dict[str, Any],
         question_data: Dict[str, Any],
         context: Dict[str, Any],
         model_name: str,
         analysis_depth: str,
-        special_situation: Optional[str]
+        special_situation: Optional[str],
+        cognitive_distortions: List = None,
+        defense_mechanisms: List = None,
+        core_beliefs: List = None,
+        blind_spots: List = None,
+        breakthroughs: List = None,
+        growth_measurements: List = None,
+        meta_patterns: List = None
     ) -> Dict[str, Any]:
         """Формирование финального результата анализа"""
-        
+
+        # Форматируем детекции для хранения
+        distortions_data = []
+        if cognitive_distortions:
+            distortions_data = self.distortion_detector.format_for_storage(cognitive_distortions)
+
+        defenses_data = []
+        if defense_mechanisms:
+            defenses_data = self.defense_detector.format_for_storage(defense_mechanisms)
+
+        # Форматируем глубинные убеждения для хранения
+        beliefs_data = []
+        if core_beliefs:
+            beliefs_data = [
+                {
+                    "belief_text": belief.belief_text,
+                    "category": belief.category,
+                    "valence": belief.valence,
+                    "confidence": belief.confidence,
+                    "evidence": belief.evidence,
+                    "schema_type": belief.schema_type
+                }
+                for belief in core_beliefs
+            ]
+
+        # Форматируем слепые зоны для хранения
+        blind_spots_data = []
+        if blind_spots:
+            blind_spots_data = self.blind_spot_detector.format_for_storage(blind_spots)
+
+        # Форматируем прорывы для хранения
+        breakthroughs_data = []
+        if breakthroughs:
+            breakthroughs_data = self.breakthrough_detector.format_for_storage(breakthroughs)
+
+        # Форматируем измерения роста для хранения
+        growth_data = []
+        if growth_measurements:
+            growth_data = [
+                {
+                    "area_id": m.area_id,
+                    "delta": m.delta,
+                    "new_progress": m.new_progress,
+                    "evidence": m.evidence,
+                    "timestamp": m.timestamp
+                }
+                for m in growth_measurements
+            ]
+
+        # Форматируем мета-паттерны для хранения
+        meta_patterns_data = []
+        if meta_patterns:
+            meta_patterns_data = self.meta_analyzer.format_for_storage(meta_patterns)
+
         return {
             # Версионирование и метаданные
             "analysis_version": "2.0",
@@ -482,7 +665,15 @@ class AnswerAnalyzer:
                 "insights": ai_analysis.get("core_analysis", {}).get("insights", {}),
                 "emotional_assessment": ai_analysis.get("core_analysis", {}).get("emotional_state", {}),
                 "behavioral_patterns": ai_analysis.get("patterns", []),
-                "growth_indicators": ai_analysis.get("growth_indicators", [])
+                "growth_indicators": ai_analysis.get("growth_indicators", []),
+                # NEW: Когнитивные искажения, защитные механизмы, глубинные убеждения и слепые зоны
+                "cognitive_distortions": distortions_data,
+                "defense_mechanisms": defenses_data,
+                "core_beliefs": beliefs_data,
+                "blind_spots": blind_spots_data,
+                "breakthroughs": breakthroughs_data,
+                "growth_measurements": growth_data,
+                "meta_patterns": meta_patterns_data
             },
             
             # Численные оценки черт
@@ -925,6 +1116,112 @@ class AnswerAnalyzer:
             # Analysis version
             "analysis_version": "emergency_fallback_v1"
         }
+
+    def _merge_ai_and_detector_results(
+        self,
+        ai_results: List[Dict],
+        detector_results: List,
+        construct_type: str
+    ) -> List:
+        """
+        Объединяет результаты AI анализа и детекторов
+
+        AI имеет приоритет, детекторы добавляют дополнительные находки
+
+        Args:
+            ai_results: Результаты от AI (список dict)
+            detector_results: Результаты от детекторов (объекты)
+            construct_type: Тип конструкта (для логирования)
+
+        Returns:
+            Объединенный список (detector objects для совместимости с _build_final_analysis)
+        """
+        if not ai_results and not detector_results:
+            return []
+
+        # Если есть AI результаты - приоритет у них
+        if ai_results:
+            logger.info(f"🤖 Using {len(ai_results)} {construct_type} from AI (primary source)")
+
+            # Конвертируем AI dict в detector objects для совместимости
+            if construct_type == "cognitive_distortions":
+                from selfology_bot.coach.components.cognitive_distortion_detector import CognitiveDistortion
+                converted = []
+                for ai_item in ai_results:
+                    converted.append(CognitiveDistortion(
+                        distortion_type=ai_item.get("type", "unknown"),
+                        description=ai_item.get("description", ""),
+                        evidence=ai_item.get("evidence", ""),
+                        severity=ai_item.get("severity", 0.5)
+                    ))
+                # Добавляем уникальные detector результаты
+                detector_types = {d.distortion_type for d in detector_results} if detector_results else set()
+                ai_types = {c.distortion_type for c in converted}
+                unique_detectors = [d for d in (detector_results or []) if d.distortion_type not in ai_types]
+                if unique_detectors:
+                    logger.info(f"📍 Adding {len(unique_detectors)} unique detections from regex detector")
+                return converted + unique_detectors
+
+            elif construct_type == "defense_mechanisms":
+                from selfology_bot.coach.components.defense_mechanism_detector import DefenseMechanism
+                converted = []
+                for ai_item in ai_results:
+                    converted.append(DefenseMechanism(
+                        mechanism_type=ai_item.get("type", "unknown"),
+                        description=ai_item.get("description", ""),
+                        evidence=ai_item.get("evidence", ""),
+                        maturity_level=ai_item.get("maturity_level", "neurotic")
+                    ))
+                detector_types = {d.mechanism_type for d in detector_results} if detector_results else set()
+                ai_types = {c.mechanism_type for c in converted}
+                unique_detectors = [d for d in (detector_results or []) if d.mechanism_type not in ai_types]
+                if unique_detectors:
+                    logger.info(f"📍 Adding {len(unique_detectors)} unique detections from regex detector")
+                return converted + unique_detectors
+
+            elif construct_type == "core_beliefs":
+                from selfology_bot.coach.components.core_beliefs_extractor import CoreBelief
+                converted = []
+                for ai_item in ai_results:
+                    converted.append(CoreBelief(
+                        belief_text=ai_item.get("belief", ""),
+                        category=ai_item.get("category", "self"),
+                        valence=ai_item.get("valence", "negative"),
+                        confidence=ai_item.get("confidence", 0.5),
+                        evidence=ai_item.get("evidence", ""),
+                        schema_type="unknown"
+                    ))
+                # Добавляем уникальные
+                detector_beliefs = {b.belief_text for b in detector_results} if detector_results else set()
+                ai_beliefs = {c.belief_text for c in converted}
+                unique_detectors = [b for b in (detector_results or []) if b.belief_text not in ai_beliefs]
+                if unique_detectors:
+                    logger.info(f"📍 Adding {len(unique_detectors)} unique detections from regex detector")
+                return converted + unique_detectors
+
+            elif construct_type == "blind_spots":
+                from selfology_bot.coach.components.blind_spot_detector import BlindSpot
+                converted = []
+                for ai_item in ai_results:
+                    converted.append(BlindSpot(
+                        blind_spot_type=ai_item.get("type", "unknown"),
+                        description=ai_item.get("description", ""),
+                        severity=ai_item.get("severity", 0.5),
+                        evidence=ai_item.get("evidence", "")
+                    ))
+                detector_types = {b.blind_spot_type for b in detector_results} if detector_results else set()
+                ai_types = {c.blind_spot_type for c in converted}
+                unique_detectors = [b for b in (detector_results or []) if b.blind_spot_type not in ai_types]
+                if unique_detectors:
+                    logger.info(f"📍 Adding {len(unique_detectors)} unique detections from regex detector")
+                return converted + unique_detectors
+
+        # Fallback: если AI ничего не нашел - используем детекторы
+        if detector_results:
+            logger.info(f"📍 Using {len(detector_results)} {construct_type} from regex detector (AI found nothing)")
+            return detector_results
+
+        return []
 
     async def get_analysis_stats(self) -> Dict[str, Any]:
         """Получить статистику работы анализатора"""

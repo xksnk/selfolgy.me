@@ -11,6 +11,8 @@ import logging
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime, timedelta
 
+from core.error_collector import error_collector
+
 logger = logging.getLogger(__name__)
 
 class FatigueDetector:
@@ -142,6 +144,28 @@ class FatigueDetector:
             
         except Exception as e:
             logger.error(f"❌ Error analyzing fatigue: {e}")
+            import asyncio
+            # Запускаем async error_collector в sync методе
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    asyncio.create_task(error_collector.collect(
+                        error=e,
+                        service="FatigueDetector",
+                        component="analyze_fatigue_level",
+                        user_id=user_context.get('user_id'),
+                        context={"history_length": len(session_history)}
+                    ))
+                else:
+                    loop.run_until_complete(error_collector.collect(
+                        error=e,
+                        service="FatigueDetector",
+                        component="analyze_fatigue_level",
+                        user_id=user_context.get('user_id'),
+                        context={"history_length": len(session_history)}
+                    ))
+            except Exception:
+                pass  # Не падаем из-за ошибки логирования
             return self._get_safe_fatigue_result()
     
     def _analyze_answer_length(self, context: Dict, history: List[Dict]) -> Dict[str, Any]:

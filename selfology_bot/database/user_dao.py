@@ -13,6 +13,7 @@ from typing import Dict, Optional, Any
 import asyncpg
 
 from .service import DatabaseService
+from core.error_collector import error_collector
 
 logger = logging.getLogger(__name__)
 
@@ -112,8 +113,14 @@ class UserDAO:
             
         except Exception as e:
             logger.error(f"❌ Error creating user {telegram_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="UserDAO",
+                component="create_user",
+                user_id=int(telegram_id) if telegram_id.isdigit() else None
+            )
             raise
-    
+
     async def get_or_create_user(self, telegram_data: Dict[str, Any]) -> Dict[str, Any]:
         """Получить существующего или создать нового пользователя"""
         

@@ -32,9 +32,12 @@ fi
 print_info "Активация виртуального окружения..."
 source venv/bin/activate
 
-# Устанавливаем зависимости если нужно
+# Проверяем основные зависимости (быстро, без установки)
 print_info "Проверка зависимостей..."
-pip install -r requirements.txt > /dev/null 2>&1
+python -c "import aiogram, anthropic, openai" 2>/dev/null || {
+    print_warning "Зависимости не установлены, устанавливаю..."
+    pip install -q -r requirements.txt
+}
 
 # Загружаем переменные окружения для разработки
 if [[ -f ".env.development" ]]; then
@@ -48,6 +51,8 @@ fi
 # Переопределяем URLs для локального подключения к Docker сервисам
 export DATABASE_URL="postgresql+asyncpg://n8n:sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU=@localhost:5432/n8n"
 export REDIS_URL="redis://localhost:6379"
+export REDIS_FSM_HOST="localhost"
+export REDIS_FSM_PORT="6379"
 export QDRANT_URL="http://localhost:6333"
 
 print_info "Запуск Selfology локально с hot reload..."
@@ -59,9 +64,10 @@ print_warning "Нажмите Ctrl+C для остановки"
 pip install watchdog > /dev/null 2>&1
 
 # Используем watchmedo для автоперезапуска при изменениях
+# -u для unbuffered output (логи сразу видны)
 watchmedo auto-restart \
     --directory=. \
     --pattern="*.py" \
     --ignore-patterns="*/logs/*;*/venv/*;*/__pycache__/*;*.pyc" \
     --recursive \
-    -- python selfology_controller.py
+    -- python -u selfology_controller.py

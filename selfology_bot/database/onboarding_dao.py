@@ -15,6 +15,7 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 
 from .service import DatabaseService
+from core.error_collector import error_collector
 
 logger = logging.getLogger(__name__)
 
@@ -286,6 +287,12 @@ class OnboardingDAO:
 
         except Exception as e:
             logger.error(f"❌ Error saving answer for session {session_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="OnboardingDAO",
+                component="save_answer",
+                context={"session_id": session_id, "question_id": question_json_id}
+            )
             raise
 
     async def increment_questions_asked(self, session_id: int):

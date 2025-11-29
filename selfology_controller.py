@@ -29,13 +29,54 @@ from dotenv import load_dotenv
 # Load environment variables from .env
 load_dotenv()
 
-from aiogram import Bot, Dispatcher, F
+from aiogram import Bot, Dispatcher, F, BaseMiddleware
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, TelegramObject, BotCommand
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.redis import RedisStorage
 import redis.asyncio as redis
+from typing import Callable, Dict, Any, Awaitable
+
+
+class WhitelistMiddleware(BaseMiddleware):
+    """Middleware для проверки whitelist пользователей"""
+
+    def __init__(self, whitelist: list):
+        self.whitelist = whitelist
+        super().__init__()
+
+    async def __call__(
+        self,
+        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
+        data: Dict[str, Any]
+    ) -> Any:
+        # Если whitelist пустой - пропускаем всех
+        if not self.whitelist:
+            return await handler(event, data)
+
+        # Получаем user_id из события
+        user_id = None
+        if isinstance(event, Message):
+            user_id = event.from_user.id
+        elif isinstance(event, CallbackQuery):
+            user_id = event.from_user.id
+
+        # Проверяем whitelist
+        if user_id and user_id not in self.whitelist:
+            # Блокируем доступ
+            if isinstance(event, Message):
+                await event.answer(
+                    "🔒 Доступ ограничен.\n\n"
+                    "Этот бот работает в приватном режиме.\n"
+                    "Свяжитесь с @axksnk для получения доступа."
+                )
+            elif isinstance(event, CallbackQuery):
+                await event.answer("🔒 Доступ ограничен", show_alert=True)
+            return  # Не вызываем handler
+
+        return await handler(event, data)
 
 # Добавляем путь для импорта MessageService и DatabaseService
 sys.path.insert(0, str(Path(__file__).parent))
@@ -49,6 +90,7 @@ from services.chat_coach import ChatCoachService  # 🔥 PHASE 2-3 ACTIVE!
 # Components: Enhanced Router, Adaptive Style, Deep Questions, Micro Interventions, Confidence Calculator, Vector Storytelling
 # All 6 Phase 2-3 components integrated and tested
 from selfology_bot.monitoring import initialize_onboarding_monitoring  # 🆕 Monitoring System
+from core.error_collector import initialize_error_collector, error_collector  # 🆕 Centralized Error Collector
 
 # Настройка логирования
 logging.basicConfig(
@@ -77,13 +119,13 @@ class ChatStates(StatesGroup):
 # Конфигурация (из .env.development)
 BOT_TOKEN = "8197893707:AAEbGC7r_4GGWXvgah-q-mLw5pp7YIxhK9g"
 
-# Database config (разбиваем для избежания проблем с парсингом)
-DB_HOST = "localhost"
-DB_PORT = 5432
-DB_USER = "n8n"
-DB_PASSWORD = "sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU="
-DB_NAME = "n8n"
-DB_SCHEMA = "selfology"
+# Database config - selfology-postgres (порт 5434)
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = int(os.getenv("DB_PORT", "5434"))  # selfology-postgres на 5434
+DB_USER = os.getenv("DB_USER", "selfology_user")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "selfology_secure_2024")
+DB_NAME = os.getenv("DB_NAME", "selfology")
+DB_SCHEMA = os.getenv("DB_SCHEMA", "selfology")
 
 # Redis FSM Storage config
 REDIS_FSM_HOST = os.getenv("REDIS_FSM_HOST", "localhost")
@@ -93,6 +135,10 @@ REDIS_FSM_DB = int(os.getenv("REDIS_FSM_DB", "1"))
 # DEBUG конфигурация для отладки workflow
 DEBUG_MESSAGES = True  # Показывать MESSAGE_ID в сообщениях для отладки
 ADMIN_USER_ID = "98005572"  # ID администратора для admin команд
+
+# 🔒 WHITELIST - только эти пользователи могут использовать бота
+# Если список пустой - бот доступен всем
+WHITELIST_USERS = [98005572]  # @axksnk - Aleksandr Kosenko
 
 # Bot instance lock key for preventing duplicate instances
 BOT_INSTANCE_LOCK_KEY = "selfology:bot:instance_lock"
@@ -116,6 +162,13 @@ class SelfologyController:
             f"redis://{REDIS_FSM_HOST}:{REDIS_FSM_PORT}/{REDIS_FSM_DB}"
         )
         self.dp = Dispatcher(storage=redis_storage)
+
+        # 🔒 Whitelist middleware - блокируем всех кроме разрешенных пользователей
+        if WHITELIST_USERS:
+            self.dp.message.middleware(WhitelistMiddleware(WHITELIST_USERS))
+            self.dp.callback_query.middleware(WhitelistMiddleware(WHITELIST_USERS))
+            logger.info(f"🔒 Whitelist enabled: {len(WHITELIST_USERS)} users allowed")
+
         self.messages = get_message_service(debug_mode=DEBUG_MESSAGES)
 
         # Redis client для instance locking
@@ -312,6 +365,15 @@ class SelfologyController:
         telegram_id = str(message.from_user.id)
         logger.info(f"👤 User started: {user_name} (ID: {telegram_id})")
 
+        # Трекинг для Claude
+        await error_collector.track(
+            event_type="user_action",
+            action="command_start",
+            service="Telegram",
+            user_id=int(telegram_id),
+            details={"username": message.from_user.username, "name": user_name}
+        )
+
         # 🗄 Проверяем пользователя в базе данных selfology
         telegram_data = {
             'id': message.from_user.id,
@@ -431,6 +493,15 @@ class SelfologyController:
         current_state = await state.get_state()
         logger.info(f"🧠 Onboarding requested by user {telegram_id} (current_state: {current_state})")
 
+        # Трекинг для Claude
+        await error_collector.track(
+            event_type="user_action",
+            action="command_onboarding",
+            service="Telegram",
+            user_id=int(telegram_id),
+            details={"previous_state": current_state}
+        )
+
         try:
             # Проверяем активную сессию - продолжить или начать новую
             session = await self.onboarding_orchestrator.restore_session_from_db(int(telegram_id))
@@ -469,7 +540,12 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"❌ Error starting onboarding for {telegram_id}: {e}")
-
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="cmd_onboarding",
+                user_id=int(telegram_id)
+            )
             await message.answer(f"❌ Ошибка запуска нового онбординга: {e}", parse_mode='HTML')
 
     async def handle_onboarding_answer(self, message: Message, state: FSMContext):
@@ -481,6 +557,15 @@ class SelfologyController:
         # Диагностика: проверяем текущее состояние
         current_state = await state.get_state()
         logger.info(f"💬 Received onboarding answer from user {telegram_id}: {len(user_answer)} chars (state: {current_state})")
+
+        # Трекинг для Claude
+        await error_collector.track(
+            event_type="user_action",
+            action="submit_onboarding_answer",
+            service="Telegram",
+            user_id=int(telegram_id),
+            details={"answer_length": len(user_answer), "state": current_state}
+        )
 
         try:
             # ✅ Получаем реальный ID текущего вопроса из активной сессии в памяти Orchestrator
@@ -515,15 +600,20 @@ class SelfologyController:
             next_result = await self.onboarding_orchestrator.get_next_question(
                 int(telegram_id), {"question_number": 2}
             )
+            logger.info(f"🔍 DEBUG [ANSWER]: get_next_question returned status={next_result['status']}")
 
             if next_result["status"] == "continue":
                 # Показываем следующий вопрос
                 next_question = next_result["question"]
                 session_info = next_result["session_info"]
+                logger.info(f"🔍 DEBUG [ANSWER]: Next question: {next_question.get('id')}, session: {session_info.get('session_id')}")
 
                 # Используем универсальную функцию с шаблонами и клавиатурой
+                logger.info(f"🔍 DEBUG [ANSWER]: Calling _show_onboarding_question...")
                 await self._show_onboarding_question(next_question, session_info, telegram_id, message)
+                logger.info(f"🔍 DEBUG [ANSWER]: Question shown, setting FSM state...")
                 await state.set_state(OnboardingStates.waiting_for_answer)
+                logger.info(f"✅ DEBUG [ANSWER]: FSM state set to waiting_for_answer")
 
             else:
                 # Онбординг завершен - получаем информацию о сессии
@@ -543,6 +633,13 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"❌ Error processing onboarding answer from {telegram_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="handle_onboarding_answer",
+                user_id=int(telegram_id),
+                context={"answer_length": len(user_answer)}
+            )
             await message.answer(f"❌ Ошибка обработки ответа: {e}", parse_mode='HTML')
 
     async def callback_skip_question(self, callback: CallbackQuery, state: FSMContext):
@@ -567,14 +664,19 @@ class SelfologyController:
             next_result = await self.onboarding_orchestrator.get_next_question(
                 int(telegram_id), {"question_number": 2}
             )
+            logger.info(f"🔍 DEBUG: get_next_question returned status={next_result['status']}")
 
             if next_result["status"] == "continue":
                 next_question = next_result["question"]
                 session_info = next_result["session_info"]
+                logger.info(f"🔍 DEBUG: Next question: {next_question.get('id')}, session: {session_info.get('session_id')}")
 
                 # Используем универсальную функцию (is_edit=True для кнопок)
+                logger.info(f"🔍 DEBUG: Calling _show_onboarding_question...")
                 await self._show_onboarding_question(next_question, session_info, telegram_id, callback, is_edit=True)
+                logger.info(f"🔍 DEBUG: Question shown, setting FSM state...")
                 await state.set_state(OnboardingStates.waiting_for_answer)
+                logger.info(f"✅ DEBUG: FSM state set to waiting_for_answer")
             else:
                 # Онбординг завершен - получаем информацию о сессии
                 active_session = await self.onboarding_dao.get_active_session(int(telegram_id))
@@ -593,6 +695,12 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"❌ Error skipping question for {telegram_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="callback_skip_question",
+                user_id=int(telegram_id)
+            )
             await callback.answer("❌ Ошибка пропуска вопроса")
 
     async def callback_end_session(self, callback: CallbackQuery, state: FSMContext):
@@ -629,6 +737,12 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"❌ Error ending session for {telegram_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="callback_end_session",
+                user_id=int(telegram_id)
+            )
             await callback.answer("❌ Ошибка завершения сессии")
 
     async def callback_flag_question(self, callback: CallbackQuery, state: FSMContext):
@@ -904,6 +1018,15 @@ class SelfologyController:
         current_state = await state.get_state()
         logger.info(f"💬 Chat requested by user {telegram_id} (current_state: {current_state})")
 
+        # Трекинг для Claude
+        await error_collector.track(
+            event_type="user_action",
+            action="command_chat",
+            service="Telegram",
+            user_id=int(telegram_id),
+            details={"previous_state": current_state}
+        )
+
         try:
             # Уведомление о переключении режима (если был в онбординге)
             if current_state == OnboardingStates.waiting_for_answer:
@@ -927,6 +1050,12 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"Error starting chat for user {telegram_id}: {e}", exc_info=True)
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="cmd_chat",
+                user_id=int(telegram_id)
+            )
             await message.answer("❌ Произошла ошибка при запуске чата. Попробуйте позже.")
 
     async def callback_start_chat(self, callback: CallbackQuery, state: FSMContext):
@@ -960,6 +1089,15 @@ class SelfologyController:
 
         logger.info(f"💬 Chat message from user {telegram_id}: {user_message[:50]}...")
 
+        # Трекинг для Claude
+        await error_collector.track(
+            event_type="user_action",
+            action="send_chat_message",
+            service="Telegram",
+            user_id=int(telegram_id),
+            details={"message_length": len(user_message)}
+        )
+
         try:
             # Обрабатываем сообщение через Chat Coach
             result = await self.chat_coach.process_message(telegram_id, user_message)
@@ -987,6 +1125,13 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"Error processing chat message for user {telegram_id}: {e}", exc_info=True)
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="handle_chat_message",
+                user_id=int(telegram_id),
+                context={"message_length": len(user_message)}
+            )
             await message.answer("❌ Произошла ошибка. Попробуйте еще раз.")
 
     async def callback_coming_soon(self, callback: CallbackQuery):
@@ -1224,8 +1369,23 @@ class SelfologyController:
             else:
                 logger.info("📊 Monitoring System disabled (MONITORING_ENABLED=false)")
 
+            # 🆕 Инициализируем централизованный сборщик ошибок (всегда, независимо от мониторинга)
+            await initialize_error_collector()
+            logger.info("🔥 ErrorCollector initialized - errors go to logs/errors.jsonl")
+
             # Создаем новые чистые таблицы онбординга
             await self.onboarding_dao.create_onboarding_tables()
+
+            # 📋 Устанавливаем меню команд бота
+            commands = [
+                BotCommand(command="start", description="Начать работу с коучем"),
+                BotCommand(command="onboarding", description="Пройти психологический онбординг"),
+                BotCommand(command="chat", description="Чат с AI-коучем"),
+                BotCommand(command="profile", description="Мой профиль"),
+                BotCommand(command="help", description="Помощь"),
+            ]
+            await self.bot.set_my_commands(commands)
+            logger.info("📋 Bot menu commands set")
 
             # Проверяем подключение к правильной схеме
             async with self.db_service.get_connection() as conn:
@@ -1275,6 +1435,12 @@ class SelfologyController:
             logger.info("Bot stopped by user (Ctrl+C)")
         except Exception as e:
             logger.error(f"Bot error: {e}", exc_info=True)
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="start_polling",
+                severity="critical"
+            )
             raise
         finally:
             # Всегда освобождаем ресурсы
@@ -1345,6 +1511,12 @@ class SelfologyController:
 
         except Exception as e:
             logger.error(f"❌ Error during shutdown: {e}", exc_info=True)
+            await error_collector.collect(
+                error=e,
+                service="SelfologyController",
+                component="stop",
+                severity="critical"
+            )
 
     async def cmd_onboarding_profile(self, message: Message):
         """

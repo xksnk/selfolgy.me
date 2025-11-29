@@ -518,13 +518,13 @@ async def create_analysis_system(
     Returns:
         Configured AnalysisSystem instance
     """
-    # Create database pool
+    # Create database pool - selfology-postgres (порт 5434)
     db_pool = await asyncpg.create_pool(
-        host=db_config.get("host", "n8n-postgres"),
-        port=db_config.get("port", 5432),
-        user=db_config.get("user", "postgres"),
-        password=db_config["password"],
-        database=db_config.get("database", "n8n"),
+        host=db_config.get("host", "localhost"),
+        port=db_config.get("port", 5434),
+        user=db_config.get("user", "selfology_user"),
+        password=db_config.get("password", "selfology_secure_2024"),
+        database=db_config.get("database", "selfology"),
         min_size=2,
         max_size=10
     )

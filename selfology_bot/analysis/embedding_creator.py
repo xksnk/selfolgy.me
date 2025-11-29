@@ -618,6 +618,22 @@ class EmbeddingCreator:
             logger.error(f"❌ Error updating vectors for user {user_id}: {e}")
             return False
 
+    @staticmethod
+    def _extract_trait_score(trait_value) -> float:
+        """
+        Извлечь score из Big Five trait
+
+        Поддерживает оба формата:
+        - {"score": 0.5, "confidence": 0.2} - Qdrant extended format
+        - 0.5 - direct float value
+        """
+        if isinstance(trait_value, dict):
+            return trait_value.get("score", 0.5)
+        elif isinstance(trait_value, (int, float)):
+            return float(trait_value)
+        else:
+            return 0.5
+
     def _calculate_personality_delta(self, current_profile: Dict, new_analysis: Dict) -> Dict[str, Any]:
         """Вычисление изменений в личности"""
 
@@ -633,8 +649,9 @@ class EmbeddingCreator:
             significant_changes = []
 
             for trait in self.config.BIG_FIVE_TRAITS:
-                old_value = current_traits.get(trait, 0.5)
-                new_value = new_traits.get(trait, 0.5)
+                # Extract scores from both formats (extended and direct)
+                old_value = self._extract_trait_score(current_traits.get(trait, 0.5))
+                new_value = self._extract_trait_score(new_traits.get(trait, 0.5))
                 diff = abs(new_value - old_value)
 
                 trait_differences.append(diff)
@@ -1044,7 +1061,7 @@ class EmbeddingCreator:
 
             success = created_count == len(collections_config)
             if success:
-                logger.info(f"🎉 Successfully initialized {created_count} Qdrant collections")
+                logger.info(f"🎉 EmbeddingCreator: {created_count} collections ready")
             else:
                 logger.warning(f"⚠️ Only {created_count}/{len(collections_config)} collections created")
 

@@ -33,37 +33,12 @@ class SelfologyLogger:
         level = getattr(logging, self.config.logging["level"].upper())
         self.logger.setLevel(level)
         
-        # Console handler
+        # Console handler only - all logs go to selfology.log via basicConfig
         console_handler = logging.StreamHandler()
         console_handler.setLevel(level)
         console_formatter = logging.Formatter(self.config.logging["format"])
         console_handler.setFormatter(console_formatter)
         self.logger.addHandler(console_handler)
-        
-        # File handler with rotation
-        log_file = log_dir / f"{self.service_name}.log"
-        file_handler = logging.handlers.RotatingFileHandler(
-            log_file,
-            maxBytes=self.config.logging["max_file_size"],
-            backupCount=self.config.logging["backup_count"]
-        )
-        file_handler.setLevel(level)
-        file_formatter = logging.Formatter(
-            f"%(asctime)s - {self.service_name} - %(name)s - %(levelname)s - %(message)s"
-        )
-        file_handler.setFormatter(file_formatter)
-        self.logger.addHandler(file_handler)
-        
-        # Service-specific log file
-        service_log = log_dir / f"services.log"
-        service_handler = logging.handlers.RotatingFileHandler(
-            service_log,
-            maxBytes=self.config.logging["max_file_size"],
-            backupCount=self.config.logging["backup_count"]
-        )
-        service_handler.setLevel(level)
-        service_handler.setFormatter(file_formatter)
-        self.logger.addHandler(service_handler)
     
     def log_service_call(self, method: str, user_id: Optional[str] = None, **kwargs):
         """Log service method call"""

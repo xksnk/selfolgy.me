@@ -21,6 +21,9 @@ from services.message_embedding_service import MessageEmbeddingService
 from core.config import get_config
 from core.logging import chat_logger, LoggerMixin
 
+# 🔥 NEW: VectorStorageService for episodic_memory search
+from selfology_bot.services.vector_storage_service import get_vector_storage
+
 # Phase 2 component imports
 from coach.components.enhanced_ai_router import EnhancedAIRouter
 from coach.components.adaptive_communication_style import AdaptiveCommunicationStyle
@@ -36,6 +39,23 @@ from coach.components.vector_storytelling import VectorStorytelling
 # 🔥 NEW: AI Clients for REAL responses (not templates!)
 from selfology_bot.ai.clients import ai_client_manager
 from selfology_bot.ai.router import AIModel
+
+# 🔥 NEW: Cognitive distortion & defense mechanism detectors for therapeutic support
+from selfology_bot.coach.components.cognitive_distortion_detector import get_distortion_detector
+from selfology_bot.coach.components.defense_mechanism_detector import get_defense_detector
+from selfology_bot.coach.components.core_beliefs_extractor import get_beliefs_extractor
+
+# 🔥 NEW: Therapeutic Alliance Tracker & Gating Mechanism
+from selfology_bot.coach.components.therapeutic_alliance_tracker import get_alliance_tracker
+from selfology_bot.coach.components.gating_mechanism import get_gating_mechanism
+
+# 🔥 NEW: Breakthrough Detection & Growth Tracking (Month 4)
+from selfology_bot.coach.components.breakthrough_detector import get_breakthrough_detector
+from selfology_bot.coach.components.growth_area_tracker import get_growth_tracker
+from selfology_bot.coach.components.meta_pattern_analyzer import get_meta_analyzer
+
+# 🔥 NEW: Centralized Error Collector
+from core.error_collector import error_collector
 
 
 @dataclass
@@ -111,6 +131,27 @@ class ChatCoachService(LoggerMixin):
         # 🔥 NEW: AI Client Manager for REAL AI responses!
         self.ai_client = ai_client_manager
         self.logger.info("✅ AI Client Manager initialized (Claude + OpenAI) - REAL RESPONSES ENABLED!")
+
+        # 🔥 NEW: VectorStorageService for episodic_memory search
+        self.vector_storage = get_vector_storage()
+        self.logger.info("✅ VectorStorageService initialized for episodic_memory search")
+
+        # 🔥 NEW: Cognitive distortion, defense mechanism & core beliefs detectors
+        self.distortion_detector = get_distortion_detector()
+        self.defense_detector = get_defense_detector()
+        self.beliefs_extractor = get_beliefs_extractor()
+        self.logger.info("✅ Therapeutic detectors initialized (Distortions + Defenses + Core Beliefs)")
+
+        # 🔥 NEW: Therapeutic Alliance Tracker & Gating Mechanism
+        self.alliance_tracker = get_alliance_tracker()
+        self.gating = get_gating_mechanism()
+        self.logger.info("✅ Alliance Tracker & Gating Mechanism initialized")
+
+        # 🔥 NEW: Breakthrough Detection & Growth Tracking (Month 4)
+        self.breakthrough_detector = get_breakthrough_detector()
+        self.growth_tracker = get_growth_tracker()
+        self.meta_analyzer = get_meta_analyzer()
+        self.logger.info("✅ Breakthrough Detector, Growth Tracker & Meta-Pattern Analyzer initialized")
 
         # Service configuration
         self.chat_config = self.config.get_service_config("chat_coach")
@@ -237,16 +278,26 @@ class ChatCoachService(LoggerMixin):
             recommended_model = self.enhanced_router.route(message_context)
             self.logger.info(f"🤖 Enhanced Router selected: {recommended_model}")
 
-            # 🔥 NEW: Semantic search for similar emotional states (~200ms embedding + < 20ms search)
+            # 🔥 NEW: Semantic search for similar emotional states in episodic_memory (~50ms total)
             similar_states = []
             trajectory_insights = None
 
             if user_context.personality_profile:
-                # 🔥 QUICK FIX: Disable broken semantic search (embedding space mismatch)
-                # ROOT CAUSE: Comparing personality narrative embeddings vs user message embeddings
-                # TODO: Create chat_messages collection with message embeddings (see AI Engineer analysis)
-                similar_states = []
-                self.logger.warning(f"⚠️ Semantic search DISABLED (embedding space mismatch - personality narratives vs user messages)")
+                # 🔥 FIX: Search in episodic_memory (user answers), not personality_narratives
+                try:
+                    similar_states = await self.vector_storage.search_episodic(
+                        user_id=int(user_id),
+                        query=message,
+                        top_k=5,
+                        score_threshold=0.6
+                    )
+                    if similar_states:
+                        self.logger.info(f"✅ Found {len(similar_states)} similar states in episodic_memory")
+                    else:
+                        self.logger.info(f"ℹ️ No similar states found (score < 0.6)")
+                except Exception as e:
+                    self.logger.warning(f"⚠️ Semantic search failed: {e}")
+                    similar_states = []
 
                 # 3. Analyze personality trajectory for storytelling (< 30ms)
                 trajectory_insights = await self.coach_vector_dao.analyze_personality_trajectory(
@@ -302,19 +353,126 @@ class ChatCoachService(LoggerMixin):
 
             self.logger.info(f"💭 Generated {len(deep_questions)} deep questions")
 
+            # 🔥 NEW: Measure therapeutic alliance
+            alliance_measurement = self.alliance_tracker.measure(user_id, message)
+            alliance_level = alliance_measurement.overall_score
+            self.logger.info(f"🤝 Alliance: {alliance_level:.2f} (B:{alliance_measurement.bond_score:.2f}, T:{alliance_measurement.task_score:.2f}, G:{alliance_measurement.goal_score:.2f})")
+
+            # Estimate days since start (placeholder - should come from user data)
+            days_since_start = 7  # TODO: Get from user profile
+
+            # 🔥 NEW: Detect cognitive distortions for therapeutic support
+            cognitive_distortions = self.distortion_detector.detect(message)
+            therapeutic_feedback = ""
+            if cognitive_distortions:
+                self.logger.info(f"🧠 Detected {len(cognitive_distortions)} cognitive distortions: {[d.distortion_type for d in cognitive_distortions]}")
+                # Check gating before showing feedback
+                gating_decision = self.gating.should_surface_content("cognitive_distortions", alliance_level, days_since_start)
+                if gating_decision.allowed:
+                    therapeutic_feedback = self.distortion_detector.get_therapeutic_summary(cognitive_distortions)
+                else:
+                    self.logger.info(f"🚪 Gating blocked distortion feedback: {gating_decision.reason}")
+
+            # 🔥 NEW: Detect defense mechanisms (only log, don't surface yet without high alliance)
+            defense_mechanisms = self.defense_detector.detect(message)
+            if defense_mechanisms:
+                self.logger.info(f"🛡️ Detected {len(defense_mechanisms)} defense mechanisms: {[d.mechanism_type for d in defense_mechanisms]}")
+
+            # 🔥 NEW: Extract core beliefs for deeper understanding
+            core_beliefs = self.beliefs_extractor.extract(message)
+            beliefs_insight = ""
+            if core_beliefs:
+                self.logger.info(f"💎 Extracted {len(core_beliefs)} core beliefs: {[b.belief_text for b in core_beliefs]}")
+                # Check gating before showing insight
+                gating_decision = self.gating.should_surface_content("core_beliefs", alliance_level, days_since_start)
+                if gating_decision.allowed:
+                    beliefs_insight = self.beliefs_extractor.get_therapeutic_insight(core_beliefs)
+                else:
+                    self.logger.info(f"🚪 Gating blocked beliefs insight: {gating_decision.reason}")
+
+            # 🔥 NEW: Detect breakthrough moments (Month 4)
+            breakthroughs = self.breakthrough_detector.detect(message)
+            breakthrough_celebration = ""
+            if breakthroughs:
+                self.logger.info(f"🌟 BREAKTHROUGH! Detected {len(breakthroughs)} breakthrough moments: {[b.breakthrough_type for b in breakthroughs]}")
+                # Generate celebration response
+                celebration_parts = []
+                for b in breakthroughs:
+                    if b.breakthrough_type == "insight":
+                        celebration_parts.append("Это прекрасный инсайт! Я вижу, как вы соединяете важные точки.")
+                    elif b.breakthrough_type == "emotional_release":
+                        celebration_parts.append("Вы позволили себе прожить важные чувства. Это требует мужества.")
+                    elif b.breakthrough_type == "belief_shift":
+                        celebration_parts.append("Я замечаю, как меняется ваш взгляд на вещи. Это важный сдвиг!")
+                    elif b.breakthrough_type == "defense_lowering":
+                        celebration_parts.append("Вы открылись чему-то важному. Благодарю за доверие.")
+                    elif b.breakthrough_type == "integration":
+                        celebration_parts.append("Вы интегрируете разные части опыта. Это глубокая работа.")
+                if celebration_parts:
+                    breakthrough_celebration = " ".join(celebration_parts[:2])  # Max 2 celebrations
+
+            # 🔥 NEW: Track growth areas and measure progress (Month 4)
+            user_id_int = int(user_id) if user_id.isdigit() else hash(user_id) % 1000000
+            new_growth_areas = self.growth_tracker.identify_growth_areas(user_id_int, message)
+            growth_measurements = self.growth_tracker.measure_progress(user_id_int, message)
+            growth_feedback = ""
+            if growth_measurements:
+                positive_changes = [m for m in growth_measurements if m.delta > 0]
+                if positive_changes:
+                    self.logger.info(f"📈 Growth progress: {[f'{m.area_id}:{m.delta:+.2f}' for m in positive_changes]}")
+                    # Get top growth area for feedback
+                    top_growth = self.growth_tracker.get_top_growth_areas(user_id_int, top_n=1)
+                    if top_growth:
+                        area_name, progress = top_growth[0]
+                        if progress > 0.5:
+                            growth_feedback = f"Заметный прогресс в области '{area_name}' - {progress:.0%}!"
+
+            # 🔥 NEW: Analyze meta-patterns (Month 4)
+            meta_patterns = self.meta_analyzer.analyze(user_id_int, message)
+            meta_pattern_insight = ""
+            if meta_patterns:
+                self.logger.info(f"🔄 Meta-patterns detected: {[p.pattern_id for p in meta_patterns]}")
+                # Get therapeutic insight only if we have enough data (3+ occurrences of any pattern)
+                strong_patterns = [p for p in meta_patterns if p.occurrences >= 3]
+                if strong_patterns:
+                    meta_pattern_insight = self.meta_analyzer.get_therapeutic_insight(user_id_int)
+
             # 🔥 NEW: Apply Micro Interventions to final response (Phase 2-3)
             intervention_context = {
                 'negative_belief_detected': any(word in message.lower() for word in ['не могу', 'невозможно', 'не получится']),
                 'negative_statement': message[:100] if any(word in message.lower() for word in ['не могу', 'невозможно']) else '',
                 'positive_state_detected': any(word in message.lower() for word in ['получилось', 'удалось', 'смог']),
                 'positive_state': 'успех' if 'получилось' in message.lower() else '',
-                'comfort_zone_detected': message_analysis.get('intent') == 'progress_sharing'
+                'comfort_zone_detected': message_analysis.get('intent') == 'progress_sharing',
+                # NEW: Pass distortion info for better interventions
+                'cognitive_distortion_detected': len(cognitive_distortions) > 0,
+                'distortion_types': [d.distortion_type for d in cognitive_distortions[:2]] if cognitive_distortions else []
             }
 
             final_response_with_interventions = self.micro_interventions.inject(
                 response_text + questions_text,
                 intervention_context
             )
+
+            # 🔥 NEW: Add therapeutic feedback for cognitive distortions (gentle, supportive)
+            if therapeutic_feedback:
+                final_response_with_interventions += f"\n\n---\n\n💭 {therapeutic_feedback}"
+
+            # 🔥 NEW: Add insight about core beliefs (deeper understanding)
+            if beliefs_insight:
+                final_response_with_interventions += f"\n\n💎 {beliefs_insight}"
+
+            # 🔥 NEW: Add breakthrough celebration (Month 4)
+            if breakthrough_celebration:
+                final_response_with_interventions += f"\n\n🌟 {breakthrough_celebration}"
+
+            # 🔥 NEW: Add growth progress feedback (Month 4)
+            if growth_feedback:
+                final_response_with_interventions += f"\n\n📈 {growth_feedback}"
+
+            # 🔥 NEW: Add meta-pattern insight (Month 4)
+            if meta_pattern_insight:
+                final_response_with_interventions += f"\n\n🔄 {meta_pattern_insight}"
 
             # Convert Markdown to HTML for Telegram
             final_response_html = self._markdown_to_html(final_response_with_interventions)
@@ -371,6 +529,21 @@ class ChatCoachService(LoggerMixin):
             self.logger.log_service_result("process_message", True, processing_time,
                                          insights_count=len(insights_detected))
 
+            # Трекинг для Claude - AI response
+            await error_collector.track(
+                event_type="ai_call",
+                action="generate_chat_response",
+                service="ChatCoachService",
+                user_id=int(user_id) if user_id.isdigit() else None,
+                details={
+                    "model": recommended_model,
+                    "response_time": round(processing_time, 2),
+                    "response_length": len(final_response_html),
+                    "insights_count": len(insights_detected),
+                    "deep_questions": len(deep_questions)
+                }
+            )
+
             return ChatResponse(
                 success=True,
                 message="Message processed successfully",
@@ -384,6 +557,14 @@ class ChatCoachService(LoggerMixin):
         except Exception as e:
             self.logger.log_error("MESSAGE_PROCESSING_ERROR",
                                  f"Failed to process message: {e}", user_id, e)
+            # 🔥 Отправляем в централизованный сборщик ошибок
+            await error_collector.collect(
+                error=e,
+                service="ChatCoachService",
+                component="process_message",
+                user_id=int(user_id) if user_id.isdigit() else None,
+                context={"message_length": len(message)}
+            )
             return ChatResponse(
                 success=False,
                 message=f"Failed to process message: {str(e)}"
@@ -478,6 +659,22 @@ class ChatCoachService(LoggerMixin):
             conversation_stage=conversation_stage
         )
 
+    @staticmethod
+    def _get_trait_score(trait_value: Any) -> float:
+        """
+        Извлечь score из Big Five trait
+
+        Поддерживает оба формата:
+        - {"score": 0.5, "confidence": 0.2} - Qdrant extended format
+        - 0.5 - direct float value
+        """
+        if isinstance(trait_value, dict):
+            return trait_value.get("score", 0.0)
+        elif isinstance(trait_value, (int, float)):
+            return float(trait_value)
+        else:
+            return 0.0
+
     async def _generate_welcome_message(self, user_context: UserContext) -> str:
         """Generate personalized welcome message"""
 
@@ -489,16 +686,21 @@ class ChatCoachService(LoggerMixin):
             # ⚡ NEW: Qdrant structure has "big_five" instead of "personality"
             personality = user_profile["traits"].get("big_five", {})
 
+            # Extract scores from Big Five (handles both {"score": X, "confidence": Y} and direct float)
+            extraversion = self._get_trait_score(personality.get("extraversion"))
+            openness = self._get_trait_score(personality.get("openness"))
+            conscientiousness = self._get_trait_score(personality.get("conscientiousness"))
+
             # High extraversion - energetic greeting
-            if personality.get("extraversion", 0) > 0.7:
+            if extraversion > 0.7:
                 base_greeting = "Привет! Рад нашему общению! Готов поделиться тем, что вас вдохновляет?"
 
             # High openness - creative greeting
-            elif personality.get("openness", 0) > 0.7:
+            elif openness > 0.7:
                 base_greeting = "Добро пожаловать! Всегда интересно исследовать новые идеи вместе. О чем думаете?"
 
             # High conscientiousness - structured greeting
-            elif personality.get("conscientiousness", 0) > 0.7:
+            elif conscientiousness > 0.7:
                 base_greeting = "Здравствуйте! Готов помочь структурировать ваши мысли и найти решения."
 
             # Default
@@ -618,13 +820,25 @@ class ChatCoachService(LoggerMixin):
         # 🔥 HYBRID CONTEXT: Build enriched context from multiple sources
         context_enrichment = ""
 
-        # 1. Recent conversation topics (НОВОЕ - заменяет broken semantic search)
+        # 1. Recent conversation topics
         recent_topics = self._extract_recent_topics_from_context(user_context)
         if recent_topics:
             context_enrichment += f"\n\n🗨️ _Недавно обсуждали: {', '.join(recent_topics)}_"
             self.logger.info(f"💬 Added recent topics: {recent_topics}")
 
-        # 2. Work/business context from onboarding (НОВОЕ - используем 84 ответа!)
+        # 🔥 NEW: Similar states from episodic_memory (semantic search)
+        if similar_states:
+            # Берем top-2 наиболее релевантных состояния
+            top_states = similar_states[:2]
+            for state in top_states:
+                score = state.get('score', 0)
+                text = state.get('text', '')[:100]
+                created_at = state.get('created_at', '')[:10]  # Just date
+                if text and score > 0.6:
+                    context_enrichment += f"\n\n🔮 _Похожее состояние ({created_at}): \"{text}...\"_"
+            self.logger.info(f"🔮 Added {len(top_states)} similar states from episodic_memory")
+
+        # 2. Work/business context from onboarding
         if intent == "advice_request" and message_analysis.get("domain") == "work":
             work_background = self._extract_work_background_from_onboarding(user_context)
             if work_background:
@@ -723,6 +937,15 @@ class ChatCoachService(LoggerMixin):
 
         except Exception as e:
             self.logger.error(f"❌ AI call failed: {e}")
+            # 🔥 Отправляем в централизованный сборщик ошибок
+            await error_collector.collect(
+                error=e,
+                service="ChatCoachService",
+                component="ai_call",
+                user_id=int(user_id) if user_id.isdigit() else None,
+                context={"message_length": len(message)},
+                severity="error"  # AI failures важны, но не критичны
+            )
             # Fallback to simple template if AI fails
             return f"💙 Понимаю ваш вопрос. К сожалению, сейчас возникла техническая сложность. Попробуйте переформулировать, пожалуйста.{context_enrichment}"
 
@@ -832,14 +1055,17 @@ class ChatCoachService(LoggerMixin):
         response = f"🎯 **Понял вашу ситуацию.**{user_context_info}\n\n"
 
         # Personality-adapted advice style
-        if personality.get("conscientiousness", 0) > 0.7:
+        conscientiousness = self._get_trait_score(personality.get("conscientiousness"))
+        openness = self._get_trait_score(personality.get("openness"))
+
+        if conscientiousness > 0.7:
             # Structured, step-by-step advice
             response += "**Рекомендую структурированный подход:**\n"
             response += "1. Проанализируйте текущую ситуацию\n"
             response += "2. Определите конкретные шаги действий\n"
             response += "3. Установите реалистичные сроки\n\n"
 
-        elif personality.get("openness", 0) > 0.7:
+        elif openness > 0.7:
             # Creative, exploratory advice
             response += "**Попробуйте творческий подход:**\n"
             response += "• Рассмотрите нестандартные варианты решения\n"
@@ -902,14 +1128,17 @@ class ChatCoachService(LoggerMixin):
             response += "Важно признавать свои чувства и давать им место.\n\n"
 
         # Personality-adapted support
-        if personality.get("agreeableness", 0) > 0.6:
+        agreeableness = self._get_trait_score(personality.get("agreeableness"))
+        conscientiousness = self._get_trait_score(personality.get("conscientiousness"))
+
+        if agreeableness > 0.6:
             # They value harmony and relationships
             response += "**💚 Помните:**\n"
             response += "• Вы не одиноки в своих переживаниях\n"
             response += "• Поддержка близких может быть очень ценной\n"
             response += "• Забота о себе - не эгоизм\n\n"
 
-        elif personality.get("conscientiousness", 0) > 0.6:
+        elif conscientiousness > 0.6:
             # They prefer practical solutions
             response += "**🎯 Что может помочь:**\n"
             response += "• Создайте план самоподдержки\n"
@@ -928,7 +1157,9 @@ class ChatCoachService(LoggerMixin):
                                      user_context: UserContext) -> str:
         """Generate celebratory response for progress sharing"""
 
-        if personality.get("extraversion", 0) > 0.7:
+        extraversion = self._get_trait_score(personality.get("extraversion"))
+
+        if extraversion > 0.7:
             # Enthusiastic celebration
             response = "🎉 **Вау, это потрясающе!**\n\n"
             response += "Ваш прогресс впечатляет! Отличная работа! 🚀\n\n"
@@ -957,9 +1188,12 @@ class ChatCoachService(LoggerMixin):
             response += f"Вы поделились важными мыслями о: \"{message[:80]}...\"\n\n"
 
         # Personality-adapted continuation
-        if personality.get("openness", 0) > 0.7:
+        openness = self._get_trait_score(personality.get("openness"))
+        conscientiousness = self._get_trait_score(personality.get("conscientiousness"))
+
+        if openness > 0.7:
             response += "Мне нравится ваш подход к размышлениям. Какие новые идеи приходят в голову?\n\n"
-        elif personality.get("conscientiousness", 0) > 0.7:
+        elif conscientiousness > 0.7:
             response += "Похоже, вы тщательно обдумываете ситуацию. Какие конкретные аспекты важнее всего?\n\n"
         else:
             response += "Расскажите больше - что вас больше всего волнует в этой теме?\n\n"

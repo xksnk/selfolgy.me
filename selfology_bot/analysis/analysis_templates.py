@@ -77,15 +77,28 @@ class AnalysisTemplates:
 6. **Направление роста**: К чему движется человек? Какой следующий шаг в развитии?
 
 ОТВЕЧАЙ СТРОГО В JSON ФОРМАТЕ:
+
+**КРИТИЧЕСКИ ВАЖНО для Big Five:**
+- Оцени КАЖДУЮ черту от 0.0 (минимум) до 1.0 (максимум)
+- ОБЯЗАТЕЛЬНО заполни все 5 черт: openness, conscientiousness, extraversion, agreeableness, neuroticism
+- Базируйся на стиле ответа, словах, эмоциональных маркерах
+- НЕ используй 0.5 (это fallback для ошибок)
+
+**ОБЯЗАТЕЛЬНО детектируй психологические конструкты:**
+- cognitive_distortions: Когнитивные искажения (катастрофизация, чёрно-белое мышление, etc)
+- defense_mechanisms: Защитные механизмы (проекция, рационализация, отрицание, etc)
+- core_beliefs: Глубинные убеждения (Я недостаточно хорош, Мир опасен, etc)
+- blind_spots: Слепые зоны (что человек не видит о себе)
+
 ```json
 {{
     "analysis_version": "2.0",
     "timestamp": "{current_timestamp}",
-    
+
     "core_analysis": {{
         "emotional_state": {{
             "primary": "confident",
-            "secondary": "reflective", 
+            "secondary": "reflective",
             "valence": 0.7,
             "arousal": 0.3,
             "nuances": ["thoughtful", "slightly_guarded"]
@@ -98,7 +111,7 @@ class AnalysisTemplates:
             "growth_edge": "Ключевая зона роста"
         }}
     }},
-    
+
     "traits": {{
         "big_five": {{
             "openness": 0.75,
@@ -126,7 +139,43 @@ class AnalysisTemplates:
         "insight_readiness": 0.80,
         "fatigue_indicators": 0.20
     }},
-    
+
+    "psychological_constructs": {{
+        "cognitive_distortions": [
+            {{
+                "type": "catastrophizing",
+                "description": "Преувеличение негативных последствий",
+                "evidence": "слова/фразы из ответа",
+                "severity": 0.7
+            }}
+        ],
+        "defense_mechanisms": [
+            {{
+                "type": "rationalization",
+                "description": "Объяснение поведения логическими причинами",
+                "evidence": "слова/фразы из ответа",
+                "maturity_level": "neurotic"
+            }}
+        ],
+        "core_beliefs": [
+            {{
+                "belief": "Я должен быть идеальным",
+                "category": "self",
+                "valence": "negative",
+                "confidence": 0.8,
+                "evidence": "слова/фразы из ответа"
+            }}
+        ],
+        "blind_spots": [
+            {{
+                "type": "emotional_avoidance",
+                "description": "Избегание обсуждения эмоций",
+                "severity": 0.6,
+                "evidence": "что человек НЕ говорит"
+            }}
+        ]
+    }},
+
     "recommendations": {{
         "next_domain_preference": "RELATIONSHIPS",
         "complexity_adjustment": 0,
@@ -197,29 +246,42 @@ class AnalysisTemplates:
 ВЫПОЛНИ АНАЛИЗ ПО ШАГАМ:
 
 1. **Эмоциональный тон**: Определи основную эмоцию и её нюансы
-2. **Big Five оценка**: Оцени каждую черту на основе содержания и стиля ответа  
-3. **Доменные маркеры**: Найди специфичные для домена {domain} паттерны
-4. **Уровень вовлеченности**: Оцени энергию и усталость по ответу
-5. **Ключевые инсайты**: Сформулируй 2-3 главных понимания о человеке
+2. **Big Five оценка**: Оцени каждую черту на основе содержания и стиля ответа
+3. **Психологические конструкты**: Найди когнитивные искажения, защитные механизмы, убеждения
+4. **Доменные маркеры**: Найди специфичные для домена {domain} паттерны
+5. **Уровень вовлеченности**: Оцени энергию и усталость по ответу
+6. **Ключевые инсайты**: Сформулируй 2-3 главных понимания о человеке
+
+**КРИТИЧЕСКИ ВАЖНО для Big Five:**
+- Оцени КАЖДУЮ черту от 0.0 до 1.0 на основе ответа
+- ОБЯЗАТЕЛЬНО заполни все 5 черт
+- НЕ используй 0.5 (это резерв для ошибок)
+- Используй весь диапазон 0.0-1.0
+
+**ОБЯЗАТЕЛЬНО детектируй:**
+- cognitive_distortions: Искажения мышления (катастрофизация, чёрно-белое, etc)
+- defense_mechanisms: Защиты (отрицание, проекция, рационализация, etc)
+- core_beliefs: Глубинные убеждения (о себе, других, мире)
+- blind_spots: Что человек не видит о себе
 
 ОТВЕЧАЙ JSON:
 ```json
 {{
     "analysis_version": "2.0",
-    
+
     "emotional_state": {{
         "primary": "конкретная эмоция",
         "valence": 0.7,
         "arousal": 0.3
     }},
-    
+
     "traits": {{
         "big_five": {{
-            "openness": 0.00,
-            "conscientiousness": 0.00, 
-            "extraversion": 0.00,
-            "agreeableness": 0.00,
-            "neuroticism": 0.00
+            "openness": 0.75,
+            "conscientiousness": 0.62,
+            "extraversion": 0.43,
+            "agreeableness": 0.81,
+            "neuroticism": 0.34
         }},
         "domain_traits": {{
             // Специфичные для {domain}
@@ -229,7 +291,43 @@ class AnalysisTemplates:
     "insights": "2-3 ключевых понимания о человеке",
     "fatigue_level": 0.00,
     "authenticity_level": 0.00,
-    
+
+    "psychological_constructs": {{
+        "cognitive_distortions": [
+            {{
+                "type": "catastrophizing",
+                "description": "Описание искажения",
+                "evidence": "цитата из ответа",
+                "severity": 0.7
+            }}
+        ],
+        "defense_mechanisms": [
+            {{
+                "type": "rationalization",
+                "description": "Описание механизма",
+                "evidence": "цитата из ответа",
+                "maturity_level": "neurotic"
+            }}
+        ],
+        "core_beliefs": [
+            {{
+                "belief": "Текст убеждения",
+                "category": "self",
+                "valence": "negative",
+                "confidence": 0.8,
+                "evidence": "цитата из ответа"
+            }}
+        ],
+        "blind_spots": [
+            {{
+                "type": "emotional_avoidance",
+                "description": "Описание слепой зоны",
+                "severity": 0.6,
+                "evidence": "что НЕ говорится"
+            }}
+        ]
+    }},
+
     "recommendations": {{
         "next_domain": "предложение домена",
         "complexity": "maintain/increase/decrease",
@@ -270,16 +368,46 @@ JSON ответ с фокусом на эмоциональный интелле
 
 КЛАССИФИЦИРУЙ ПО ПУНКТАМ:
 ☐ Эмоция: радость/грусть/страх/гнев/нейтрал
-☐ Openness: низкая(<0.4)/средняя(0.4-0.7)/высокая(>0.7)  
+☐ Big Five черты (ОБЯЗАТЕЛЬНО все 5):
+  - Openness: 0.0-1.0
+  - Conscientiousness: 0.0-1.0
+  - Extraversion: 0.0-1.0
+  - Agreeableness: 0.0-1.0
+  - Neuroticism: 0.0-1.0
 ☐ Энергия: низкая/средняя/высокая
 ☐ Усталость: да/нет
 ☐ Качество ответа: поверхностный/средний/глубокий
+
+**КРИТИЧЕСКИ ВАЖНО для Big Five:**
+- Оцени КАЖДУЮ черту от 0.0 до 1.0 на основе ответа
+- ОБЯЗАТЕЛЬНО заполни все 5 черт
+- НЕ используй 0.5 (это резерв для ошибок)
+- Используй весь диапазон 0.0-1.0
+
+**Психологические конструкты (если видны):**
+- Когнитивные искажения
+- Защитные механизмы
+- Глубинные убеждения
 
 JSON:
 ```json
 {{
     "emotional_state": "конкретная эмоция",
-    "openness_level": 0.0,
+    "traits": {{
+        "big_five": {{
+            "openness": 0.0,
+            "conscientiousness": 0.0,
+            "extraversion": 0.0,
+            "agreeableness": 0.0,
+            "neuroticism": 0.0
+        }}
+    }},
+    "psychological_constructs": {{
+        "cognitive_distortions": [],
+        "defense_mechanisms": [],
+        "core_beliefs": [],
+        "blind_spots": []
+    }},
     "energy_level": 0.0,
     "fatigue_detected": false,
     "answer_quality": "medium",
@@ -319,21 +447,49 @@ JSON:
 
 ЛЕГКИЙ АНАЛИЗ для начинающего пользователя:
 
-ВОПРОС: {question_text}  
+ВОПРОС: {question_text}
 ОТВЕТ: "{user_answer}"
 
 МЯГКО ПРОАНАЛИЗИРУЙ:
 - Основная эмоция (поддерживающе)
 - 2-3 сильные стороны которые видны
 - Простое понимание о человеке
+- **Big Five черты** (ОБЯЗАТЕЛЬНО все 5 от 0.0 до 1.0, НЕ используй 0.5)
 
 ТОН: Мягкий, принимающий, поддерживающий.
 ДЛИНА: 100-150 слов максимум.
 
-JSON с краткими инсайтами и поддержкой.
+**ВЕРНИ JSON В ТОЧНОСТИ ПО ЭТОЙ СХЕМЕ:**
+```json
+{{
+    "insights": {{
+        "main": "краткий инсайт (100-150 слов)"
+    }},
+    "traits": {{
+        "big_five": {{
+            "openness": 0.0,
+            "conscientiousness": 0.0,
+            "extraversion": 0.0,
+            "agreeableness": 0.0,
+            "neuroticism": 0.0
+        }}
+    }},
+    "psychological_constructs": {{
+        "cognitive_distortions": [],
+        "defense_mechanisms": [],
+        "core_beliefs": [],
+        "blind_spots": []
+    }},
+    "emotional_assessment": {{
+        "primary": "эмоция",
+        "valence": 0.0,
+        "arousal": 0.0
+    }}
+}}
+```
 """,
 
-        "flowing": """  
+        "flowing": """
 {base_context}
 
 СРЕДНИЙ АНАЛИЗ для развивающегося пользователя:
@@ -343,15 +499,45 @@ JSON с краткими инсайтами и поддержкой.
 
 ГЛУБЖЕ ПРОАНАЛИЗИРУЙ:
 - Эмоциональные паттерны и нюансы
-- Стиль мышления и принятия решений  
+- Стиль мышления и принятия решений
 - Связи с предыдущими ответами
 - Зоны роста и развития
-- Big Five черты с примерами
+- **Big Five черты** с примерами (ОБЯЗАТЕЛЬНО все 5 от 0.0 до 1.0, НЕ используй 0.5)
+- Психологические конструкты (искажения, защиты, убеждения)
 
 ТОН: Аналитический, но поддерживающий.
 ДЛИНА: 200-300 слов.
 
-JSON с инсайтами и паттернами.
+**ВЕРНИ JSON В ТОЧНОСТИ ПО ЭТОЙ СХЕМЕ:**
+```json
+{{
+    "insights": {{
+        "main": "основной инсайт (200-300 слов)",
+        "patterns": ["паттерн 1", "паттерн 2"]
+    }},
+    "traits": {{
+        "big_five": {{
+            "openness": 0.0,
+            "conscientiousness": 0.0,
+            "extraversion": 0.0,
+            "agreeableness": 0.0,
+            "neuroticism": 0.0
+        }}
+    }},
+    "psychological_constructs": {{
+        "cognitive_distortions": [{{"type": "тип", "evidence": "пример"}}],
+        "defense_mechanisms": [{{"type": "тип", "maturity": "уровень"}}],
+        "core_beliefs": [{{"belief": "убеждение", "valence": "позитивное/негативное"}}],
+        "blind_spots": [{{"type": "тип", "description": "описание"}}]
+    }},
+    "emotional_assessment": {{
+        "primary": "эмоция",
+        "valence": 0.0,
+        "arousal": 0.0
+    }},
+    "growth_indicators": ["зона роста 1", "зона роста 2"]
+}}
+```
 """,
 
         "deep_dive": """
@@ -366,15 +552,49 @@ JSON с инсайтами и паттернами.
 ПРОВЕДИ ТРАНСФОРМАЦИОННЫЙ АНАЛИЗ:
 
 1. **Эволюция личности**: Как изменился с первых ответов?
-2. **Паттерны и тени**: Какие бессознательные паттерны проявляются?  
+2. **Паттерны и тени**: Какие бессознательные паттерны проявляются?
 3. **Защитные механизмы**: Как человек защищается от уязвимости?
 4. **Потенциал роста**: Какие качества готовы развиваться?
 5. **Интеграция**: Как объединить противоречивые аспекты?
+6. **Big Five черты** с глубоким обоснованием (ОБЯЗАТЕЛЬНО все 5 от 0.0 до 1.0, НЕ используй 0.5)
+7. **Психологические конструкты** с детальным анализом
 
 ТОН: Глубокий, мудрый, трансформирующий.
 ДЛИНА: 400-600 слов.
 
-JSON с полным психологическим портретом и путем роста.
+**ВЕРНИ JSON В ТОЧНОСТИ ПО ЭТОЙ СХЕМЕ:**
+```json
+{{
+    "insights": {{
+        "main": "глубинный инсайт (400-600 слов)",
+        "shadow_patterns": ["теневой паттерн 1", "теневой паттерн 2"],
+        "integration_points": ["точка интеграции 1", "точка интеграции 2"]
+    }},
+    "traits": {{
+        "big_five": {{
+            "openness": 0.0,
+            "conscientiousness": 0.0,
+            "extraversion": 0.0,
+            "agreeableness": 0.0,
+            "neuroticism": 0.0
+        }}
+    }},
+    "psychological_constructs": {{
+        "cognitive_distortions": [{{"type": "тип", "evidence": "пример", "severity": 0.0}}],
+        "defense_mechanisms": [{{"type": "тип", "maturity": "уровень", "purpose": "назначение"}}],
+        "core_beliefs": [{{"belief": "убеждение", "valence": "позитивное/негативное", "origin": "происхождение"}}],
+        "blind_spots": [{{"type": "тип", "description": "описание", "impact": "влияние"}}]
+    }},
+    "emotional_assessment": {{
+        "primary": "эмоция",
+        "valence": 0.0,
+        "arousal": 0.0
+    }},
+    "growth_indicators": ["зона роста 1", "зона роста 2", "зона роста 3"],
+    "meta_patterns": ["мета-паттерн 1", "мета-паттерн 2"],
+    "breakthrough_potential": "описание потенциала прорыва"
+}}
+```
 """
     }
     

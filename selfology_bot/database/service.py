@@ -12,6 +12,8 @@ import logging
 from typing import Optional
 from contextlib import asynccontextmanager
 
+from core.error_collector import error_collector
+
 logger = logging.getLogger(__name__)
 
 class DatabaseService:
@@ -58,6 +60,12 @@ class DatabaseService:
             
         except Exception as e:
             logger.error(f"❌ Failed to initialize database pool: {e}")
+            await error_collector.collect(
+                error=e,
+                service="DatabaseService",
+                component="initialize",
+                severity="critical"
+            )
             return False
     
     @asynccontextmanager
@@ -72,6 +80,11 @@ class DatabaseService:
                 yield connection
             except Exception as e:
                 logger.error(f"Database operation error: {e}")
+                await error_collector.collect(
+                    error=e,
+                    service="DatabaseService",
+                    component="get_connection"
+                )
                 raise
     
     async def execute_query(self, query: str, *args):

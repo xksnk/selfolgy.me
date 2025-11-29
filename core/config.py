@@ -56,13 +56,13 @@ class Config:
     """Main configuration class"""
     
     def __init__(self):
-        # Database configuration
+        # Database configuration - selfology-postgres (порт 5434)
         self.database = DatabaseConfig(
             host=os.getenv("DB_HOST", "localhost"),
-            port=int(os.getenv("DB_PORT", 5432)),
-            user=os.getenv("DB_USER", "n8n"),
-            password=os.getenv("DB_PASSWORD", "sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU="),
-            database=os.getenv("DB_NAME", "n8n")
+            port=int(os.getenv("DB_PORT", "5434")),
+            user=os.getenv("DB_USER", "selfology_user"),
+            password=os.getenv("DB_PASSWORD", "selfology_secure_2024"),
+            database=os.getenv("DB_NAME", "selfology")
         )
         
         # Vector database

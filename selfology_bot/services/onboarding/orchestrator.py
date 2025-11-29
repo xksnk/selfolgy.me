@@ -18,6 +18,7 @@ OnboardingOrchestrator - Главный дирижер онбординга
 import logging
 import sys
 import asyncio
+import json
 from pathlib import Path
 from typing import Dict, Optional, Any, List, Set
 from datetime import datetime
@@ -40,6 +41,12 @@ from .fatigue_detector import FatigueDetector
 # Импортируем Database (критично для сохранения данных)
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from database import DatabaseService, OnboardingDAO, DigitalPersonalityDAO
+
+# Импортируем VectorStorageService для episodic_memory (Phase 2)
+from selfology_bot.services.vector_storage_service import get_vector_storage
+
+# Централизованный сборщик ошибок
+from core.error_collector import error_collector
 
 logger = logging.getLogger(__name__)
 
@@ -113,15 +120,15 @@ class OnboardingOrchestrator:
         try:
             logger.info(f"🚀 Starting onboarding for user {user_id}")
 
-            # 🗄️ Инициализируем Database при первом использовании
+            # 🗄️ Инициализируем Database при первом использовании - selfology-postgres (порт 5434)
             if not self.db_service:
                 from os import environ
                 self.db_service = DatabaseService(
                     host=environ.get("DB_HOST", "localhost"),
-                    port=int(environ.get("DB_PORT", 5432)),
-                    user=environ.get("DB_USER", "n8n"),
-                    password=environ.get("DB_PASSWORD", "sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU="),
-                    database=environ.get("DB_NAME", "n8n")
+                    port=int(environ.get("DB_PORT", "5434")),
+                    user=environ.get("DB_USER", "selfology_user"),
+                    password=environ.get("DB_PASSWORD", "selfology_secure_2024"),
+                    database=environ.get("DB_NAME", "selfology")
                 )
                 await self.db_service.initialize()
                 self.onboarding_dao = OnboardingDAO(self.db_service)
@@ -204,6 +211,12 @@ class OnboardingOrchestrator:
 
         except Exception as e:
             logger.error(f"❌ Failed to start onboarding for user {user_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="OnboardingOrchestrator",
+                component="start_onboarding",
+                user_id=user_id
+            )
             raise
 
     def get_session(self, user_id: int) -> Optional[Dict[str, Any]]:
@@ -393,6 +406,12 @@ class OnboardingOrchestrator:
 
         except Exception as e:
             logger.error(f"❌ Failed to get next question for user {user_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="OnboardingOrchestrator",
+                component="get_next_question",
+                user_id=user_id
+            )
             raise
 
     async def process_user_answer(self, user_id: int, question_id: str, answer: str) -> Dict[str, Any]:
@@ -445,6 +464,37 @@ class OnboardingOrchestrator:
                     # Обычный вопрос - сохраняем как обычный ответ
                     answer_id = await self.onboarding_dao.save_user_answer(session_id, question_id, answer)
                     logger.info(f"🗄️ Answer saved to database with ID {answer_id}")
+
+                    # Трекинг для Claude - DB save
+                    await error_collector.track(
+                        event_type="db_operation",
+                        action="save_onboarding_answer",
+                        service="OnboardingOrchestrator",
+                        user_id=user_id,
+                        details={
+                            "question_id": question_id,
+                            "answer_length": len(answer),
+                            "answer_id": answer_id,
+                            "session_id": session_id
+                        },
+                        flow_id=f"session_{session_id}"
+                    )
+
+                    # 🔥 NEW: Сохраняем в episodic_memory (Qdrant) для semantic search
+                    try:
+                        vector_storage = get_vector_storage()
+                        point_id = await vector_storage.store_episodic(
+                            user_id=user_id,
+                            text=answer,
+                            metadata={
+                                'question_id': question_id,
+                                'answer_id': answer_id,
+                                'session_id': session_id
+                            }
+                        )
+                        logger.info(f"🧠 Answer stored in episodic_memory: {point_id}")
+                    except Exception as e:
+                        logger.error(f"❌ Failed to store in episodic_memory: {e}")
             else:
                 logger.warning("⚠️ Database not available - answer saved only in memory")
 
@@ -508,6 +558,13 @@ class OnboardingOrchestrator:
 
         except Exception as e:
             logger.error(f"❌ Failed to process answer from user {user_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="OnboardingOrchestrator",
+                component="process_user_answer",
+                user_id=user_id,
+                context={"question_id": question_id, "answer_length": len(answer)}
+            )
             raise
 
     def _create_background_task(self, coro, name: str = None) -> asyncio.Task:
@@ -678,6 +735,12 @@ class OnboardingOrchestrator:
 
         except Exception as e:
             logger.error(f"❌ Failed to complete onboarding for user {user_id}: {e}")
+            await error_collector.collect(
+                error=e,
+                service="OnboardingOrchestrator",
+                component="complete_onboarding",
+                user_id=user_id
+            )
             raise
 
     async def record_skipped_question(self, user_id: int, question_id: str) -> None:
@@ -853,7 +916,193 @@ class OnboardingOrchestrator:
             else:
                 logger.warning("⚠️ Database not available - analysis not saved")
 
-            # 2.3.5 🧬 ИЗВЛЕЧЕНИЕ ЦИФРОВОЙ ЛИЧНОСТИ
+            # 2.3.2 🧠 NEW: Сохраняем AI-анализ в semantic_knowledge (Qdrant)
+            try:
+                vector_storage = get_vector_storage()
+
+                # Формируем текст анализа для embedding
+                analysis_text = ""
+                if analysis_result.get("psychological_insights"):
+                    analysis_text += f"Инсайты: {analysis_result['psychological_insights']}. "
+                if analysis_result.get("personality_traits"):
+                    traits = analysis_result["personality_traits"]
+                    analysis_text += f"Черты: {json.dumps(traits, ensure_ascii=False)}. "
+                if analysis_result.get("emotional_state"):
+                    analysis_text += f"Эмоции: {analysis_result['emotional_state']}. "
+
+                if analysis_text:
+                    semantic_point_id = await vector_storage.store_semantic(
+                        user_id=user_id,
+                        analysis_text=analysis_text,
+                        turn_id=str(answer_id) if answer_id else None,
+                        metadata={
+                            'question_id': question_id,
+                            'answer_id': answer_id,
+                            'session_id': session_id,
+                            'analysis_depth': analysis_result.get('analysis_depth', 'standard'),
+                            'model_used': analysis_result.get('model_used', 'unknown')
+                        }
+                    )
+                    logger.info(f"🧠 AI analysis stored in semantic_knowledge: {semantic_point_id}")
+
+            except Exception as e:
+                logger.error(f"❌ Failed to store in semantic_knowledge: {e}")
+
+            # 2.3.3 💚 NEW: Сохраняем эмоциональное состояние в emotional_thematic
+            try:
+                # Извлекаем эмоциональное состояние из analysis_result
+                psychological_analysis = analysis_result.get("psychological_analysis", {})
+                emotional_assessment = psychological_analysis.get("emotional_assessment", {})
+                primary_emotion = emotional_assessment.get("primary", "neutral")
+
+                # СОХРАНЯЕМ ВСЕГДА, даже neutral (для полноты данных)
+                vector_storage = get_vector_storage()
+
+                # Определяем интенсивность на основе контекста
+                if primary_emotion == "neutral":
+                    intensity = 0.2  # Низкая интенсивность для neutral
+                elif analysis_result.get("special_situation") == "crisis":
+                    intensity = 1.0
+                elif analysis_result.get("special_situation") == "breakthrough":
+                    intensity = 0.8
+                else:
+                    intensity = 0.5
+
+                emotional_point_id = await vector_storage.store_emotional(
+                    user_id=user_id,
+                    text=answer,
+                    emotion=primary_emotion,
+                    intensity=intensity,
+                    metadata={
+                        'question_id': question_id,
+                        'answer_id': answer_id,
+                        'analysis_depth': analysis_result.get('analysis_depth', 'standard'),
+                        'valence': emotional_assessment.get('valence', 0.0),
+                        'arousal': emotional_assessment.get('arousal', 0.0)
+                    }
+                )
+                logger.info(f"💚 Emotional state stored: {primary_emotion} (intensity: {intensity})")
+
+            except Exception as e:
+                logger.error(f"❌ Failed to store in emotional_thematic: {e}")
+
+            # 2.3.4 💎 NEW: Сохраняем психологические конструкты в psychological_constructs
+            try:
+                vector_storage = get_vector_storage()
+                psychological_analysis = analysis_result.get("psychological_analysis", {})
+
+                # Сохраняем core_beliefs
+                core_beliefs = psychological_analysis.get("core_beliefs", [])
+                for belief in core_beliefs:
+                    await vector_storage.store_construct(
+                        user_id=user_id,
+                        construct_text=belief.get("belief_text", ""),
+                        construct_type="core_belief",
+                        confidence=belief.get("confidence", 0.5),
+                        metadata={
+                            'question_id': question_id,
+                            'answer_id': answer_id,
+                            'category': belief.get("category", "unknown"),
+                            'valence': belief.get("valence", 0.0),
+                            'schema_type': belief.get("schema_type", "")
+                        }
+                    )
+                if core_beliefs:
+                    logger.info(f"💎 Stored {len(core_beliefs)} core beliefs in psychological_constructs")
+
+                # Сохраняем cognitive_distortions
+                distortions = psychological_analysis.get("cognitive_distortions", [])
+                for distortion in distortions:
+                    await vector_storage.store_construct(
+                        user_id=user_id,
+                        construct_text=distortion.get("evidence", ""),
+                        construct_type="cognitive_distortion",
+                        confidence=distortion.get("confidence", 0.5),
+                        metadata={
+                            'question_id': question_id,
+                            'answer_id': answer_id,
+                            'distortion_type': distortion.get("distortion_type", "unknown"),
+                            'explanation': distortion.get("explanation", "")
+                        }
+                    )
+                if distortions:
+                    logger.info(f"🧠 Stored {len(distortions)} cognitive distortions in psychological_constructs")
+
+                # Сохраняем defense_mechanisms
+                defenses = psychological_analysis.get("defense_mechanisms", [])
+                for defense in defenses:
+                    await vector_storage.store_construct(
+                        user_id=user_id,
+                        construct_text=defense.get("evidence", ""),
+                        construct_type="defense_mechanism",
+                        confidence=defense.get("confidence", 0.5),
+                        metadata={
+                            'question_id': question_id,
+                            'answer_id': answer_id,
+                            'mechanism_type': defense.get("mechanism_type", "unknown"),
+                            'maturity_level': defense.get("maturity_level", "unknown")
+                        }
+                    )
+                if defenses:
+                    logger.info(f"🛡️ Stored {len(defenses)} defense mechanisms in psychological_constructs")
+
+            except Exception as e:
+                logger.error(f"❌ Failed to store in psychological_constructs: {e}")
+
+            # 2.3.5 🔍 NEW: Сохраняем слепые зоны в meta_patterns
+            try:
+                blind_spots = psychological_analysis.get("blind_spots", [])
+                if blind_spots:
+                    vector_storage = get_vector_storage()
+                    for spot in blind_spots:
+                        # Формируем текст для embedding
+                        pattern_text = f"{spot.get('spot_type', 'unknown')}: {spot.get('pattern_description', '')}"
+
+                        await vector_storage.store_pattern(
+                            user_id=user_id,
+                            pattern_text=pattern_text,
+                            pattern_type="blind_spot",
+                            metadata={
+                                'question_id': question_id,
+                                'answer_id': answer_id,
+                                'spot_type': spot.get("spot_type", "unknown"),
+                                'category': spot.get("category", "unknown"),
+                                'confidence': spot.get("confidence", 0.5),
+                                'evidence': spot.get("evidence", ""),
+                                'gentle_question': spot.get("gentle_question", "")
+                            }
+                        )
+                    logger.info(f"🔍 Stored {len(blind_spots)} blind spots in meta_patterns")
+
+                # 🔄 НОВОЕ: Сохраняем мета-паттерны
+                meta_patterns_list = psychological_analysis.get("meta_patterns", [])
+                if meta_patterns_list:
+                    vector_storage = get_vector_storage()
+                    for pattern in meta_patterns_list:
+                        # Формируем текст для embedding
+                        pattern_text = f"{pattern.get('pattern_type', 'theme')}: {pattern.get('description', '')} | Evidence: {', '.join(pattern.get('evidence', []))}"
+
+                        await vector_storage.store_pattern(
+                            user_id=user_id,
+                            pattern_text=pattern_text,
+                            pattern_type=pattern.get('pattern_type', 'theme'),
+                            metadata={
+                                'question_id': question_id,
+                                'answer_id': answer_id,
+                                'pattern_id': pattern.get("pattern_id", "unknown"),
+                                'strength': pattern.get("strength", 0.0),
+                                'occurrences': pattern.get("occurrences", 1),
+                                'first_seen': pattern.get("first_seen", ""),
+                                'last_seen': pattern.get("last_seen", ""),
+                                'evolution': pattern.get("evolution", "emerging")
+                            }
+                        )
+                    logger.info(f"🔄 Stored {len(meta_patterns_list)} meta-patterns in meta_patterns collection")
+
+            except Exception as e:
+                logger.error(f"❌ Failed to store in meta_patterns: {e}")
+
+            # 2.3.6 🧬 ИЗВЛЕЧЕНИЕ ЦИФРОВОЙ ЛИЧНОСТИ
             try:
                 # Получаем существующую личность
                 existing_personality = None
@@ -1196,13 +1445,18 @@ class OnboardingOrchestrator:
         try:
             logger.info("📈 Setting up vector storage collections...")
 
-            # Настраиваем коллекции в EmbeddingCreator
-            setup_success = await self.embedding_creator.setup_qdrant_collections()
+            # 1. Коллекции EmbeddingCreator (personality profiling)
+            embedding_success = await self.embedding_creator.setup_qdrant_collections()
 
-            if setup_success:
-                logger.info("✅ Vector storage collections ready")
+            # 2. Коллекции VectorStorageService (answer analysis)
+            from selfology_bot.services.vector_storage_service import get_vector_storage
+            vector_storage = get_vector_storage()
+            vector_success = await vector_storage.setup_collections()
+
+            if embedding_success and vector_success:
+                logger.info("✅ ALL vector collections ready (8 total: 3 personality + 5 analysis)")
             else:
-                logger.warning("⚠️ Vector storage setup incomplete - will retry later")
+                logger.warning("⚠️ Some collections failed to initialize")
 
         except Exception as e:
             logger.error(f"❌ Error setting up vector storage: {e}")
