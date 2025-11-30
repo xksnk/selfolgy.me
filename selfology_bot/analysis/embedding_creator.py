@@ -633,8 +633,14 @@ class EmbeddingCreator:
             significant_changes = []
 
             for trait in self.config.BIG_FIVE_TRAITS:
-                old_value = current_traits.get(trait, 0.5)
-                new_value = new_traits.get(trait, 0.5)
+                # Получаем значения - могут быть float или dict с "score"
+                old_raw = current_traits.get(trait, 0.5)
+                new_raw = new_traits.get(trait, 0.5)
+
+                # Извлекаем score если это dict
+                old_value = old_raw.get("score", 0.5) if isinstance(old_raw, dict) else old_raw
+                new_value = new_raw.get("score", 0.5) if isinstance(new_raw, dict) else new_raw
+
                 diff = abs(new_value - old_value)
 
                 trait_differences.append(diff)

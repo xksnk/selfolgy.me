@@ -114,9 +114,17 @@ class ClusterRouter:
                     'questions': []
                 }
 
+                # Метаданные блока для classification
+                block_meta = block.get('block_metadata', {})
+
                 # Сохраняем вопросы
                 for q in block.get('questions', []):
                     question_id = q['id']
+                    # Извлекаем значения из block_metadata
+                    complexity_range = block_meta.get('base_complexity_range', [1, 2])
+                    emotional_range = block_meta.get('base_emotional_weight_range', [1, 2])
+                    safety_min = block_meta.get('base_safety_minimum', 4)
+
                     question_data = {
                         'id': question_id,
                         'text': q['text'],
@@ -124,7 +132,23 @@ class ClusterRouter:
                         'position_in_block': q.get('position_in_block', 0),
                         'format': q.get('format', 'both'),
                         'cluster_id': cluster_id,
-                        'program_id': program_id
+                        'program_id': program_id,
+                        # classification для совместимости с answer_analyzer
+                        'classification': {
+                            'domain': self._infer_domain_from_program(program_id),
+                            'depth_level': block_meta.get('base_depth_range', ['SURFACE'])[0],
+                            'energy_dynamic': block_meta.get('base_energy_dynamic', 'NEUTRAL'),
+                            'journey_stage': block_meta.get('base_journey_stage', 'ENTRY')
+                        },
+                        # psychology для совместимости с answer_analyzer
+                        'psychology': {
+                            'complexity': (complexity_range[0] + complexity_range[-1]) / 2 if complexity_range else 1.5,
+                            'emotional_weight': (emotional_range[0] + emotional_range[-1]) / 2 if emotional_range else 1.5,
+                            'insight_potential': 3,  # Средний потенциал
+                            'trust_requirement': 2,  # Низкое требование доверия для ENTRY
+                            'safety_level': safety_min
+                        },
+                        'block_metadata': block_meta
                     }
                     self.questions[question_id] = question_data
                     cluster_data['questions'].append(question_data)
@@ -146,6 +170,45 @@ class ClusterRouter:
             logger.info(f"🎯 Loaded smart sequence: {len(self.smart_sequence)} clusters")
         else:
             logger.warning(f"⚠️ Smart sequence file not found: {sequence_file}")
+
+    def _infer_domain_from_program(self, program_id: str) -> str:
+        """
+        Определить психологический домен на основе ID программы.
+
+        Маппинг программ к доменам для answer_analyzer.
+        """
+        # Маппинг по ключевым словам в program_id
+        domain_mapping = {
+            'zhizni': 'IDENTITY',           # Подумать о жизни
+            'sebya': 'IDENTITY',            # Изучить себя
+            'kariera': 'WORK',              # Карьера
+            'biznes': 'WORK',               # Бизнес
+            'zdorove': 'BODY',              # Здоровье
+            'telo': 'BODY',                 # Тело
+            'otnosheniya': 'RELATIONSHIPS', # Отношения
+            'semi': 'RELATIONSHIPS',        # Семья
+            'lyubov': 'RELATIONSHIPS',      # Любовь
+            'strahi': 'FEARS',              # Страхи
+            'trevoga': 'EMOTIONS',          # Тревога
+            'emotsi': 'EMOTIONS',           # Эмоции
+            'tsennost': 'VALUES',           # Ценности
+            'smysl': 'VALUES',              # Смыслы
+            'tsel': 'GOALS',                # Цели
+            'mechta': 'FUTURE',             # Мечты
+            'proshloe': 'PAST',             # Прошлое
+            'detstvo': 'PAST',              # Детство
+            'tvorchestvo': 'CREATIVITY',    # Творчество
+            'duhovnost': 'SPIRITUALITY',    # Духовность
+            'rost': 'GROWTH',               # Рост
+            'razvitie': 'GROWTH',           # Развитие
+        }
+
+        program_id_lower = program_id.lower()
+        for keyword, domain in domain_mapping.items():
+            if keyword in program_id_lower:
+                return domain
+
+        return 'IDENTITY'  # По умолчанию
 
     # =========================================================================
     # ПОЛУЧЕНИЕ ДАННЫХ

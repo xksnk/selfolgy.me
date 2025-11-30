@@ -1,33 +1,39 @@
 """
-OnboardingOrchestrator v2 - Простой оркестратор для кластерной системы.
+OnboardingOrchestrator v2 - Кластерная система онбординга с AI анализом.
 
 Три режима:
 1. SMART_AI - автоматический подбор кластеров
 2. PROGRAM - пользователь выбирает программу
 3. FINISH_CLUSTERS - завершить незаконченные кластеры
 
-Источник вопросов: JSON (через ClusterRouter)
-Хранение ответов: PostgreSQL (user_answers_v2, user_cluster_progress)
+Архитектура:
+- Источник вопросов: JSON (ClusterRouter)
+- Хранение ответов: PostgreSQL (user_answers_v2)
+- AI анализ: AnalysisPipeline (фоновая обработка)
+- Векторы: Qdrant (personality_profiles, quick_match, personality_evolution)
 """
 
 import logging
+import asyncio
 import asyncpg
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Set
 from datetime import datetime
 from enum import Enum
 
 from .cluster_router import ClusterRouter, OnboardingMode
+from .analysis_pipeline import AnalysisPipeline, AnalysisResult
 
 logger = logging.getLogger(__name__)
 
 
 class OnboardingOrchestratorV2:
     """
-    Простой оркестратор онбординга.
+    Оркестратор онбординга v2 с полным AI анализом.
 
     Ответственность:
-    - Управление режимами онбординга
+    - Управление режимами онбординга (Smart AI / Program / Finish)
     - Координация между ClusterRouter и БД
+    - Запуск AI анализа в фоне через AnalysisPipeline
     - Отслеживание прогресса пользователя
     """
 
@@ -44,11 +50,32 @@ class OnboardingOrchestratorV2:
         # Кеш активных сессий (для быстрого доступа)
         self._sessions: Dict[int, Dict] = {}
 
+        # История ответов пользователей (для контекста AI)
+        self._answer_history: Dict[int, List[Dict]] = {}
+
+        # AI Analysis Pipeline
+        self._analysis_pipeline: Optional[AnalysisPipeline] = None
+        self._pipeline_initialized = False
+
+        # Фоновые задачи анализа (для graceful shutdown)
+        self._background_tasks: Set[asyncio.Task] = set()
+
         logger.info("🎯 OnboardingOrchestratorV2 initialized")
 
     async def set_db_pool(self, pool: asyncpg.Pool):
-        """Установить пул БД (если не передан в конструктор)"""
+        """Установить пул БД и инициализировать Analysis Pipeline"""
         self.db_pool = pool
+
+        # Инициализируем Analysis Pipeline
+        if not self._pipeline_initialized:
+            try:
+                self._analysis_pipeline = AnalysisPipeline(pool)
+                await self._analysis_pipeline.initialize()
+                self._pipeline_initialized = True
+                logger.info("🔬 AnalysisPipeline initialized")
+            except Exception as e:
+                logger.error(f"❌ Failed to initialize AnalysisPipeline: {e}")
+                # Продолжаем работу без анализа
 
     # =========================================================================
     # ПОЛУЧЕНИЕ ДАННЫХ
@@ -214,6 +241,10 @@ class OnboardingOrchestratorV2:
         """
         Обработать ответ пользователя.
 
+        Двухфазная обработка:
+        1. МГНОВЕННО (<100ms): сохранение ответа, следующий вопрос
+        2. ФОНОВО (2-10s): AI анализ, обновление профиля, векторы
+
         Args:
             user_id: ID пользователя
             question_id: ID вопроса
@@ -230,12 +261,40 @@ class OnboardingOrchestratorV2:
             return {"status": "error", "message": "Нет активной сессии"}
 
         cluster_id = session['cluster_id']
+        current_question = session.get('current_question', {})
+
+        # ═══════════════════════════════════════════════════════════════════════
+        # ФАЗА 1: МГНОВЕННАЯ (<100ms)
+        # ═══════════════════════════════════════════════════════════════════════
 
         # Сохраняем ответ в БД
         await self._save_answer(user_id, cluster_id, question_id, answer_text)
 
         # Обновляем прогресс кластера
         await self._increment_cluster_progress(user_id, cluster_id)
+
+        # Добавляем в историю для контекста AI
+        self._add_to_history(user_id, question_id, answer_text, current_question)
+
+        # ═══════════════════════════════════════════════════════════════════════
+        # ФАЗА 2: ФОНОВЫЙ AI АНАЛИЗ (запуск без ожидания)
+        # ═══════════════════════════════════════════════════════════════════════
+
+        if self._analysis_pipeline and self._pipeline_initialized:
+            # Строим данные вопроса для анализа
+            question_data = self._build_question_data(current_question)
+            answer_history = self._answer_history.get(user_id, [])
+
+            # Запускаем анализ в фоне
+            task = asyncio.create_task(
+                self._run_background_analysis(user_id, question_data, answer_text, answer_history)
+            )
+            self._background_tasks.add(task)
+            task.add_done_callback(self._background_tasks.discard)
+
+        # ═══════════════════════════════════════════════════════════════════════
+        # ВОЗВРАТ СЛЕДУЮЩЕГО ВОПРОСА
+        # ═══════════════════════════════════════════════════════════════════════
 
         # Получаем отвеченные вопросы
         answered = await self._get_answered_questions_in_cluster(user_id, cluster_id)
@@ -260,6 +319,72 @@ class OnboardingOrchestratorV2:
             "question": next_question,
             "progress": f"{len(answered)}/{len(cluster['questions'])}" if cluster else ""
         }
+
+    def _add_to_history(
+        self,
+        user_id: int,
+        question_id: str,
+        answer_text: str,
+        question_data: Dict
+    ):
+        """Добавить ответ в историю для контекста AI"""
+        if user_id not in self._answer_history:
+            self._answer_history[user_id] = []
+
+        self._answer_history[user_id].append({
+            "question_id": question_id,
+            "question_text": question_data.get("text", ""),
+            "answer_text": answer_text,
+            "timestamp": datetime.now().isoformat()
+        })
+
+        # Ограничиваем историю последними 20 ответами
+        if len(self._answer_history[user_id]) > 20:
+            self._answer_history[user_id] = self._answer_history[user_id][-20:]
+
+    def _build_question_data(self, question: Dict) -> Dict[str, Any]:
+        """Построить данные вопроса для AnalysisPipeline"""
+        return {
+            "id": question.get("id", ""),
+            "text": question.get("text", ""),
+            "cluster_name": question.get("cluster_name", ""),
+            "program_name": question.get("program_name", ""),
+            "block_metadata": question.get("block_metadata", {}),
+            "position_in_cluster": question.get("position_in_block", 0),
+            "total_in_cluster": question.get("total_in_cluster", 0)
+        }
+
+    async def _run_background_analysis(
+        self,
+        user_id: int,
+        question_data: Dict,
+        answer_text: str,
+        answer_history: List[Dict]
+    ):
+        """Запустить фоновый AI анализ"""
+        try:
+            result = await self._analysis_pipeline.process_answer(
+                user_id=user_id,
+                question_data=question_data,
+                answer_text=answer_text,
+                answer_history=answer_history
+            )
+
+            if result.success:
+                logger.info(
+                    f"✅ Background analysis completed for user {user_id}: "
+                    f"personality={'✅' if result.personality_updated else '❌'}, "
+                    f"vectors={'✅' if result.vectors_created else '❌'}, "
+                    f"time={result.processing_time_ms}ms"
+                )
+            else:
+                logger.warning(f"⚠️ Background analysis failed for user {user_id}: {result.error}")
+
+        except asyncio.CancelledError:
+            logger.info(f"🛑 Background analysis cancelled for user {user_id} (shutdown)")
+            raise
+        except Exception as e:
+            logger.error(f"❌ Background analysis error for user {user_id}: {e}")
 
     # =========================================================================
     # ВНУТРЕННИЕ МЕТОДЫ
@@ -504,18 +629,49 @@ class OnboardingOrchestratorV2:
         import time
         start_time = time.time()
 
-        # Очищаем сессии
+        tasks_completed = 0
+        tasks_cancelled = 0
+
+        # 1. Ждём завершения фоновых задач анализа
+        if self._background_tasks:
+            logger.info(f"🔬 Waiting for {len(self._background_tasks)} background analysis tasks...")
+
+            # Даём задачам время завершиться
+            done, pending = await asyncio.wait(
+                self._background_tasks,
+                timeout=timeout * 0.8  # 80% времени на ожидание
+            )
+
+            tasks_completed = len(done)
+
+            # Отменяем незавершённые
+            for task in pending:
+                task.cancel()
+                tasks_cancelled += 1
+
+            # Ждём отмены
+            if pending:
+                await asyncio.gather(*pending, return_exceptions=True)
+
+            logger.info(f"🔬 Background tasks: {tasks_completed} completed, {tasks_cancelled} cancelled")
+
+        # 2. Останавливаем Analysis Pipeline
+        if self._analysis_pipeline:
+            await self._analysis_pipeline.shutdown()
+
+        # 3. Очищаем сессии и историю
         sessions_count = len(self._sessions)
         self._sessions.clear()
+        self._answer_history.clear()
 
         shutdown_time = time.time() - start_time
 
-        logger.info(f"🛑 OnboardingOrchestratorV2 shutdown complete. Cleared {sessions_count} sessions.")
+        logger.info(f"🛑 OnboardingOrchestratorV2 shutdown complete in {shutdown_time:.2f}s")
 
         # Формат совместимый с selfology_controller.py
         return {
             "status": "completed",
-            "tasks_completed": sessions_count,
-            "tasks_cancelled": 0,
+            "tasks_completed": tasks_completed + sessions_count,
+            "tasks_cancelled": tasks_cancelled,
             "shutdown_time": shutdown_time
         }

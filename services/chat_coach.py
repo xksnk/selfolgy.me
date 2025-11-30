@@ -38,6 +38,25 @@ from selfology_bot.ai.clients import ai_client_manager
 from selfology_bot.ai.router import AIModel
 
 
+def get_trait_value(trait_data, default: float = 0.5) -> float:
+    """
+    Извлечь числовое значение трейта из разных форматов.
+
+    Трейт может храниться как:
+    - float: 0.7
+    - dict: {"score": 0.7, "confidence": 0.3}
+    - int: 1
+    - None
+    """
+    if trait_data is None:
+        return default
+    if isinstance(trait_data, dict):
+        return float(trait_data.get("score", default))
+    if isinstance(trait_data, (int, float)):
+        return float(trait_data)
+    return default
+
+
 @dataclass
 class ChatResponse:
     """Response from chat service"""
@@ -489,16 +508,28 @@ class ChatCoachService(LoggerMixin):
             # ⚡ NEW: Qdrant structure has "big_five" instead of "personality"
             personality = user_profile["traits"].get("big_five", {})
 
+            # Helper: извлечь float из trait (может быть dict или float)
+            def get_trait_value(trait_data, default=0.5):
+                if isinstance(trait_data, dict):
+                    return trait_data.get("score", default)
+                elif isinstance(trait_data, (int, float)):
+                    return float(trait_data)
+                return default
+
+            extraversion = get_trait_value(personality.get("extraversion", 0))
+            openness = get_trait_value(personality.get("openness", 0))
+            conscientiousness = get_trait_value(personality.get("conscientiousness", 0))
+
             # High extraversion - energetic greeting
-            if personality.get("extraversion", 0) > 0.7:
+            if extraversion > 0.7:
                 base_greeting = "Привет! Рад нашему общению! Готов поделиться тем, что вас вдохновляет?"
 
             # High openness - creative greeting
-            elif personality.get("openness", 0) > 0.7:
+            elif openness > 0.7:
                 base_greeting = "Добро пожаловать! Всегда интересно исследовать новые идеи вместе. О чем думаете?"
 
             # High conscientiousness - structured greeting
-            elif personality.get("conscientiousness", 0) > 0.7:
+            elif conscientiousness > 0.7:
                 base_greeting = "Здравствуйте! Готов помочь структурировать ваши мысли и найти решения."
 
             # Default
@@ -832,14 +863,14 @@ class ChatCoachService(LoggerMixin):
         response = f"🎯 **Понял вашу ситуацию.**{user_context_info}\n\n"
 
         # Personality-adapted advice style
-        if personality.get("conscientiousness", 0) > 0.7:
+        if get_trait_value(personality.get("conscientiousness")) > 0.7:
             # Structured, step-by-step advice
             response += "**Рекомендую структурированный подход:**\n"
             response += "1. Проанализируйте текущую ситуацию\n"
             response += "2. Определите конкретные шаги действий\n"
             response += "3. Установите реалистичные сроки\n\n"
 
-        elif personality.get("openness", 0) > 0.7:
+        elif get_trait_value(personality.get("openness")) > 0.7:
             # Creative, exploratory advice
             response += "**Попробуйте творческий подход:**\n"
             response += "• Рассмотрите нестандартные варианты решения\n"
@@ -902,14 +933,14 @@ class ChatCoachService(LoggerMixin):
             response += "Важно признавать свои чувства и давать им место.\n\n"
 
         # Personality-adapted support
-        if personality.get("agreeableness", 0) > 0.6:
+        if get_trait_value(personality.get("agreeableness")) > 0.6:
             # They value harmony and relationships
             response += "**💚 Помните:**\n"
             response += "• Вы не одиноки в своих переживаниях\n"
             response += "• Поддержка близких может быть очень ценной\n"
             response += "• Забота о себе - не эгоизм\n\n"
 
-        elif personality.get("conscientiousness", 0) > 0.6:
+        elif get_trait_value(personality.get("conscientiousness")) > 0.6:
             # They prefer practical solutions
             response += "**🎯 Что может помочь:**\n"
             response += "• Создайте план самоподдержки\n"
@@ -928,7 +959,7 @@ class ChatCoachService(LoggerMixin):
                                      user_context: UserContext) -> str:
         """Generate celebratory response for progress sharing"""
 
-        if personality.get("extraversion", 0) > 0.7:
+        if get_trait_value(personality.get("extraversion")) > 0.7:
             # Enthusiastic celebration
             response = "🎉 **Вау, это потрясающе!**\n\n"
             response += "Ваш прогресс впечатляет! Отличная работа! 🚀\n\n"
@@ -957,9 +988,9 @@ class ChatCoachService(LoggerMixin):
             response += f"Вы поделились важными мыслями о: \"{message[:80]}...\"\n\n"
 
         # Personality-adapted continuation
-        if personality.get("openness", 0) > 0.7:
+        if get_trait_value(personality.get("openness")) > 0.7:
             response += "Мне нравится ваш подход к размышлениям. Какие новые идеи приходят в голову?\n\n"
-        elif personality.get("conscientiousness", 0) > 0.7:
+        elif get_trait_value(personality.get("conscientiousness")) > 0.7:
             response += "Похоже, вы тщательно обдумываете ситуацию. Какие конкретные аспекты важнее всего?\n\n"
         else:
             response += "Расскажите больше - что вас больше всего волнует в этой теме?\n\n"
