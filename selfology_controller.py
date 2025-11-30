@@ -50,6 +50,7 @@ from services.chat_coach import ChatCoachService  # 🔥 PHASE 2-3 ACTIVE!
 # Components: Enhanced Router, Adaptive Style, Deep Questions, Micro Interventions, Confidence Calculator, Vector Storytelling
 # All 6 Phase 2-3 components integrated and tested
 from selfology_bot.monitoring import initialize_onboarding_monitoring  # 🆕 Monitoring System
+from selfology_bot.bot.states import OnboardingStates, ChatStates  # 🔧 Extracted to module
 
 # Настройка логирования
 logging.basicConfig(
@@ -58,29 +59,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Состояния FSM
-class OnboardingStates(StatesGroup):
-    gdpr_consent = State()
-    assessment_intro = State()
-    assessment_active = State()
-
-    # 🆕 Детальные состояния для Smart Mix онбординга
-    onboarding_active = State()        # Активный процесс вопросов
-    waiting_for_answer = State()       # Ожидаем текстовый ответ от пользователя
-    processing_answer = State()        # Анализируем ответ и выбираем следующий вопрос
-    onboarding_paused = State()        # Пауза по просьбе пользователя ("Закончить на сегодня")
-    onboarding_complete = State()      # Онбординг завершен, создан профиль
-
-    # 🆕 Состояния для блочной системы программ
-    choosing_mode = State()            # Выбор: авто / вручную
-    choosing_program = State()         # Выбор программы из списка
-    program_active = State()           # Активная программа
-    waiting_program_answer = State()   # Ожидание ответа в программе
-    block_transition = State()         # Переход между блоками
-
-class ChatStates(StatesGroup):
-    active = State()
-    paused = State()
+# FSM States moved to: selfology_bot/bot/states.py
 
 # Конфигурация (из .env.development)
 BOT_TOKEN = "8197893707:AAEbGC7r_4GGWXvgah-q-mLw5pp7YIxhK9g"

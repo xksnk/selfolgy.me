@@ -1,62 +1,34 @@
+"""
+FSM States для Selfology бота.
+
+Извлечено из selfology_controller.py для модульности.
+"""
+
 from aiogram.fsm.state import State, StatesGroup
 
 
 class OnboardingStates(StatesGroup):
-    """User onboarding flow states"""
-    welcome = State()
+    """Состояния онбординга"""
     gdpr_consent = State()
-    basic_info = State()
-    personality_test_intro = State()
-    personality_test = State()
-    values_assessment = State()
-    goals_setting = State()
-    onboarding_complete = State()
+    assessment_intro = State()
+    assessment_active = State()
 
+    # Детальные состояния для Smart Mix онбординга
+    onboarding_active = State()        # Активный процесс вопросов
+    waiting_for_answer = State()       # Ожидаем текстовый ответ от пользователя
+    processing_answer = State()        # Анализируем ответ и выбираем следующий вопрос
+    onboarding_paused = State()        # Пауза по просьбе пользователя
+    onboarding_complete = State()      # Онбординг завершен
 
-class PersonalityTestStates(StatesGroup):
-    """Personality assessment flow states"""
-    big_five_openness = State()
-    big_five_conscientiousness = State()
-    big_five_extraversion = State()
-    big_five_agreeableness = State()
-    big_five_neuroticism = State()
-    
-    values_family = State()
-    values_career = State()
-    values_health = State()
-    values_creativity = State()
-    values_security = State()
-    
-    goals_short_term = State()
-    goals_long_term = State()
-    goals_priorities = State()
-    
-    test_complete = State()
+    # Состояния для блочной системы программ
+    choosing_mode = State()            # Выбор: авто / вручную
+    choosing_program = State()         # Выбор программы из списка
+    program_active = State()           # Активная программа
+    waiting_program_answer = State()   # Ожидание ответа в программе
+    block_transition = State()         # Переход между блоками
 
 
 class ChatStates(StatesGroup):
-    """Main chat interaction states"""
-    idle = State()
-    chatting = State()
-    daily_checkin = State()
-    goal_tracking = State()
-    deep_reflection = State()
-
-
-class SettingsStates(StatesGroup):
-    """User settings and preferences"""
-    main_menu = State()
-    privacy_settings = State()
-    notification_settings = State()
-    ai_preferences = State()
-    export_data = State()
-
-
-class CoachingStates(StatesGroup):
-    """AI coaching session states"""
-    session_start = State()
-    problem_identification = State()
-    context_gathering = State()
-    solution_exploration = State()
-    action_planning = State()
-    session_summary = State()
+    """Состояния чата с AI-коучем"""
+    active = State()
+    paused = State()
