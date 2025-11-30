@@ -138,7 +138,7 @@ class OnboardingOrchestratorV2:
             rows = await conn.fetch("""
                 SELECT cluster_id, program_id, questions_answered, total_questions, started_at
                 FROM selfology.user_cluster_progress
-                WHERE user_id = $1 AND status = 'in_progress'
+                WHERE user_id = $1 AND status = 'in_progress' AND questions_answered > 0
                 ORDER BY started_at DESC
             """, user_id)
 
@@ -489,4 +489,33 @@ class OnboardingOrchestratorV2:
         return {
             "active_sessions": len(self._sessions),
             "router_stats": self.cluster_router.get_stats()
+        }
+
+    async def shutdown(self, timeout: float = 30.0) -> Dict[str, Any]:
+        """
+        Graceful shutdown оркестратора.
+
+        Args:
+            timeout: Таймаут ожидания в секундах
+
+        Returns:
+            Статистика на момент остановки (формат совместим с контроллером)
+        """
+        import time
+        start_time = time.time()
+
+        # Очищаем сессии
+        sessions_count = len(self._sessions)
+        self._sessions.clear()
+
+        shutdown_time = time.time() - start_time
+
+        logger.info(f"🛑 OnboardingOrchestratorV2 shutdown complete. Cleared {sessions_count} sessions.")
+
+        # Формат совместимый с selfology_controller.py
+        return {
+            "status": "completed",
+            "tasks_completed": sessions_count,
+            "tasks_cancelled": 0,
+            "shutdown_time": shutdown_time
         }

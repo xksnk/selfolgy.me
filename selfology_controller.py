@@ -42,7 +42,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from selfology_bot.messages import get_message, get_keyboard, get_message_service
 from selfology_bot.messages.human_names import HumanNames
-from selfology_bot.database import DatabaseService, UserDAO
+from selfology_bot.database import DatabaseService, UserDAO, OnboardingDAO
 # from selfology_bot.services.simple_onboarding import SimpleOnboardingService  # DISABLED
 # from selfology_bot.services.onboarding import OnboardingOrchestrator  # DISABLED - old system
 from selfology_bot.services.onboarding.orchestrator_v2 import OnboardingOrchestratorV2  # 🆕 v2 cluster system
@@ -85,12 +85,12 @@ class ChatStates(StatesGroup):
 # Конфигурация (из .env.development)
 BOT_TOKEN = "8197893707:AAEbGC7r_4GGWXvgah-q-mLw5pp7YIxhK9g"
 
-# Database config (разбиваем для избежания проблем с парсингом)
-DB_HOST = "localhost"
-DB_PORT = 5432
-DB_USER = "n8n"
-DB_PASSWORD = "sS67wM+1zMBRFHAW4kj9HwFl5J6+veo7Nirx0/I+oiU="
-DB_NAME = "n8n"
+# Database config - selfology-postgres контейнер
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = int(os.getenv("DB_PORT", "5434"))
+DB_USER = os.getenv("DB_USER", "selfology_user")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "selfology_secure_2024")
+DB_NAME = os.getenv("DB_NAME", "selfology")
 DB_SCHEMA = "selfology"
 
 # Redis FSM Storage config
