@@ -29,7 +29,12 @@
       "Bash(timeout 60 python3:*)",
       "Bash(timeout 60 python:*)",
       "Bash(python:*)",
-      "Bash(timeout 30 python:*)"
+      "Bash(timeout 30 python:*)",
+      "Bash(git branch:*)",
+      "Bash(/dev/null echo echo '=== services/ (root) ===')",
+      "Bash(head:*)",
+      "Bash(/dev/null echo echo '=== systems/ (11 files) ===')",
+      "Bash(/dev/null echo echo '=== telegram_interface/ (6 files) ===')"
     ],
     "deny": [],
     "ask": []

@@ -48,6 +48,9 @@ backups/
 *.backup
 .git.old/
 
+# Archive (refactored out)
+_archive/
+
 # Session files
 *.session
 
