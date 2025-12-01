@@ -331,6 +331,85 @@ HIERARCHY_MATRIX = {
 
 # Визуальный тест: закрыть глаза, открыть на случайной странице
 # → мгновенно понятно: это программа, кластер или вопрос?
+
+# =============================================================================
+# SPACING SYSTEM — Margins и отступы (A4)
+# =============================================================================
+# Принцип: Generous whitespace = premium feel + psychological safety
+
+SPACING_SYSTEM = {
+    # Page margins (A4: 210 × 297mm)
+    "margins": {
+        "outer": "25mm",          # 1 inch — premium breathing room
+        "inner_gutter": "20mm",   # Для переплёта
+        "top": "20mm",
+        "bottom": "25mm",
+    },
+
+    # Text area
+    "text_area": {
+        "width": "160mm",         # 210 - 25 - 25 = 160
+        "height": "252mm",        # 297 - 20 - 25 = 252
+        "note": "Comfortable for psychological work",
+    },
+
+    # Inter-section spacing
+    "sections": {
+        "program_to_program": "3em",      # + page break
+        "cluster_to_cluster": "1.5em",
+        "question_to_question": "2-4em",  # По глубине
+        "paragraph_to_paragraph": "1em",
+    },
+}
+
+# =============================================================================
+# COLOR PALETTE — Минималистичная цветовая схема
+# =============================================================================
+# Принцип: High contrast, warm tones, NOT corporate blue
+
+COLOR_PALETTE = {
+    "primary_text": "#282828",    # Warm black (не pure #000 — мягче)
+    "secondary_text": "#666666",  # Medium gray — metadata, context
+    "accent": "#1a4d2e",          # Deep forest green — psychology-coded, warm
+    "background": "#ffffff",      # Pure white для PDF
+    "paper_print": "#f8f6f0",     # Off-white cream для печати (меньше eye strain)
+
+    # Depth signaling (subtle)
+    "foundation_bg": "#ffffff",           # Pure white
+    "exploration_bg": "#fafafa",          # 1% gray
+    "integration_bg": "#f7f7f7",          # 2% gray — subtle weight
+}
+
+# =============================================================================
+# PRODUCTION CHECKLIST — Перед генерацией PDF
+# =============================================================================
+
+PRODUCTION_CHECKLIST = {
+    "pre_pdf": [
+        "Font files embedded (Montserrat + IBM Plex Sans)",
+        "Cyrillic test: шщъыюя renders correctly at 13pt",
+        "Spanish test: áéíóú ñ ü renders correctly",
+        "Hierarchy test: Program > Cluster > Question instantly visible",
+        "White space measured (ruler, not eyeballed)",
+        "Line widths consistent across pages",
+        "Margin consistency checked",
+    ],
+
+    "accessibility": [
+        "Color contrast ≥ 4.5:1 (WCAG AA)",
+        "Text not smaller than 12pt (11pt min for footnotes)",
+        "All text searchable (not images of text)",
+        "PDF structure tagged for screen readers",
+    ],
+
+    "multilingual": [
+        "Russian: Cyrillic at intended weight (test шщъыю)",
+        "Spanish: Diacritics clear (áéíóú)",
+        "English: Same visual weight as other languages",
+        "Page breaks don't split within clusters",
+        "Hyphenation rules set per language",
+    ],
+}
 ```
 
 ### Функции
