@@ -225,6 +225,62 @@ VERTICAL_HIERARCHY = {
 
 # Визуально: программа "над" кластером, но легче/меньше
 # Психология: Иерархия понятна без объяснений
+
+# =============================================================================
+# TYPOGRAPHY — Современные шрифты для RU/EN/ES
+# =============================================================================
+# Принцип: Bold, contemporary, high-contrast. НЕ vintage, НЕ corporate.
+#
+# ТЕКУЩЕЕ РЕШЕНИЕ: Бесплатные шрифты (Google Fonts)
+# TODO: Перейти на TT Norms Pro когда будет бюджет
+
+TYPOGRAPHY_CURRENT = {
+    # Headlines / Program titles / Cluster headers
+    "display": {
+        "font_family": "Montserrat",      # Google Fonts, бесплатный
+        "weights": [600, 700],            # SemiBold, Bold
+        "fallback": "Arial, sans-serif",
+        "note": "Geometric, современный, хорошая кириллица",
+    },
+
+    # Body text / Questions
+    "body": {
+        "font_family": "IBM Plex Sans",   # Google Fonts, бесплатный
+        "weights": [400, 500],            # Regular, Medium
+        "fallback": "Segoe UI, sans-serif",
+        "note": "Humanist, тёплый, отличный multilingual",
+    },
+
+    # Alternative body (если Plex недоступен)
+    "body_alt": {
+        "font_family": "Lato",
+        "weights": [400, 700],
+        "note": "Open, friendly, хороший fallback",
+    },
+}
+
+# PREMIUM UPGRADE (будущее):
+TYPOGRAPHY_PREMIUM = {
+    "display": {
+        "font_family": "TT Norms Pro",    # TypeType, ~$50-100
+        "weights": [500, 600, 700],
+        "note": "TOP-1 для кириллицы 2024-2025, geometric luxury",
+        "url": "https://typetype.org/fonts/tt-norms-pro/",
+    },
+    "body": {
+        "font_family": "IBM Plex Sans",   # Остаётся — он отличный
+        "weights": [400, 500],
+    },
+}
+
+# Кириллица-специфичные настройки:
+CYRILLIC_ADJUSTMENTS = {
+    "weight_offset": -100,        # 600 Latin → 500 Cyrillic (визуально равны)
+    "letter_spacing": "+0.3px",   # Чуть разреженнее для читаемости
+    "test_chars": "шщъыюя",       # Проверить рендеринг этих символов
+}
+
+# Spanish diacritics: áéíóú ñ ü — современные шрифты справляются
 ```
 
 ### Функции
