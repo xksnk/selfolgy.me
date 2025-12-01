@@ -58,7 +58,7 @@
 2. **Визуальная иерархия** — сломана (программа → кластер → вопрос)
 3. ✅ **Метаданные** — РЕШЕНО: Book1=Side Margin, Book2=Hanging Indent
 4. ✅ **Разделение программ** — РЕШЕНО: page break + chapter opening (номер 48pt + заголовок)
-5. **Квадратные скобки** — уродливо показывают программу в Книге 2
+5. ✅ **Квадратные скобки** — РЕШЕНО: Vertical Hierarchy (### program → ## cluster)
 6. ✅ **Глубина через дизайн** — РЕШЕНО: Stratification System (weight/spacing/tracking)
 7. **User flow** — не проработан
 
