@@ -60,7 +60,7 @@
 4. ✅ **Разделение программ** — РЕШЕНО: page break + chapter opening (номер 48pt + заголовок)
 5. ✅ **Квадратные скобки** — РЕШЕНО: Vertical Hierarchy (### program → ## cluster)
 6. ✅ **Глубина через дизайн** — РЕШЕНО: Stratification System (weight/spacing/tracking)
-7. **User flow** — не проработан
+7. **Психологическая безопасность** — частично (Breathing Room есть, остальное — нет)
 
 ---
 
