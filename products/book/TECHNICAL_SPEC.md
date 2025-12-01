@@ -110,6 +110,41 @@ DEPTH_BACKGROUND = {
     "Integration": "2%_gray_halftone",    # Subtle halftone — глубина
 }
 # Мозг регистрирует "больше веса впереди" без осознания паттерна
+
+# =============================================================================
+# METADATA INTEGRATION — Элегантное отображение метаданных
+# =============================================================================
+# Принцип: Метаданные ДОСТУПНЫ, но не НАВЯЗАНЫ. Читатель может игнорировать.
+#
+# Книга 1 (тематическая): SIDE MARGIN
+# - Пользователь ищет тему в оглавлении → нужна быстрая ориентация
+# - Время/контекст живут в ПРАВОМ ПОЛЕ — не прерывают чтение
+# - Ultra-light, 9-10pt, secondary color (#666)
+#
+# Книга 2 (прогрессивная): HANGING INDENT
+# - Пользователь идёт последовательно → metadata = подготовка
+# - Metadata ПОД заголовком кластера, мелким шрифтом
+# - Создаёт ритм: заголовок → контекст → вопросы
+
+METADATA_STYLE = {
+    "book1": {
+        "position": "side_margin",      # Правое поле страницы
+        "font_size": "9pt",
+        "font_weight": 300,             # Ultra-light — отступает на второй план
+        "color": "#666666",             # Secondary gray
+        "content": "{time} мин",        # Только время
+    },
+    "book2": {
+        "position": "hanging_indent",   # Под заголовком кластера
+        "font_size": "10pt",
+        "font_weight": 300,
+        "color": "#666666",
+        "content": "{description} | {time} мин",  # Описание + время
+    }
+}
+
+# Психология: Side margin = "информация доступна, не обязательна"
+# Hanging indent = "вот что тебя ждёт, приготовься"
 ```
 
 ### Функции
@@ -186,9 +221,11 @@ def generate_book1(lang):
             typo = DEPTH_TYPOGRAPHY[block_type]
 
             # Заголовок кластера (без emoji — глубина через typography)
+            # SIDE MARGIN: время в правом поле (реализуется в LaTeX)
             output.append(f"\n## {block_name}\n")
+            # Описание курсивом, время — в margin note для LaTeX
             output.append(f"*{block_desc}*\n")
-            output.append(f"\n~{time} мин\n")  # Время без emoji — минимализм
+            output.append(f"\n\\marginpar{{\\small {time} мин}}\n")  # LaTeX margin
 
             # Предупреждение для Integration
             if block_type == "Integration":
@@ -324,12 +361,12 @@ def format_block(item, trans, lang, depth_level):
 
     lines = []
 
-    # Контекст программы — через hierarchy, не brackets
-    # Program name: lighter/smaller чем cluster name
-    lines.append(f"\n### {program_name}\n")  # Меньший заголовок — контекст
-    lines.append(f"\n## {block_name}\n")      # Основной заголовок кластера
-    lines.append(f"*{block_desc}*\n")
-    lines.append(f"\n~{time} мин\n")          # Время без emoji
+    # HANGING INDENT: контекст программы + metadata под заголовком
+    # Иерархия через размер: program (###) < cluster (##)
+    lines.append(f"\n### {program_name}\n")   # Контекст — lighter/smaller
+    lines.append(f"\n## {block_name}\n")       # Основной заголовок кластера
+    # Hanging indent metadata: описание + время, мелким шрифтом
+    lines.append(f"*{block_desc} | ~{time} мин*\n")
 
     lines.append("\n---\n")
 
