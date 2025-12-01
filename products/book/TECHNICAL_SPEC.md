@@ -281,6 +281,56 @@ CYRILLIC_ADJUSTMENTS = {
 }
 
 # Spanish diacritics: áéíóú ñ ü — современные шрифты справляются
+
+# =============================================================================
+# TYPOGRAPHIC HIERARCHY — Чёткие пропорции Program >> Cluster >> Question
+# =============================================================================
+# Принцип: Размер + вес = мгновенное понимание уровня без чтения.
+#
+# Ratio: Program/Cluster = 1.75×, Cluster/Question = 1.23×
+
+HIERARCHY_MATRIX = {
+    "program_title": {
+        "font_size": "28pt",
+        "font_weight": 600,
+        "line_height": 1.2,
+        "spacing_above": "3em",       # Много воздуха перед программой
+        "spacing_below": "2em",
+        "style": "title_case",        # Или all_caps для акцента
+    },
+
+    "cluster_header": {
+        "font_size": "16pt",
+        "font_weight": 600,
+        "line_height": 1.3,
+        "spacing_above": "1.5em",
+        "spacing_below": "1em",
+        "style": "small_caps",        # Опционально — капитель
+    },
+
+    "question_body": {
+        "font_size": "13pt",
+        "font_weight": 400,
+        "line_height": "1.4-1.8",     # Зависит от глубины (см. DEPTH_TYPOGRAPHY)
+        "spacing_after": "2-4em",     # Место для ответа, зависит от глубины
+    },
+
+    "metadata": {
+        "font_size": "10pt",
+        "font_weight": 300,           # Ultra-light — отступает
+        "color": "#666666",
+        "tracking": "+1-2px",         # Разреженный — recedes
+    },
+
+    "microtype": {
+        "font_size": "9pt",
+        "font_weight": 300,
+        "note": "Footnotes, margin notes",
+    },
+}
+
+# Визуальный тест: закрыть глаза, открыть на случайной странице
+# → мгновенно понятно: это программа, кластер или вопрос?
 ```
 
 ### Функции

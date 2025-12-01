@@ -55,7 +55,7 @@
 
 ### Проблемы дизайна (статус)
 1. ✅ **Типографика** — РЕШЕНО: Montserrat (display) + IBM Plex Sans (body). TODO: TT Norms Pro
-2. **Визуальная иерархия** — сломана (программа → кластер → вопрос)
+2. ✅ **Визуальная иерархия** — РЕШЕНО: 28pt/16pt/13pt с ratio 1.75×/1.23×
 3. ✅ **Метаданные** — РЕШЕНО: Book1=Side Margin, Book2=Hanging Indent
 4. ✅ **Разделение программ** — РЕШЕНО: page break + chapter opening (номер 48pt + заголовок)
 5. ✅ **Квадратные скобки** — РЕШЕНО: Vertical Hierarchy (### program → ## cluster)
