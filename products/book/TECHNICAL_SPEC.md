@@ -145,6 +145,59 @@ METADATA_STYLE = {
 
 # Психология: Side margin = "информация доступна, не обязательна"
 # Hanging indent = "вот что тебя ждёт, приготовься"
+
+# =============================================================================
+# SECTION BREAKS — Визуальное разделение программ (Книга 1)
+# =============================================================================
+# Принцип: Каждая программа — отдельная глава с чётким началом.
+#
+# 4 уровня разделения:
+
+SECTION_SYSTEM = {
+    # Уровень 1: Chapter Opening (полная страница)
+    "chapter_opening": {
+        "page_break": True,           # ОБЯЗАТЕЛЬНО: \newpage перед каждой программой
+        "program_number": "48-64pt",  # Крупный номер программы
+        "program_number_weight": 300, # Light weight — элегантно
+        "title": "24-28pt",           # Заголовок программы
+        "title_weight": 600,          # Bold
+        "whitespace": "60%",          # Минимум 60% страницы — воздух
+        "intro_paragraph": True,      # Поэтическое вступление (опционально)
+    },
+
+    # Уровень 2: Running Headers (навигация вверху страницы)
+    "running_headers": {
+        "left_page": "page_number",           # Стр. 87
+        "right_page": "program_short_title",  # Программа 04: Напряжения
+        "font_size": "11-12pt",
+        "font_weight": 400,
+        "color": "#999999",                   # Light gray — не отвлекает
+    },
+
+    # Уровень 3: Cluster Cards (внутри программы)
+    "cluster_spacing": {
+        "between_clusters": "1.5em",  # Белое пространство между кластерами
+        "header_weight": 600,         # Bold заголовок кластера
+        "header_style": "small_caps", # Опционально: капитель
+    },
+
+    # Уровень 4: Program Dividers (между программами — для markdown fallback)
+    "dividers": {
+        "style": "centered_symbol",   # Минималистичный символ
+        "symbol": "✦",                # Или: ━━━ ✦ ━━━
+        "spacing_above": "1.5em",
+        "spacing_below": "1em",
+    }
+}
+
+# LaTeX реализация page break:
+# \newpage
+# \vspace*{0.3\textheight}
+# {\fontsize{48pt}{52pt}\selectfont\textbf{04}}
+# \vspace{1em}
+# {\fontsize{28pt}{32pt}\selectfont Навигация в напряжении}
+# \vspace{2em}
+# {\itshape Поэтическое вступление...}
 ```
 
 ### Функции
@@ -204,11 +257,15 @@ def generate_book1(lang):
     output.append("\n---\n")
 
     # 2. Главы по программам
-    for program in data["programs"]:
+    for idx, program in enumerate(data["programs"], 1):
 
-        # Заголовок главы
+        # PAGE BREAK перед каждой программой (кроме первой)
+        if idx > 1:
+            output.append("\n\\newpage\n")  # LaTeX page break
+
+        # Chapter Opening: номер + заголовок
         program_name = get_text(program, "name", trans, "programs")
-        output.append(f"\n# {program_name}\n")
+        output.append(f"\n# {idx:02d}. {program_name}\n")  # 01, 02, ... 29
 
         # Кластеры (уже отсортированы по sequence)
         for block in program["blocks"]:
