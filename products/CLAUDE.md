@@ -44,36 +44,27 @@
 ## Текущее состояние
 
 ### Что сделано
-- [x] Структура папок `products/book/`
-- [x] Генератор `scripts/generate_books.py`
-- [x] LaTeX шаблон `templates/selfology-book.latex`
-- [x] Шаблоны текстов `templates/ru/` (intro, warnings, conclusion)
-- [x] Спецификация стиля `templates/STYLE_SPEC.md`
-- [x] Генерация PDF работает (book1: 110 стр, book2: 67 стр)
+- [x] Структура папок `products/book/latex/`
+- [x] LaTeX стиль `selfology-book.sty`
+- [x] Генератор Book 1: `generate_book1.py`
+- [x] Генератор Book 2: `generate_book2.py`
+- [x] **Book 1 PDF готов**: 236 страниц, 29 программ, 190 кластеров, 674 вопроса
+- [x] **Book 2 PDF готов**: кластеры по глубине (Foundation → Exploration → Integration)
 - [x] Экранирование LaTeX символов
 - [x] Удаление emoji из исходников
+- [x] Визуальная дифференциация глубины (questionF/E/I)
 
-### Проблемы дизайна (статус)
-1. ✅ **Типографика** — РЕШЕНО: Montserrat (display) + IBM Plex Sans (body). TODO: TT Norms Pro
-2. ✅ **Визуальная иерархия** — РЕШЕНО: 28pt/16pt/13pt с ratio 1.75×/1.23×
-3. ✅ **Метаданные** — РЕШЕНО: Book1=Side Margin, Book2=Hanging Indent
-4. ✅ **Разделение программ** — РЕШЕНО: page break + chapter opening (номер 48pt + заголовок)
-5. ✅ **Квадратные скобки** — РЕШЕНО: Vertical Hierarchy (### program → ## cluster)
-6. ✅ **Глубина через дизайн** — РЕШЕНО: Stratification System (weight/spacing/tracking)
-7. **Психологическая безопасность** — частично (Breathing Room есть, остальное — нет)
+### Команды генерации
 
----
+```bash
+cd /home/ksnk/microservices/critical/selfology-bot/products/book/latex
 
-## Следующий шаг: Research
+# Book 1: По программам
+python3 generate_book1.py && xelatex selfology-book1.tex
 
-Подготовлен промпт для Perplexity для изучения:
-- Современные шрифты для RU/EN/ES
-- Как показывать глубину визуально (не текстом)
-- Премиальные workbooks/journals 2022-2024
-- Элегантная интеграция метаданных
-- Визуальные системы для вложенной структуры
-
-**Промпт сохранён в:** `products/book/RESEARCH_PROMPT.md`
+# Book 2: По глубине
+python3 generate_book2.py && xelatex selfology-book2.tex
+```
 
 ---
 
