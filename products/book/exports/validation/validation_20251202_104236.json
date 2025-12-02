@@ -1,0 +1,407 @@
+{
+  "summary": {
+    "generated_at": "2025-12-02T10:42:36.437148",
+    "total_questions": 10,
+    "total_clusters": 10,
+    "questions_needing_review": 0,
+    "questions_with_issues": 0,
+    "questions_low_safety": 0,
+    "clusters_low_flow": 1,
+    "clusters_chaotic": 6,
+    "reformulations_generated": 0,
+    "issue_breakdown": {}
+  },
+  "stage1_questions": [
+    {
+      "question_id": "q_podumat_o_zhiznib1q1",
+      "program": "Подумать о жизни",
+      "cluster": "Здесь и сейчас",
+      "cluster_type": "Foundation",
+      "position": 1,
+      "text": "Опиши своё состояние прямо сейчас тремя словами",
+      "safety_score": 10,
+      "tone": "soft",
+      "has_labels": false,
+      "depth_level": "surface",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и поддерживающий, не содержит ярлыков и не вызывает дискомфорта."
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib1q2",
+      "program": "Подумать о жизни",
+      "cluster": "Здесь и сейчас",
+      "cluster_type": "Foundation",
+      "position": 2,
+      "text": "Как обычно выглядит твоё утро?",
+      "safety_score": 10,
+      "tone": "soft",
+      "has_labels": false,
+      "depth_level": "surface",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и поддерживающий, не вызывает дискомфорта."
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib1q3",
+      "program": "Подумать о жизни",
+      "cluster": "Здесь и сейчас",
+      "cluster_type": "Foundation",
+      "position": 3,
+      "text": "Что ты делаешь в выходные, когда никто не требует от тебя ничего?",
+      "safety_score": 9,
+      "tone": "neutral",
+      "has_labels": false,
+      "depth_level": "surface",
+      "issues": [],
+      "needs_review": false,
+      "comment": ""
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib1q4",
+      "program": "Подумать о жизни",
+      "cluster": "Здесь и сейчас",
+      "cluster_type": "Foundation",
+      "position": 4,
+      "text": "Когда последний раз ты чувствовал полную энергию и жизненную силу? Что происходило вокруг?",
+      "safety_score": 10,
+      "tone": "soft",
+      "has_labels": false,
+      "depth_level": "conscious",
+      "issues": [],
+      "needs_review": false,
+      "comment": ""
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib2q1",
+      "program": "Подумать о жизни",
+      "cluster": "Люди рядом",
+      "cluster_type": "Exploration",
+      "position": 1,
+      "text": "Назови одного человека, который оказал на тебя самое сильное влияние. Что именно он сделал?",
+      "safety_score": 10,
+      "tone": "soft",
+      "has_labels": false,
+      "depth_level": "conscious",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и поддерживающий, способствует саморефлексии без негативных предположений."
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib2q2",
+      "program": "Подумать о жизни",
+      "cluster": "Люди рядом",
+      "cluster_type": "Exploration",
+      "position": 2,
+      "text": "С кем ты проводишь больше всего времени сейчас?",
+      "safety_score": 10,
+      "tone": "neutral",
+      "has_labels": false,
+      "depth_level": "surface",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и нейтрален, не содержит ярлыков и не вызывает дискомфорта."
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib2q3",
+      "program": "Подумать о жизни",
+      "cluster": "Люди рядом",
+      "cluster_type": "Exploration",
+      "position": 3,
+      "text": "Помогают ли эти люди тебе развиваться или, наоборот, держат тебя на месте?",
+      "safety_score": 9,
+      "tone": "neutral",
+      "has_labels": false,
+      "depth_level": "conscious",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и исследует отношения с окружающими без навешивания ярлыков."
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib2q4",
+      "program": "Подумать о жизни",
+      "cluster": "Люди рядом",
+      "cluster_type": "Exploration",
+      "position": 4,
+      "text": "О чём ты никогда не говоришь с семьёй?",
+      "safety_score": 8,
+      "tone": "neutral",
+      "has_labels": false,
+      "depth_level": "edge",
+      "issues": [],
+      "needs_review": false,
+      "comment": ""
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib2q5",
+      "program": "Подумать о жизни",
+      "cluster": "Люди рядом",
+      "cluster_type": "Exploration",
+      "position": 5,
+      "text": "В чем ты кардинально отличаешься от своей семьи?",
+      "safety_score": 9,
+      "tone": "neutral",
+      "has_labels": false,
+      "depth_level": "conscious",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и исследует личный опыт без навешивания ярлыков."
+    },
+    {
+      "question_id": "q_podumat_o_zhiznib3q1",
+      "program": "Подумать о жизни",
+      "cluster": "Мечты и амбиции",
+      "cluster_type": "Exploration",
+      "position": 1,
+      "text": "Какой идеальный день отдыха ты можешь представить? Где, с кем и что ты там делаешь?",
+      "safety_score": 10,
+      "tone": "soft",
+      "has_labels": false,
+      "depth_level": "conscious",
+      "issues": [],
+      "needs_review": false,
+      "comment": "Вопрос безопасен и поддерживающий, способствует позитивному самопознанию."
+    }
+  ],
+  "stage2_clusters": [
+    {
+      "cluster_id": "block_podumat_o_zhiznizdes_i_seychas",
+      "program": "Подумать о жизни",
+      "cluster_name": "Здесь и сейчас",
+      "cluster_type": "Foundation",
+      "question_count": 4,
+      "flow_score": 7,
+      "depth_progression": "gradual_increase",
+      "tone_consistency": "consistent",
+      "issues": [],
+      "problem_transitions": [],
+      "recommendation": "Кластер хорошо структурирован, но можно усилить плавность, добавив вопрос между 3 и 4 для более мягкого перехода к обсуждению энергии и жизненной силы."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhiznilyudi_ryadom",
+      "program": "Подумать о жизни",
+      "cluster_name": "Люди рядом",
+      "cluster_type": "Exploration",
+      "question_count": 5,
+      "flow_score": 6,
+      "depth_progression": "chaotic",
+      "tone_consistency": "consistent",
+      "issues": [
+        "depth_jump",
+        "missing_warmup"
+      ],
+      "problem_transitions": [
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "issue": "missing_warmup"
+        }
+      ],
+      "recommendation": "Рассмотрите возможность добавления вопроса между 2 и 3 для более плавного перехода к обсуждению влияния окружения. Также добавьте разогревающий вопрос перед обсуждением тем, которые не обсуждаются с семьёй."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhiznimechty_i_ambitsii",
+      "program": "Подумать о жизни",
+      "cluster_name": "Мечты и амбиции",
+      "cluster_type": "Exploration",
+      "question_count": 6,
+      "flow_score": 7,
+      "depth_progression": "gradual_increase",
+      "tone_consistency": "consistent",
+      "issues": [
+        "depth_jump"
+      ],
+      "problem_transitions": [
+        {
+          "from": 5,
+          "to": 6,
+          "issue": "depth_jump"
+        }
+      ],
+      "recommendation": "Сгладить переход между вопросами 5 и 6, добавив промежуточный вопрос, который подготовит к более глубокой теме изменения мира."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhiznitsennosti_i_ubezhdeniya",
+      "program": "Подумать о жизни",
+      "cluster_name": "Ценности и убеждения",
+      "cluster_type": "Exploration",
+      "question_count": 5,
+      "flow_score": 6,
+      "depth_progression": "chaotic",
+      "tone_consistency": "inconsistent",
+      "issues": [
+        "depth_jump",
+        "tone_shift"
+      ],
+      "problem_transitions": [
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "issue": "tone_shift"
+        }
+      ],
+      "recommendation": "Рассмотрите возможность добавления промежуточного вопроса между 2 и 3 для более плавного перехода в глубину. Также, после вопроса 3, добавьте вопрос, который бы плавно перевел к теме любви к себе, чтобы избежать резкой смены тона."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhiznizaschita_i_samoobman",
+      "program": "Подумать о жизни",
+      "cluster_name": "Защита и самообман",
+      "cluster_type": "Exploration",
+      "question_count": 4,
+      "flow_score": 6,
+      "depth_progression": "chaotic",
+      "tone_consistency": "consistent",
+      "issues": [
+        "depth_jump",
+        "missing_warmup"
+      ],
+      "problem_transitions": [
+        {
+          "from": 1,
+          "to": 2,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "missing_warmup"
+        }
+      ],
+      "recommendation": "Добавьте вопрос между 1 и 2, чтобы плавно перейти от защиты к отпусканию. Также добавьте разогревающий вопрос перед вопросом 3, чтобы подготовить читателя к глубокой теме страха."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhizniproshloe",
+      "program": "Подумать о жизни",
+      "cluster_name": "Прошлое",
+      "cluster_type": "Exploration",
+      "question_count": 6,
+      "flow_score": 8,
+      "depth_progression": "gradual_increase",
+      "tone_consistency": "consistent",
+      "issues": [],
+      "problem_transitions": [],
+      "recommendation": "Кластер хорошо структурирован с плавным увеличением глубины и консистентным тоном. Нет явных проблем, требующих исправления."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhiznigordost_i_smysl",
+      "program": "Подумать о жизни",
+      "cluster_name": "Гордость и смысл",
+      "cluster_type": "Integration",
+      "question_count": 3,
+      "flow_score": 6,
+      "depth_progression": "chaotic",
+      "tone_consistency": "inconsistent",
+      "issues": [
+        "depth_jump",
+        "tone_shift",
+        "missing_warmup"
+      ],
+      "problem_transitions": [
+        {
+          "from": 1,
+          "to": 2,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "issue": "tone_shift"
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "depth_jump"
+        }
+      ],
+      "recommendation": "Добавьте промежуточные вопросы для плавного перехода между вопросами и выравнивания тона."
+    },
+    {
+      "cluster_id": "block_podumat_o_zhizniobraz_buduschego",
+      "program": "Подумать о жизни",
+      "cluster_name": "Образ будущего",
+      "cluster_type": "Integration",
+      "question_count": 3,
+      "flow_score": 5,
+      "depth_progression": "chaotic",
+      "tone_consistency": "inconsistent",
+      "issues": [
+        "depth_jump",
+        "tone_shift"
+      ],
+      "problem_transitions": [
+        {
+          "from": 1,
+          "to": 2,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 1,
+          "to": 2,
+          "issue": "tone_shift"
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "tone_shift"
+        }
+      ],
+      "recommendation": "Убедитесь, что вопросы плавно переходят от одного к другому, избегая резких изменений в глубине и тоне. Рассмотрите возможность добавления промежуточных вопросов для более плавного перехода."
+    },
+    {
+      "cluster_id": "block_podumat_o_karere_ili_biznesegde_ya_seychas",
+      "program": "Подумать о карьере или бизнесе",
+      "cluster_name": "Где я сейчас",
+      "cluster_type": "Foundation",
+      "question_count": 5,
+      "flow_score": 9,
+      "depth_progression": "stable",
+      "tone_consistency": "consistent",
+      "issues": [],
+      "problem_transitions": [],
+      "recommendation": ""
+    },
+    {
+      "cluster_id": "block_podumat_o_karere_ili_bizneseudovletvorennost",
+      "program": "Подумать о карьере или бизнесе",
+      "cluster_name": "Удовлетворённость",
+      "cluster_type": "Exploration",
+      "question_count": 4,
+      "flow_score": 6,
+      "depth_progression": "chaotic",
+      "tone_consistency": "consistent",
+      "issues": [
+        "depth_jump",
+        "missing_warmup"
+      ],
+      "problem_transitions": [
+        {
+          "from": 2,
+          "to": 3,
+          "issue": "depth_jump"
+        },
+        {
+          "from": 3,
+          "to": 4,
+          "issue": "missing_warmup"
+        }
+      ],
+      "recommendation": "Добавьте вопрос между 2 и 3 для плавного перехода к обсуждению ценностей. Включите разогревающий вопрос перед обсуждением самокритики."
+    }
+  ],
+  "stage3_reformulations": []
+}
