@@ -4,10 +4,59 @@
 
 Подпроект для создания цифровых продуктов на основе базы вопросов Selfology.
 
-**Источник данных:** `intelligent_question_core/data/selfology_programs_v2.json`
+**Источник данных:** `intelligent_question_core/data/selfology_master.json`
 - 29 программ
 - 190 кластеров (blocks)
-- 674 вопроса
+- 657 вопросов
+- 369 с метаданными (depth, domain, safety)
+- 315 с улучшенными AI-формулировками
+
+---
+
+## Архитектура данных
+
+### Single Source of Truth
+
+```
+selfology_master.json (v3.0)
+├── Структура: программы → кластеры → вопросы
+├── Метаданные из core базы (369 вопросов)
+├── AI-улучшенные формулировки (315 вопросов)
+└── Понятные описания кластеров (170 шт)
+```
+
+### API
+
+```python
+# Новый API (рекомендуется)
+from intelligent_question_core.api.master_api import SelfologyMasterAPI
+api = SelfologyMasterAPI()
+
+# Программы и кластеры
+programs = api.get_programs()  # ['Подумать о жизни', ...]
+clusters = api.get_program_clusters('Подумать о жизни')
+
+# Поиск вопросов
+safe = api.get_safe_entry_questions()  # Foundation + safety >= 4
+deep = api.get_deep_questions()        # Integration или SHADOW/CORE
+
+# Рекомендация модели
+rec = api.get_processing_recommendation('q_xxx')
+# → {'recommended_model': 'gpt-4o', 'reasoning': '...'}
+```
+
+### Скрипты обработки данных
+
+```bash
+# Мёрдж баз (v2 + core) через Claude
+python products/book/scripts/merge_databases.py
+
+# Переформулировка описаний кластеров
+python products/book/scripts/rewrite_descriptions.py --apply
+
+# Применение всех изменений → master.json
+python products/book/scripts/apply_all_changes.py
+```
 
 ---
 
@@ -17,22 +66,19 @@
 - Пользователь приходит с конкретной болью (отношения, карьера, страхи)
 - Открывает оглавление → находит тему → проходит кластеры
 - Структура: Программа → Кластеры (от лёгких к глубоким) → Вопросы
-- User flow: выбор темы → последовательное погружение внутри темы
 
 ### Книга 2: "Путь в глубину" (прогрессивный подход)
 - Пользователь хочет исследовать себя без конкретного фокуса
 - Постепенное погружение: Часть 1 (легко) → Часть 2 (глубже) → Часть 3 (самое глубокое)
 - Темы ЧЕРЕДУЮТСЯ внутри каждого уровня для разнообразия
-- Те же кластеры, реорганизованные по глубине
 
 ### Метаданные кластера
 | Поле | Пример | Использование |
 |------|--------|---------------|
 | name | "Люди рядом" | Заголовок кластера |
-| description | "экосистема влияний" | Контекст |
+| description | "кто влияет на меня" | Понятный подзаголовок |
 | type | Foundation/Exploration/Integration | Уровень глубины |
 | time | 5-10 / 10-20 / 15-30 мин | Планирование |
-| program.name | "Отношения" | Контекст в Книге 2 |
 
 ### Языки
 - RU (основной)
@@ -48,11 +94,14 @@
 - [x] LaTeX стиль `selfology-book.sty`
 - [x] Генератор Book 1: `generate_book1.py`
 - [x] Генератор Book 2: `generate_book2.py`
-- [x] **Book 1 PDF готов**: 236 страниц, 29 программ, 190 кластеров, 674 вопроса
+- [x] **Book 1 PDF готов**: 236 страниц, 29 программ, 190 кластеров
 - [x] **Book 2 PDF готов**: кластеры по глубине (Foundation → Exploration → Integration)
 - [x] Экранирование LaTeX символов
 - [x] Удаление emoji из исходников
 - [x] Визуальная дифференциация глубины (questionF/E/I)
+- [x] **Unified master база** с AI-улучшениями
+- [x] **Master API** для программного доступа
+- [x] **170 описаний кластеров** переписаны понятным языком
 
 ### Команды генерации
 
@@ -76,54 +125,36 @@ products/
 ├── README.md              ← обзор продуктов
 └── book/
     ├── ALGORITHM.md       ← алгоритм генерации (для PM)
-    ├── TECHNICAL_SPEC.md  ← техническая спецификация
     ├── scripts/
-    │   └── generate_books.py
+    │   ├── merge_databases.py      ← AI-мёрдж баз (Claude)
+    │   ├── rewrite_descriptions.py ← переформулировка описаний
+    │   ├── apply_all_changes.py    ← создание master.json
+    │   └── validate_questions.py   ← 3-этапная валидация
     ├── templates/
-    │   ├── STYLE_SPEC.md         ← спецификация стиля
-    │   ├── selfology-book.latex  ← LaTeX шаблон
+    │   ├── selfology-book.latex    ← LaTeX шаблон
     │   └── ru/
     │       ├── intro.md
     │       ├── warnings.md
     │       └── conclusion.md
+    ├── latex/
+    │   ├── generate_book1.py
+    │   ├── generate_book2.py
+    │   └── selfology-book.sty
     └── exports/
         └── ru/
-            ├── book1_programs.md
-            ├── book1_programs.pdf
-            ├── book2_depth.md
-            └── book2_depth.pdf
+            ├── selfology-book1.pdf
+            └── selfology-book2.pdf
 ```
 
 ---
 
-## Ключевые команды
-
-```bash
-# Генерация markdown
-cd products/book
-python3 scripts/generate_books.py
-
-# Конвертация в PDF
-cd exports/ru
-pandoc book1_programs.md -o book1_programs.pdf \
-  --pdf-engine=xelatex \
-  --template=../../templates/selfology-book.latex
-
-pandoc book2_depth.md -o book2_depth.pdf \
-  --pdf-engine=xelatex \
-  --template=../../templates/selfology-book.latex
-```
-
----
-
-## Принципы дизайна (цель)
+## Принципы дизайна
 
 - **Минимализм** — но смелый, с контрастом
 - **Швейцарская типографика** — современная интерпретация
 - **Воздух** — пространство для рефлексии
 - **Безопасность** — визуальные сигналы глубины
 - **Прогресс** — ощущение движения вперёд
-- **Мультиязычность** — работает для кириллицы и латиницы
 
 ---
 
