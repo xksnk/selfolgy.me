@@ -8,8 +8,7 @@
     "source_file": "research/Ты методолог по дизайну рефлексивных опросников..md",
     "cleaned_at": "2025-12-02T10:55:17.822515",
     "removed_garbage": 17,
-    "unified_at": "2025-12-02T13:37:13.852786",
-    "descriptions_updated": 6,
+    "unified_at": "2025-12-02T17:20:58.479333",
     "questions_improved": 315,
     "metadata_added": 369
   },
@@ -22,7 +21,7 @@
           "id": "block_podumat_o_zhiznizdes_i_seychas",
           "sequence": 1,
           "name": "Здесь и сейчас",
-          "description": "мои деньги сегодня",
+          "description": "где я сейчас",
           "type": "Foundation",
           "questions": [
             {
@@ -548,7 +547,7 @@
           "id": "block_podumat_o_zhiznitsennosti_i_ubezhdeniya",
           "sequence": 4,
           "name": "Ценности и убеждения",
-          "description": "что стало важнее всего",
+          "description": "что для меня важно",
           "type": "Exploration",
           "questions": [
             {
@@ -6015,7 +6014,7 @@
           "id": "block_3_kita_ochischeniyapreobrazovanie",
           "sequence": 3,
           "name": "Преобразование",
-          "description": "что делаю для планеты",
+          "description": "как я меняюсь",
           "type": "Integration",
           "questions": [
             {
@@ -6486,7 +6485,7 @@
           "id": "block_resursmaterialnye_resursy",
           "sequence": 3,
           "name": "Материальные ресурсы",
-          "description": "мои цели на сегодня",
+          "description": "что у меня есть",
           "type": "Exploration",
           "questions": [
             {
@@ -9356,7 +9355,7 @@
           "id": "block_vygoranie_to_resurstriggery_i_patterny",
           "sequence": 2,
           "name": "Триггеры и паттерны",
-          "description": "что крадёт мои силы",
+          "description": "что меня истощает",
           "type": "Exploration",
           "questions": [
             {
@@ -18269,7 +18268,7 @@
           "id": "block_sindrom_samozvantsa_v_epohu_linkedintsennost_i_lichnost",
           "sequence": 4,
           "name": "Ценность и личность",
-          "description": "что стало важнее всего",
+          "description": "что для меня важно",
           "type": "Exploration",
           "questions": [
             {

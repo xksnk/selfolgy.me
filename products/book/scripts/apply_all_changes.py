@@ -44,7 +44,6 @@ def apply_changes():
 
     # Статистика
     stats = {
-        "descriptions_updated": 0,
         "questions_improved": 0,
         "metadata_added": 0
     }
@@ -53,15 +52,9 @@ def apply_changes():
 
     for prog in v2_data["programs"]:
         for block in prog["blocks"]:
-            # 1. Обновляем описание кластера
-            old_desc = block.get("description", "")
-            if old_desc in descriptions:
-                new_desc = descriptions[old_desc]
-                if new_desc != old_desc:
-                    block["description"] = new_desc
-                    stats["descriptions_updated"] += 1
+            # Описания кластеров уже применены в v2, пропускаем
 
-            # 2. Обновляем вопросы
+            # Обновляем вопросы
             for q in block["questions"]:
                 q_id = q.get("id")
                 if q_id and q_id in merge_index:
@@ -86,7 +79,6 @@ def apply_changes():
 
     # Обновляем метаданные файла
     v2_data["metadata"]["unified_at"] = datetime.now().isoformat()
-    v2_data["metadata"]["descriptions_updated"] = stats["descriptions_updated"]
     v2_data["metadata"]["questions_improved"] = stats["questions_improved"]
     v2_data["metadata"]["metadata_added"] = stats["metadata_added"]
     v2_data["version"] = "3.0-master"
@@ -100,7 +92,6 @@ def apply_changes():
     print("\n" + "═" * 50)
     print("✅ ПРИМЕНЕНИЕ ЗАВЕРШЕНО")
     print("═" * 50)
-    print(f"   📝 Описаний обновлено: {stats['descriptions_updated']}")
     print(f"   ✨ Вопросов улучшено: {stats['questions_improved']}")
     print(f"   🏷️  Метаданных добавлено: {stats['metadata_added']}")
     print(f"\n   📁 Master файл: {OUTPUT_FILE.name}")

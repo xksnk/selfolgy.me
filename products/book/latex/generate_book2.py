@@ -5,9 +5,12 @@ import json
 import re
 from collections import defaultdict
 
-# Загрузка данных
-with open('/home/ksnk/microservices/critical/selfology-bot/intelligent_question_core/data/selfology_programs_v2.json') as f:
+# Загрузка данных из единого источника правды
+DATA_FILE = '/home/ksnk/microservices/critical/selfology-bot/intelligent_question_core/data/selfology_master.json'
+with open(DATA_FILE) as f:
     data = json.load(f)
+
+print(f"📚 Источник: selfology_master.json (v{data.get('version', '?')})")
 
 # Преамбулы книги
 INTRO = r'''
