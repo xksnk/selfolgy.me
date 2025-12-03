@@ -1,0 +1,3441 @@
+{
+  "version": "3.0-master-es",
+  "metadata": {
+    "total_programs": 29,
+    "total_blocks": 190,
+    "total_questions": 650,
+    "source_file": "research/Ты методолог по дизайну рефлексивных опросников..md",
+    "cleaned_at": "2025-12-02T10:55:17.822515",
+    "removed_garbage": 17,
+    "unified_at": "2025-12-02T17:20:58.479333",
+    "questions_improved": 315,
+    "metadata_added": 369
+  },
+  "programs": [
+    {
+      "name": "Pensar en la Vida",
+      "blocks": [
+        {
+          "name": "Aquí y Ahora",
+          "description": "dónde estoy ahora",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cómo describirías tu estado actual con tres palabras?"
+            },
+            {
+              "text": "¿Cómo es normalmente tu mañana?"
+            },
+            {
+              "text": "¿Qué haces cuando tienes tiempo libre y nadie espera nada de ti?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que te sentiste completamente lleno de energía y vitalidad? ¿Qué ocurría a tu alrededor?"
+            }
+          ]
+        },
+        {
+          "name": "Personas a Mi Alrededor",
+          "description": "quién me influye",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién ha tenido una influencia particularmente fuerte en ti? ¿Qué fue exactamente lo que esta persona hizo o te dio?"
+            },
+            {
+              "text": "¿Con quién has estado pasando más tiempo últimamente?"
+            },
+            {
+              "text": "¿Estas personas te ayudan a crecer y desarrollarte, o te mantienen en el mismo lugar?"
+            },
+            {
+              "text": "¿De qué nunca hablas con tu familia?"
+            },
+            {
+              "text": "¿En qué sientes que eres único/a en comparación con tu familia?"
+            }
+          ]
+        },
+        {
+          "name": "Sueños y Ambiciones",
+          "description": "a dónde quiero llegar",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo imaginas tu día libre ideal? ¿Dónde pasas el tiempo, qué haces y con quién?"
+            },
+            {
+              "text": "¿Con qué sueñas cuando te imaginas la libertad financiera?"
+            },
+            {
+              "text": "¿Qué es lo que quieres aprender en primer lugar?"
+            },
+            {
+              "text": "¿A dónde quieres ir y por qué precisamente ahí?"
+            },
+            {
+              "text": "¿Por qué razón estarías dispuesto a madrugar tanto?"
+            },
+            {
+              "text": "Imagina que has logrado cambiar el mundo para mejor. ¿Qué ha cambiado específicamente?"
+            }
+          ]
+        },
+        {
+          "name": "Valores y Creencias",
+          "description": "lo que es importante para mí",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué valores has definido para ti? Escribe al menos tres."
+            },
+            {
+              "text": "¿En qué aspectos te consideras único en comparación con las personas cercanas a ti?"
+            },
+            {
+              "text": "Completa esta frase: \"Si la gente supiera que en realidad yo..., ellos..."
+            },
+            {
+              "text": "¿Te quieres a ti mismo?"
+            },
+            {
+              "text": "¿Cómo te relacionas contigo mismo? ¿Con calidez o de manera crítica? ¿Qué influye en esa relación?"
+            }
+          ]
+        },
+        {
+          "name": "Defensa y Autoengaño",
+          "description": "de qué me escondo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué tratas de protegerte al engañarte a ti mismo?"
+            },
+            {
+              "text": "¿De qué necesitas liberarte antes de alcanzar tus próximos logros?"
+            },
+            {
+              "text": "¿Cuáles son los miedos profundos que encuentras en tu vida?"
+            },
+            {
+              "text": "¿Qué es lo que más te asusta de la intimidad con los demás?"
+            }
+          ]
+        },
+        {
+          "name": "El Pasado",
+          "description": "mi camino hasta hoy",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién eras hace un año? ¿Quién eres ahora? ¿Cómo has cambiado?"
+            },
+            {
+              "text": "¿Cómo calificarías el año pasado en las principales áreas de tu vida en una escala del 1 al 10? ¿Qué eventos importantes en cada área influyeron en tu calificación?"
+            },
+            {
+              "text": "Recuerda tres hábitos que te ayudaron este año. ¿Cómo exactamente te apoyaron?"
+            },
+            {
+              "text": "Recuerda 2 o 3 ocasiones en las que las cosas no salieron como esperabas. ¿A qué cosas buenas te llevaron finalmente esas situaciones?"
+            },
+            {
+              "text": "¿Qué no lograste este año y por qué? ¿Qué piensas al respecto ahora?"
+            },
+            {
+              "text": "¿Hay algo por lo que todavía te enojes contigo mismo o no puedas perdonarte?"
+            }
+          ]
+        },
+        {
+          "name": "Orgullo y Sentido",
+          "description": "de qué me siento orgulloso/a",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿De qué te sientes más orgulloso u orgullosa?"
+            },
+            {
+              "text": "Si solo te quedara un año de vida, ¿cómo te gustaría vivirlo?"
+            },
+            {
+              "text": "Si mañana todo perdiera su significado, ¿cuál sería tu mayor arrepentimiento?"
+            }
+          ]
+        },
+        {
+          "name": "Visión del Futuro",
+          "description": "en quién quiero convertirme",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "Imagina tu futuro siendo la persona que quieres llegar a ser en lo que realmente te importa. ¿Qué consejos te daría esa versión de ti a quien eres hoy?"
+            },
+            {
+              "text": "Si tus padres realmente te vieran, ¿qué entenderían?"
+            },
+            {
+              "text": "¿Qué deseas más en este momento?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pensar en la Carrera o el Negocio",
+      "blocks": [
+        {
+          "name": "Dónde estoy ahora",
+          "description": "mis asuntos laborales",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿En qué área trabajas o estudias actualmente?"
+            },
+            {
+              "text": "¿Cuántos años llevas en este ámbito?"
+            },
+            {
+              "text": "¿Tienes formación específica en tu área profesional actual?"
+            },
+            {
+              "text": "¿Trabajas en la oficina, de forma remota o en modalidad híbrida?"
+            },
+            {
+              "text": "¿Cuál es tu horario de trabajo actual?"
+            }
+          ]
+        },
+        {
+          "name": "Satisfacción",
+          "description": "¿me gusta mi trabajo?",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "En una escala del 1 al 10, ¿qué tan satisfecho estás con tu trabajo actualmente?"
+            },
+            {
+              "text": "¿Qué sientes hacia tu trabajo? ¿Qué resuena en él y qué no?"
+            },
+            {
+              "text": "¿En qué medida coinciden tus valores personales con la cultura corporativa de la organización donde trabajas?"
+            },
+            {
+              "text": "¿Te sucede que te criticas a ti mismo por descansar, incluso cuando trabajas mucho?"
+            }
+          ]
+        },
+        {
+          "name": "Metas y Sueños",
+          "description": "mis sueños sobre el trabajo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo sería el trabajo de tus sueños?"
+            },
+            {
+              "text": "¿A qué te dedicarías si todos los trabajos tuvieran el mismo salario?"
+            },
+            {
+              "text": "¿Qué harías si el dinero no fuera una limitación?"
+            },
+            {
+              "text": "Imagínate: dentro de 5 años te encuentras con un viejo amigo. ¿Qué le contarías con orgullo acerca de tu trabajo?"
+            },
+            {
+              "text": "Si supieras que definitivamente vas a tener éxito, ¿qué empezarías a hacer ahora mismo?"
+            }
+          ]
+        },
+        {
+          "name": "Barreras y Recursos",
+          "description": "qué obstaculiza y qué ayuda",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué es exactamente lo que te impide avanzar hacia tus metas profesionales en tu trabajo actual?"
+            },
+            {
+              "text": "Si necesitas un mentor en tu trabajo, ¿quién podría ser esa persona y cómo podrías encontrar a alguien así?"
+            },
+            {
+              "text": "Si mañana decidieras dejar de trabajar, ¿cuánto tiempo podrías vivir de tus ahorros?"
+            },
+            {
+              "text": "¿A dónde va específicamente tu dinero ahora mismo: hacia tu futuro (inversiones, educación, desarrollo) o hacia tu presente (compras, entretenimiento, comodidad)?"
+            }
+          ]
+        },
+        {
+          "name": "Elecciones y Acciones",
+          "description": "mis próximos pasos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿A dónde te gustaría ir a trabajar si decidieras hacer un cambio en tu carrera?"
+            },
+            {
+              "text": "Si imaginas una balanza, por un lado están los rechazos en entrevistas de trabajo y, por el otro, trabajar en un lugar donde no te valoran. ¿Qué sería más importante para ti evitar?"
+            },
+            {
+              "text": "¿En qué se basa tu confianza en que tu idea funcionará? ¿Qué datos, experiencias u observaciones respaldan tu decisión?"
+            },
+            {
+              "text": "Si tuvieras todos los recursos necesarios (tiempo, dinero, contactos), ¿qué te gustaría hacer y cómo emplearías tu tiempo?"
+            }
+          ]
+        },
+        {
+          "name": "Métricas de Negocio (para Emprendedores) 🤖",
+          "description": "Un clúster psicológico enfocado en desarrollar el pensamiento analítico y las habilidades de toma de decisiones basadas en datos, esenciales para el emprendimiento exitoso. Ayuda a los emprendedores a comprender los indicadores clave de rendimiento, métricas financieras y analítica empresarial para optimizar sus emprendimientos y tomar decisiones estratégicas informadas.",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cuánto te cuesta adquirir un cliente nuevo para tu negocio?"
+            },
+            {
+              "text": "¿Cuál es el indicador clave de rendimiento que sigues en tu negocio?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reflexionar sobre la salud",
+      "blocks": [
+        {
+          "name": "Sueño y Recuperación",
+          "description": "mi sueño y descanso",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿A qué hora te acuestas normalmente y a qué hora te levantas?"
+            },
+            {
+              "text": "¿Cuántas horas sueles dormir por la noche?"
+            },
+            {
+              "text": "¿Cómo te sientes habitualmente por las mañanas: lleno de energía, decaído o somnoliento?"
+            },
+            {
+              "text": "¿Qué sueles hacer durante la hora antes de acostarte? ¿Te ayuda a quedarte dormido o dormida?"
+            },
+            {
+              "text": "¿Eres más de madrugar o de trasnochar, y qué te aporta esto en la vida?"
+            }
+          ]
+        },
+        {
+          "name": "Fisiología",
+          "description": "qué como y cómo me muevo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo entiendes qué necesita y qué no necesita tu cuerpo?"
+            },
+            {
+              "text": "¿Cuánta agua bebes al día? ¿Notas alguna conexión entre la cantidad de agua que consumes y cómo te sientes?"
+            },
+            {
+              "text": "¿Qué tipos de actividades físicas te traen alegría?"
+            },
+            {
+              "text": "¿Cómo te relacionas con tu salud física? ¿Qué significa para ti estar sano?"
+            }
+          ]
+        },
+        {
+          "name": "Señales del Cuerpo",
+          "description": "lo que siente mi cuerpo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué le sucede a tu cuerpo cuando estás agotado? ¿Cuáles son las primeras señales que te envía tu organismo?"
+            },
+            {
+              "text": "¿En qué parte de tu cuerpo se acumula más a menudo la tensión? ¿Qué intenta decirte tu cuerpo?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que escuchaste a tu cuerpo y seguiste sus señales en lugar de resistir y continuar adelante?"
+            }
+          ]
+        },
+        {
+          "name": "El Sentido de la Salud",
+          "description": "para qué necesito estar sano",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Por qué es importante para ti tener buena salud? ¿Qué beneficios te aporta?"
+            },
+            {
+              "text": "Si tuvieras una salud perfecta, ¿qué cambiaría en tu vida?"
+            }
+          ]
+        },
+        {
+          "name": "Salud en el Futuro",
+          "description": "a dónde quiero llegar",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué cambios te gustaría ver en tu salud dentro de un año?"
+            },
+            {
+              "text": "¿Dónde te ves en términos de salud dentro de un año? ¿Cómo te sentirías?"
+            },
+            {
+              "text": "¿Qué tipo de descanso necesitan tu cuerpo y tu alma? ¿Dónde y cómo te gustaría recuperar energía?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Conocerse a Sí Mismo",
+      "blocks": [
+        {
+          "name": "Arquetipos y Modelos",
+          "description": "quién me influyó",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Quién ha ejercido la influencia más fuerte sobre ti? ¿Qué cualidades o enfoques de esa persona encuentras en ti?"
+            },
+            {
+              "text": "¿A quién admiras más? ¿Por qué precisamente a esa persona?"
+            }
+          ]
+        },
+        {
+          "name": "Energía y Recursos",
+          "description": "de dónde saco mis fuerzas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo describirías tu estado de ánimo en este momento con tres palabras?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que te sentiste completamente lleno de vitalidad y energía? ¿Qué ocurría en tu vida en ese momento?"
+            },
+            {
+              "text": "¿Cuáles son las tres acciones o situaciones que te devuelven la energía más rápidamente?"
+            }
+          ]
+        },
+        {
+          "name": "Valores a través del orgullo",
+          "description": "de qué me siento orgulloso/a",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué te sientes más orgulloso/a y por qué es tan importante para ti?"
+            },
+            {
+              "text": "¿Qué cualidades o características tuyas conoces mejor que nadie, pero de las que rara vez hablas?"
+            }
+          ]
+        },
+        {
+          "name": "Deseos y Miedos",
+          "description": "lo que quiero y temo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué es lo que más deseas en este momento?"
+            },
+            {
+              "text": "¿Qué miedo vive en lo más profundo de tu alma? ¿Qué es lo que intentas proteger?"
+            }
+          ]
+        },
+        {
+          "name": "Futuro Ideal",
+          "description": "en quién quiero convertirme",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "Describe tu día de descanso ideal: ¿dónde estarías, con quién estarías y qué estarías haciendo?"
+            },
+            {
+              "text": "Imagina que has cambiado el mundo para mejor. ¿Qué ha cambiado específicamente gracias a ti?"
+            },
+            {
+              "text": "Si supieras que no puedes fracasar, ¿qué harías?"
+            }
+          ]
+        },
+        {
+          "name": "Desarrollo y Camino",
+          "description": "hacia dónde estoy creciendo",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué es lo que más deseas aprender ahora mismo y por qué es importante para ti en este momento?"
+            },
+            {
+              "text": "¿A qué lugar del mundo te gustaría ir y qué es lo que te atrae de allí?"
+            },
+            {
+              "text": "¿Qué habilidad o cualidad te gustaría desarrollar el próximo año?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mejorar el Estado Emocional",
+      "blocks": [
+        {
+          "name": "Mapa de Emociones",
+          "description": "¿me gusta mi trabajo?",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué emociones notas con más frecuencia a lo largo del día?"
+            },
+            {
+              "text": "Menciona una emoción que te sorprenda por su frecuencia."
+            },
+            {
+              "text": "¿Hay alguna emoción que viva en tu cuerpo constantemente, como un ruido de fondo?"
+            }
+          ]
+        },
+        {
+          "name": "Corporalidad de las Emociones",
+          "description": "lo que mi cuerpo me dice",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Dónde sientes la alegría en tu cuerpo? Describe la sensación: ¿es calor, ligereza, expansión?"
+            },
+            {
+              "text": "Recuerda un momento en el que te embargaba la gratitud. ¿Qué sentías en tu cuerpo?"
+            },
+            {
+              "text": "¿Qué emociones te brindan una sensación de paz y armonía? ¿Cómo se manifiestan en tu cuerpo?"
+            },
+            {
+              "text": "¿En qué parte de tu cuerpo reside esa emoción que no puedes expresar con palabras?"
+            }
+          ]
+        },
+        {
+          "name": "Conciencia de los Sentimientos",
+          "description": "qué estoy sintiendo ahora mismo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué tan bien eres consciente de tus sentimientos cuando aparecen? Califícate del 1 al 10."
+            },
+            {
+              "text": "¿Te permites simplemente sentir lo que hay o a menudo piensas que no deberías sentir esto?"
+            },
+            {
+              "text": "¿Qué emociones te permites sentir únicamente cuando estás a solas contigo mismo?"
+            },
+            {
+              "text": "Cuando alguien te pregunta qué estás sintiendo, ¿tu primer impulso es responder con honestidad o decir lo que esperan escuchar?"
+            }
+          ]
+        },
+        {
+          "name": "Defensas y Máscaras",
+          "description": "mis máscaras y escudos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Usas el humor o el sarcasmo para expresar u ocultar tus sentimientos?"
+            },
+            {
+              "text": "¿Hay emociones seguras que muestras en lugar de tus verdaderos sentimientos?"
+            }
+          ]
+        },
+        {
+          "name": "Emociones como Información",
+          "description": "lo que mis sentimientos me susurran",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué te dicen los sentimientos que experimentas habitualmente?"
+            },
+            {
+              "text": "Si tu ansiedad fuera un maestro sabio, ¿qué te estaría enseñando?"
+            },
+            {
+              "text": "¿Qué emoción sueles considerar \"mala\" cuando en realidad está tratando de ayudarte?"
+            }
+          ]
+        },
+        {
+          "name": "El Estado de Ánimo como una Elección",
+          "description": "Cómo manejar tu estado de ánimo",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué estado de ánimo te gustaría cultivar por la mañana antes de comenzar tu día?"
+            },
+            {
+              "text": "¿Qué te ayuda a recuperar el equilibrio cuando las emociones te abruman?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Revisar Objetivos",
+      "blocks": [
+        {
+          "name": "Inventario de Objetivos",
+          "description": "mis objetivos para hoy",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "Enumera todas las metas que persigues actualmente (profesionales, personales, financieras)."
+            },
+            {
+              "text": "¿De dónde surgió cada una de estas metas: de tu propia elección o de las expectativas de otras personas?"
+            },
+            {
+              "text": "¿De qué objetivo es hora de desprenderte, uno que ya no te sirve ni te inspira?"
+            },
+            {
+              "text": "¿Quizás estas metas que te agobian ya no sean relevantes para ti?"
+            }
+          ]
+        },
+        {
+          "name": "Verificación de Objetivos",
+          "description": "cuáles de los objetivos están vivos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Elige una meta que sea importante para ti. ¿En qué se basa tu confianza de que precisamente este camino te llevará al resultado esperado?"
+            },
+            {
+              "text": "¿En qué datos específicos o experiencias basas tu confianza en esta meta? ¿Qué te da la seguridad de que realmente es alcanzable?"
+            },
+            {
+              "text": "¿Podría existir una forma más eficaz de alcanzar esta misma meta? ¿Qué te ayudaría a descubrirla?"
+            },
+            {
+              "text": "¿Tus metas te inspiran o, más bien, te generan ansiedad?"
+            }
+          ]
+        },
+        {
+          "name": "Objetivos Profesionales",
+          "description": "qué quiero del trabajo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuál es tu trabajo soñado? Imagínalo en detalle: dónde tiene lugar, qué incluye, con qué tipo de personas interactúas."
+            },
+            {
+              "text": "¿Qué aspectos de tu trabajo actual te están ayudando a avanzar hacia tus objetivos profesionales, y qué más puedes hacer para seguir progresando?"
+            },
+            {
+              "text": "¿Qué, específicamente, de tu trabajo actual te impide alcanzar tus objetivos profesionales?"
+            },
+            {
+              "text": "¿En qué medida te ayuda tu trabajo actual a avanzar hacia tus objetivos profesionales?"
+            }
+          ]
+        },
+        {
+          "name": "Logros y Orgullo",
+          "description": "de lo que me siento orgulloso/a",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿De cuál de tus logros te sientes más orgulloso/a?"
+            },
+            {
+              "text": "¿Qué logro te sorprendió más, algo que no esperabas conseguir?"
+            }
+          ]
+        },
+        {
+          "name": "Priorización",
+          "description": "qué es lo más importante ahora mismo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Si pudieras cumplir solo tres objetivos de todos los que tienes, ¿cuáles serían?"
+            },
+            {
+              "text": "¿Cómo sabrás si te estás moviendo hacia tus objetivos en la dirección correcta?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "mi plan de acción",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué paso concreto puedes dar esta semana para acercarte a tu meta principal?"
+            },
+            {
+              "text": "¿Quién o qué podría ayudarte a acercarte a esta meta? ¿Qué recursos y apoyo necesitas?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Soñadores",
+      "blocks": [
+        {
+          "name": "Qué es un sueño para mí",
+          "description": "qué significa soñar",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "Recuerda tu infancia: ¿con qué soñabas entonces? ¿Qué ha cambiado desde aquel momento?"
+            },
+            {
+              "text": "¿Cuál es tu principal sueño en este momento?"
+            },
+            {
+              "text": "¿Es realmente tu sueño o es algo que una vez escuchaste de otros y adoptaste como propio?"
+            },
+            {
+              "text": "¿Qué tan cerca estás de vivir la vida de tus sueños en este momento?"
+            }
+          ]
+        },
+        {
+          "name": "Prueba de Realidad",
+          "description": "lo que es realmente alcanzable",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Conoces a alguien que ya esté viviendo un estilo de vida similar o trabajando en un área que te interese? ¿Qué le ayudó a lograrlo?"
+            },
+            {
+              "text": "¿Tal vez tu sueño se basa en información limitada? ¿Qué te ayudaría a comprender su realidad más profundamente?"
+            },
+            {
+              "text": "Si tuvieras todas las oportunidades y recursos disponibles, ¿qué harías primero?"
+            }
+          ]
+        },
+        {
+          "name": "Casa de Sueños",
+          "description": "cómo se ve mi sueño",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Si todos tus problemas estuvieran resueltos y todo en tu vida estuviera en perfecto orden, ¿dónde vivirías y cómo sería la casa de tus sueños?"
+            },
+            {
+              "text": "Imagina la casa de tus sueños. ¿Qué tiene de especial? Describe de 3 a 5 detalles que la hacen verdaderamente tuya."
+            },
+            {
+              "text": "¿Qué pequeño y seguro paso puedes dar hoy para acercarte a la casa de tus sueños?"
+            }
+          ]
+        },
+        {
+          "name": "Trabajo de Ensueño",
+          "description": "dónde trabajar con alegría",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo visualizas tu trabajo ideal? Trata de describirlo de la manera más específica posible."
+            },
+            {
+              "text": "¿Qué tendría que cambiar en tu vida para que pudieras dedicarte al trabajo de tus sueños?"
+            },
+            {
+              "text": "¿Quién puede ayudarte a acercarte al trabajo de tus sueños? ¿Qué contactos, conocimientos o recursos necesitas?"
+            }
+          ]
+        },
+        {
+          "name": "Dinero e Inversiones",
+          "description": "adónde va mi dinero",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Hacia dónde se dirige exactamente tu dinero en este momento: hacia tu futuro (inversiones, educación, activos) o hacia tu presente (comodidad, entretenimiento, compras)?"
+            },
+            {
+              "text": "¿Qué porcentaje de tus ingresos inviertes para hacer realidad tu sueño?"
+            },
+            {
+              "text": "Si pudieras destinar el 10% de tus ingresos a hacer realidad tu sueño, ¿en qué lo invertirías?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "mi primer paso hoy",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué paso concreto podrías dar esta semana para acercarte a tu sueño?"
+            },
+            {
+              "text": "Si no tomas acción, ¿cómo ves tu vida en unos años? ¿Cuál sería tu arrepentimiento más doloroso?"
+            },
+            {
+              "text": "¿Cuándo quieres empezar? ¿Tienes algún día disponible esta semana?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reflexión",
+      "blocks": [
+        {
+          "name": "Lo Que Aprendí Sobre Mí Mismo/a",
+          "description": "Lo que entendí sobre mí mismo/a",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cuál fue el descubrimiento más inesperado que hiciste sobre ti mismo?"
+            },
+            {
+              "text": "¿Qué descubriste sobre ti mismo que no sabías antes de esta reflexión?"
+            },
+            {
+              "text": "¿Qué creencias sobre ti mismo has reconsiderado o cambiado recientemente?"
+            }
+          ]
+        },
+        {
+          "name": "Libertad y Cambios",
+          "description": "qué ha cambiado en mí",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué libertad trae una nueva comprensión de ti mismo?"
+            },
+            {
+              "text": "¿Qué te permites hacer ahora que antes no te permitías?"
+            },
+            {
+              "text": "¿A qué estás dispuesto a renunciar? ¿Qué hay en tu vida que ya no te sirve?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "qué hago después",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué acción estás dispuesto a tomar hoy basándote en tu nueva comprensión?"
+            },
+            {
+              "text": "¿Con quién puedes compartir tus nuevos descubrimientos sobre ti mismo? ¿Quién está dispuesto a acompañarte en este camino?"
+            }
+          ]
+        },
+        {
+          "name": "Continuación del Camino",
+          "description": "hacia dónde voy ahora",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué pregunta te harás regularmente a ti mismo?"
+            },
+            {
+              "text": "¿Cuándo volverás a hacer esta autorreflexión, en un mes, en un trimestre o en un año?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 Pilares de Purificación",
+      "blocks": [
+        {
+          "name": "Aceptación",
+          "description": "lo que estoy dispuesto a aceptar",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué parte de ti mismo rechazaste en el pasado, pero con el tiempo lograste aceptar?"
+            },
+            {
+              "text": "¿Qué cambió en tu vida cuando aceptaste aquello contra lo que antes luchabas?"
+            },
+            {
+              "text": "¿Qué parte de ti aún espera ser aceptada?"
+            }
+          ]
+        },
+        {
+          "name": "Dejar Ir",
+          "description": "lo que estás dispuesto a dejar ir",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué te has logrado desprender este año: creencias, hábitos o relaciones?"
+            },
+            {
+              "text": "¿Qué te sucede cuando sueltas algo? ¿Cómo cambia esto tu estado interno?"
+            },
+            {
+              "text": "¿Qué estás reteniendo en este momento, sabiendo que es momento de soltar?"
+            }
+          ]
+        },
+        {
+          "name": "Transformación",
+          "description": "cómo cambio",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cuándo fue la última vez que tu crecimiento ocurrió no a través de logros, sino al aceptar y soltar aquello que no funcionaba?"
+            },
+            {
+              "text": "¿Qué aspectos nuevos de ti has descubierto gracias a este proceso de purificación?"
+            },
+            {
+              "text": "¿En qué te has convertido después de este ciclo de purificación? ¿Qué ha cambiado dentro de ti?"
+            }
+          ]
+        },
+        {
+          "name": "Integración",
+          "description": "qué cambiará en la vida",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cómo puede influir este nuevo entendimiento en tus decisiones, tanto en el futuro cercano como en el lejano?"
+            },
+            {
+              "text": "¿Qué paso concreto estás dispuesto a dar hoy mismo, basado en esta purificación?"
+            },
+            {
+              "text": "¿Qué nuevos conocimientos o habilidades podrían enriquecer tu experiencia de purificación y hacerla más integral?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Recurso",
+      "blocks": [
+        {
+          "name": "Personas como Recurso",
+          "description": "quién me apoya",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Quién ha tenido una influencia especialmente fuerte en ti? ¿Qué hizo o dijo exactamente esta persona?"
+            },
+            {
+              "text": "¿Quién es tu fuente principal de apoyo en este momento?"
+            },
+            {
+              "text": "¿En quién puedes confiar en los momentos difíciles? ¿Por qué precisamente en estas personas?"
+            },
+            {
+              "text": "¿Quién cree en ti, incluso cuando tú mismo dudas de ti mismo?"
+            }
+          ]
+        },
+        {
+          "name": "Recursos Internos",
+          "description": "lo que me da fuerzas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué te sientes más orgulloso/a y por qué es importante para ti?"
+            },
+            {
+              "text": "¿Cuál es tu principal fortaleza y cómo la utilizas?"
+            },
+            {
+              "text": "¿Qué experiencia de tu pasado te ayuda ahora y qué te enseñó?"
+            },
+            {
+              "text": "¿Cuáles son las tres cualidades que consideras tu mayor ventaja?"
+            }
+          ]
+        },
+        {
+          "name": "Recursos Materiales",
+          "description": "lo que tengo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué recursos materiales tienes disponibles? (dinero, bienes, educación, conexiones)"
+            },
+            {
+              "text": "¿Cómo estás utilizando actualmente tus recursos: tiempo, energía y finanzas? ¿Qué está funcionando bien y qué te gustaría cambiar?"
+            },
+            {
+              "text": "¿Qué recursos (tiempo, dinero, energía) tienes en abundancia y cuáles te faltan para lo que realmente te importa?"
+            }
+          ]
+        },
+        {
+          "name": "Tiempo y Energía",
+          "description": "dónde se van mis fuerzas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿En qué inviertes la mayor parte de tu tiempo? ¿Te trae beneficios?"
+            },
+            {
+              "text": "¿Qué actividades te energizan? ¿Con qué frecuencia las realizas?"
+            },
+            {
+              "text": "¿Qué actividades te consumen más energía? ¿Puedes cambiar esto?"
+            }
+          ]
+        },
+        {
+          "name": "Desarrollo de Recursos",
+          "description": "cómo volverse más fuerte",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué recurso te gustaría desarrollar primero?"
+            },
+            {
+              "text": "¿Qué necesitas hacer para tener acceso a nuevos recursos?"
+            },
+            {
+              "text": "¿A quién o a qué puedes recurrir para ampliar tus oportunidades de crecimiento?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Límites de la Personalidad",
+      "blocks": [
+        {
+          "name": "Qué es un límite para mí",
+          "description": "qué significa soñar",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿En qué situaciones sueles permitir que las personas traspasen tus límites personales?"
+            },
+            {
+              "text": "¿Por qué permites esto? ¿Por miedo, por cortesía o por costumbre?"
+            },
+            {
+              "text": "¿Con quién te resulta más fácil establecer límites y con quién te resulta más difícil hacerlo? ¿Por qué?"
+            }
+          ]
+        },
+        {
+          "name": "Límites Personales",
+          "description": "mis \"sí\" y \"no\"",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué deseo ya no te sirve?"
+            },
+            {
+              "text": "¿Cuál es el objetivo del que es momento de desprenderte, uno que ya no te sirve?"
+            },
+            {
+              "text": "¿Qué ritual o hábito te gustaría introducir o cambiar y por qué?"
+            },
+            {
+              "text": "¿Sientes culpa al romper tus propias reglas?"
+            }
+          ]
+        },
+        {
+          "name": "Límites en las relaciones",
+          "description": "donde me abro a las personas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Con cuáles de tus seres queridos puedes permitirte ser vulnerable y con cuáles sientes la necesidad de parecer fuerte?"
+            },
+            {
+              "text": "¿A quién le permites ver tu debilidad y vulnerabilidad?"
+            },
+            {
+              "text": "¿Ante quién te pones una máscara y por qué?"
+            },
+            {
+              "text": "¿Qué personas te exigen estar siempre a la altura? ¿Quieres cambiar esto?"
+            }
+          ]
+        },
+        {
+          "name": "Límites en el Trabajo",
+          "description": "dónde termina el trabajo y dónde empiezo yo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿En qué medida tus responsabilidades laborales coinciden con tus intereses y valores?"
+            },
+            {
+              "text": "Si pones en la balanza los rechazos en entrevistas de trabajo frente a trabajar en un lugar donde no te valoran, ¿qué inclinaría la balanza para ti?"
+            },
+            {
+              "text": "¿Qué te hace, específicamente a ti, la persona indicada para resolver esta tarea? ¿Quién más podría encargarse de ella?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que dijiste no a un trabajo adicional? ¿Qué te impidió hacerlo antes?"
+            }
+          ]
+        },
+        {
+          "name": "Límites con la Tecnología y el Tiempo",
+          "description": "dónde se va mi tiempo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuándo fue la última vez que pasaste un día entero sin tu teléfono ni internet?"
+            },
+            {
+              "text": "¿Has establecido límites para el uso de internet en tu vida? ¿Cuáles son?"
+            },
+            {
+              "text": "¿Qué de lo que hiciste hoy te acercó a tus metas principales y qué, tal vez, no fue tan importante?"
+            }
+          ]
+        },
+        {
+          "name": "Límite entre trabajo y vida personal",
+          "description": "La frontera psicológica que separa las responsabilidades y actividades profesionales de la vida personal, las relaciones y el tiempo de ocio. Esta frontera ayuda a mantener la salud mental, previene el agotamiento y asegura una adecuada distribución de tiempo y energía entre las demandas laborales y el bienestar personal.",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Tienes un horario claro de cuándo termina tu jornada laboral?"
+            },
+            {
+              "text": "Si mañana todo en tu vida perdiera su significado, ¿de qué te arrepentirías más?"
+            }
+          ]
+        },
+        {
+          "name": "Límites Físicos y Corporales",
+          "description": "lo que me dice mi cuerpo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué límites físicos personales respetas de manera constante y cuáles sueles transgredir con frecuencia?"
+            },
+            {
+              "text": "¿Has llegado a amarte lo suficiente como para renunciar a lo que te destruye?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "mis primeros pasos",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué límite deseas establecer durante el próximo mes?"
+            },
+            {
+              "text": "¿Cómo sabrás si este límite está funcionando? ¿Qué señales te lo mostrarán?"
+            },
+            {
+              "text": "¿A quién le pedirías apoyo para establecer este límite?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Trabajo con los Miedos",
+      "blocks": [
+        {
+          "name": "Conociendo el Miedo",
+          "description": "¿Me gusta mi trabajo?",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué miedo ha vivido en ti durante tanto tiempo que se ha vuelto parte de ti?"
+            },
+            {
+              "text": "¿Con qué frecuencia se manifiesta este miedo y cuándo se activa?"
+            },
+            {
+              "text": "¿En qué parte del cuerpo sientes miedo?"
+            },
+            {
+              "text": "¿Qué posible escenario futuro te causa más ansiedad o preocupación?"
+            }
+          ]
+        },
+        {
+          "name": "Encuentro con el miedo",
+          "description": "qué siento cuando tengo miedo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Recuerda un momento en que enfrentaste tu miedo cara a cara. ¿Qué sentiste?"
+            },
+            {
+              "text": "¿Qué sucede con tu miedo cuando respiras a través de él? ¿Se vuelve más fácil?"
+            },
+            {
+              "text": "¿Qué palabras cálidas y de apoyo podrías decirle a tu miedo?"
+            }
+          ]
+        },
+        {
+          "name": "Análisis Profundo del Miedo",
+          "description": "qué se esconde detrás del miedo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Si tu miedo pudiera hablar, ¿qué diría sobre lo que está protegiendo?"
+            },
+            {
+              "text": "Si tu ansiedad fuera un maestro sabio, ¿qué te estaría enseñando?"
+            },
+            {
+              "text": "¿Qué parte de ti ya no teme aquello que te asustaba antes?"
+            }
+          ]
+        },
+        {
+          "name": "Miedos Específicos",
+          "description": "mis principales miedos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué miedos financieros no te dejan dormir tranquilo?"
+            },
+            {
+              "text": "¿Qué es lo que quieres, pero tienes miedo de desear de verdad?"
+            },
+            {
+              "text": "¿Crees que otras personas pueden sentir incomodidad o miedo al comunicarse contigo? Si es así, ¿a qué crees que podría estar relacionado?"
+            }
+          ]
+        },
+        {
+          "name": "Miedo y Motivación",
+          "description": "qué me hace el miedo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Tu miedo te motiva a avanzar o te paraliza?"
+            },
+            {
+              "text": "Cuando evitas ciertas situaciones, ¿qué te asusta exactamente de ellas: un peligro real o la posibilidad de descubrir algo nuevo sobre ti mismo?"
+            },
+            {
+              "text": "¿Qué evitas de manera tan sutil que ni siquiera te das cuenta?"
+            }
+          ]
+        },
+        {
+          "name": "Miedo en las Relaciones",
+          "description": "la intimidad me asusta",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Das tu tiempo y atención a las personas por generosidad o por miedo al rechazo?"
+            },
+            {
+              "text": "¿Qué te asusta más: mostrar tu vulnerabilidad o el riesgo de que la usen en tu contra?"
+            },
+            {
+              "text": "¿Qué te asusta más: quedarte solo o enfrentarte a ti mismo?"
+            },
+            {
+              "text": "Si no tuvieras miedo a la soledad, ¿qué relaciones acabarías?"
+            }
+          ]
+        },
+        {
+          "name": "Miedos existenciales",
+          "description": "de qué tengo realmente miedo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué temes más: la intensidad de tus emociones o su total ausencia?"
+            },
+            {
+              "text": "¿Quién llegarás a ser cuando dejes de tener miedo?"
+            },
+            {
+              "text": "¿En quién te conviertes cuando eliges el amor en vez del miedo?"
+            }
+          ]
+        },
+        {
+          "name": "Miedos inconscientes",
+          "description": "de qué tengo miedo en secreto",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué verdad sobre ti mismo ya sientes, pero aún no estás preparado para enfrentar?"
+            },
+            {
+              "text": "Si tus relaciones más cercanas pudieran hablar, ¿qué vivencias internas ocultas revelarían sobre ti?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "qué estoy haciendo ahora",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué pequeño paso podrías dar hacia aquello que te preocupa?"
+            },
+            {
+              "text": "¿Qué persona o recurso podría ayudarte en este trabajo?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Entender las Relaciones",
+      "blocks": [
+        {
+          "name": "Mapa de Mis Relaciones",
+          "description": "mis personas cercanas y lejanas",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cuántas personas te conocen realmente tal como eres? ¿Quiénes son?"
+            },
+            {
+              "text": "¿Con quién en tu vida te sientes seguro de ser tú mismo?"
+            },
+            {
+              "text": "¿Quién es para ti un ejemplo de una relación armoniosa y saludable?"
+            },
+            {
+              "text": "¿Qué tan satisfecho estás con tus amistades en este momento? Califícalo en una escala del 1 al 10."
+            }
+          ]
+        },
+        {
+          "name": "Éxitos y Recursos en las Relaciones",
+          "description": "mis victorias en el amor",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué éxito en tus relaciones te sientes orgulloso?"
+            },
+            {
+              "text": "Recuerda una relación en la que te sentiste verdaderamente visto y comprendido. ¿Qué la hacía especial?"
+            },
+            {
+              "text": "Piensa en alguien que te acepta completamente tal como eres. ¿Qué sientes al estar con esa persona?"
+            },
+            {
+              "text": "Recuerda una relación que te ayudó a ser una mejor persona: ¿qué tenía de sanador?"
+            },
+            {
+              "text": "¿Cómo has ayudado a otra persona? ¿Qué te ha aportado eso a ti?"
+            }
+          ]
+        },
+        {
+          "name": "Patrones y Ciclos",
+          "description": "mis errores recurrentes",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué patrones o comportamientos destruyeron tus relaciones pasadas?"
+            },
+            {
+              "text": "¿Qué patrones de comportamiento se repiten en tus relaciones?"
+            },
+            {
+              "text": "¿Atraes a personas que necesitan ayuda o eliges a aquellas a las que puedes ayudar?"
+            },
+            {
+              "text": "¿Sueles perdonar genuinamente a las personas o finges que las has perdonado para evitar la confrontación?"
+            }
+          ]
+        },
+        {
+          "name": "Yo en las relaciones",
+          "description": "quién soy junto a otros",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Hay aspectos de tu personalidad que prefieres no mostrar en las relaciones?"
+            },
+            {
+              "text": "¿Con cuál de las personas cercanas a ti puedes ser vulnerable y auténtico, y con cuál sientes la necesidad de parecer más fuerte?"
+            },
+            {
+              "text": "¿En qué parte del cuerpo sientes que una relación no es correcta para ti?"
+            },
+            {
+              "text": "¿Eliges la intimidad con las personas o con la imagen que ellas han creado de ti?"
+            },
+            {
+              "text": "¿Qué parte de ti mismo escondes o no muestras en las relaciones con los demás?"
+            }
+          ]
+        },
+        {
+          "name": "Amor y Expresión",
+          "description": "mi forma de amar",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo demuestras amor a las personas cercanas a ti? ¿Y cómo te gustaría recibirlo?"
+            },
+            {
+              "text": "¿Cómo expresas tu amor a las personas que quieres?"
+            },
+            {
+              "text": "¿Dedicas tu tiempo y atención a las personas por generosidad o por miedo a ser rechazado?"
+            }
+          ]
+        },
+        {
+          "name": "Influencia del Origen",
+          "description": "lo que me dieron mis padres",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo influyen tus relaciones con tus padres en tus relaciones románticas?"
+            },
+            {
+              "text": "¿Qué características de las relaciones de tu infancia te gustaría conservar en tu vida adulta y cuáles te gustaría cambiar?"
+            },
+            {
+              "text": "¿Con qué frecuencia te comunicas de manera significativa con tus familiares cercanos? ¿Te enriquece esto?"
+            }
+          ]
+        },
+        {
+          "name": "Vulnerabilidad e Intimidad",
+          "description": "abrirse o defenderse",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué te impide abrirte a las personas cercanas a ti?"
+            },
+            {
+              "text": "¿Buscas comprensión en las relaciones o confirmación de lo que ya piensas sobre ti mismo?"
+            },
+            {
+              "text": "Si no tuvieras miedo a la soledad, ¿qué relaciones acabarías?"
+            }
+          ]
+        },
+        {
+          "name": "Transformación",
+          "description": "quién soy ahora",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿En quién te conviertes cuando eliges el amor en vez del miedo?"
+            },
+            {
+              "text": "Si tus relaciones íntimas pudieran hablar, ¿qué revelarían sobre lo que sientes la necesidad de ocultar o proteger?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "qué haré a continuación",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cómo puedes mejorar tu relación con alguno de tus seres queridos? ¿Cuál es el primer paso que estás dispuesto/a a dar?"
+            },
+            {
+              "text": "¿Con quién estás dispuesto/a a compartir algo más personal sobre ti esta semana?"
+            },
+            {
+              "text": "¿Qué cualidades deseas desarrollar en ti para tener relaciones más cercanas y de mayor confianza?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Agotamiento → Recurso",
+      "blocks": [
+        {
+          "name": "Señales de Agotamiento",
+          "description": "lo que siento y noto",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué le pasa a tu cuerpo cuando estás agotado? ¿Qué señales te envía tu organismo?"
+            },
+            {
+              "text": "¿Qué emoción se esconde detrás de tu cansancio crónico?"
+            },
+            {
+              "text": "¿En qué momentos sientes ira pero la llamas cansancio o irritación?"
+            },
+            {
+              "text": "¿Cuándo tus objetivos te nutren de energía y cuándo empiezan a agotarte?"
+            }
+          ]
+        },
+        {
+          "name": "Disparadores y Patrones",
+          "description": "lo que me agota",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué es lo que más te quita energía en la vida?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que sentiste un descanso verdadero, completo, sin culpa ni urgencia?"
+            },
+            {
+              "text": "¿Qué responsabilidades asumes por sentido del deber, aunque no te inspiren?"
+            }
+          ]
+        },
+        {
+          "name": "Recuperación — Métodos Rápidos",
+          "description": "primeros auxilios para ti mismo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué te ayuda a recuperarte rápidamente del estrés y recargar energías?"
+            },
+            {
+              "text": "¿Qué actividades te ayudan mejor a recuperar tu energía: música, socialización, movimiento, naturaleza o creatividad?"
+            },
+            {
+              "text": "¿Qué te ayuda a relajarte rápidamente y a recuperar tu equilibrio interior?"
+            }
+          ]
+        },
+        {
+          "name": "Recuperación — Métodos Profundos",
+          "description": "lo que me da fuerzas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué tipo de descanso te restaura de manera más completa: físico, emocional, creativo o social?"
+            },
+            {
+              "text": "¿Cómo es tu fin de semana ideal? ¿Qué te da energía y te ofrece un verdadero descanso?"
+            },
+            {
+              "text": "¿Qué personas te ayudan a recuperar tu energía? ¿Cómo te das cuenta de que, a su lado, te sientes más vivo y lleno de vida?"
+            }
+          ]
+        },
+        {
+          "name": "Autosoporte",
+          "description": "cómo me abrazo a mí mismo/a",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo te apoyas en los momentos de cansancio o cuando sientes que tus fuerzas decaen?"
+            },
+            {
+              "text": "¿Qué te dices a ti mismo cuando sientes agotamiento? ¿Te apoyas o te criticas?"
+            },
+            {
+              "text": "¿Qué ritual de renovación te gustaría incorporar en tu vida?"
+            }
+          ]
+        },
+        {
+          "name": "Equilibrio y Límites",
+          "description": "qué tomo y qué doy",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿A qué estás dispuesto a renunciar para liberar espacio para tu recuperación?"
+            },
+            {
+              "text": "¿Qué límites necesitas establecer para no llegar al agotamiento?"
+            },
+            {
+              "text": "¿Cómo cambiaría tu vida si pudieras descansar tanto como trabajas?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "mis primeros pasos",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué ritual de recuperación puedes incorporar esta semana?"
+            },
+            {
+              "text": "¿A quién le contarás sobre tu agotamiento y pedirás apoyo?"
+            },
+            {
+              "text": "¿Cómo pasarías un día completo de descanso sin ningún tipo de limitaciones?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sanación del Pasado",
+      "blocks": [
+        {
+          "name": "Reconocimiento de lo que Fue",
+          "description": "Mi verdad sobre el pasado",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué evento de tu pasado aún resuena en ti?"
+            },
+            {
+              "text": "¿Qué lección aprendiste del período más difícil de tu vida?"
+            },
+            {
+              "text": "¿Qué has aprendido de importante últimamente?"
+            },
+            {
+              "text": "¿En qué aspectos te has fortalecido últimamente? ¿Qué te ha aportado esto?"
+            }
+          ]
+        },
+        {
+          "name": "Gratitud",
+          "description": "lo que me ha dado el pasado",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Recuerda un momento en el que te invadió la gratitud. ¿Qué sentiste en tu cuerpo?"
+            },
+            {
+              "text": "¿Por qué aspectos de tu experiencia pasada puedes sentirte agradecido?"
+            },
+            {
+              "text": "¿Cómo has ayudado a otra persona y qué te ha aportado eso?"
+            }
+          ]
+        },
+        {
+          "name": "Personas que ayudaron a sanar",
+          "description": "quién estuvo ahí para ti",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Recuerda las relaciones que te ayudaron a ser una mejor persona. ¿Qué las hacía sanadoras?"
+            },
+            {
+              "text": "Recuerda las relaciones en las que te sentiste realmente comprendido y aceptado tal como eres. ¿Qué hacía que esas conexiones fueran tan especiales para tu proceso de sanación?"
+            },
+            {
+              "text": "Recuerda a alguien que te acepta completamente. ¿Qué sientes al estar a su lado?"
+            },
+            {
+              "text": "¿Con quién puedes estar en silencio y sentirte comprendido?"
+            },
+            {
+              "text": "¿Con quién en tu vida te sientes seguro de ser tú mismo?"
+            }
+          ]
+        },
+        {
+          "name": "Perdón",
+          "description": "cómo liberarse del dolor",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿A quién no has perdonado aún, a otros o a ti mismo?"
+            },
+            {
+              "text": "¿Perdonas más a menudo a las personas o finges que las has perdonado para evitar la confrontación?"
+            },
+            {
+              "text": "Si tu tristeza pudiera hablar, ¿qué diría acerca de tu vida?"
+            },
+            {
+              "text": "¿Qué estás dispuesto a soltar de tu pasado para liberar espacio para lo que realmente es importante para ti ahora?"
+            }
+          ]
+        },
+        {
+          "name": "Emociones del Pasado",
+          "description": "lo que el cuerpo recuerda",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Recuerda una emoción de tu pasado que te brindó paz. ¿Cómo se sentía en tu cuerpo?"
+            },
+            {
+              "text": "¿Qué emoción de tu pasado aún vive en tu cuerpo, aunque no encuentres palabras para describirla?"
+            },
+            {
+              "text": "¿Qué color, sonido o imagen está conectado con tu herida emocional del pasado?"
+            }
+          ]
+        },
+        {
+          "name": "Replanteamiento de la Identidad Personal",
+          "description": "Quién soy después de todo lo que he vivido",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Quién serías si dejaras de intentar satisfacer las expectativas de los demás?"
+            },
+            {
+              "text": "Si nadie te conociera y pudieras empezar desde cero, ¿quién elegirías ser?"
+            },
+            {
+              "text": "Si no existieran las expectativas sociales ni las limitaciones, ¿qué parte de ti mismo permitirías que se manifestara con mayor libertad?"
+            },
+            {
+              "text": "Si te permitieran ser absolutamente honesto por un día, ¿qué dirías?"
+            }
+          ]
+        },
+        {
+          "name": "Visión de Uno Mismo",
+          "description": "quién soy realmente",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué te sientes más orgulloso/a y qué hace que este logro sea especialmente valioso para ti?"
+            },
+            {
+              "text": "¿Cuáles son los logros de los que te sientes orgulloso/a? Sean grandes o pequeños, todos son importantes."
+            },
+            {
+              "text": "¿Quién te inspira más y por qué?"
+            }
+          ]
+        },
+        {
+          "name": "Salida del Pasado",
+          "description": "cómo soltar y seguir adelante",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué sientes en este momento? ¿Qué deseas más ahora mismo?"
+            },
+            {
+              "text": "¿Qué le quieres dar más espacio en tu vida este año?"
+            },
+            {
+              "text": "¿Hacia dónde puedes dirigir tu energía para que beneficie tanto a ti como a quienes te rodean?"
+            },
+            {
+              "text": "Si mañana todo perdiera su significado, ¿cuál sería tu mayor arrepentimiento?"
+            }
+          ]
+        },
+        {
+          "name": "Acción y Futuro",
+          "description": "mis pasos después del dolor",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cuál es el paso más simple que puedes dar para integrar esta lección de tu pasado en tu vida?"
+            },
+            {
+              "text": "¿Con quién te gustaría compartir tu camino de sanación? ¿Quiénes son aquellas personas para quienes es importante conocer tu historia?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cuerpo y Emociones",
+      "blocks": [
+        {
+          "name": "Mapa de Sensaciones Corporales",
+          "description": "qué me dice mi cuerpo",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Dónde sientes la alegría en tu cuerpo? Describe la sensación: ¿calor, ligereza, expansión?"
+            },
+            {
+              "text": "Recuerda un momento en el que la gratitud te llenó por completo. ¿Qué sentiste en tu cuerpo en ese momento?"
+            },
+            {
+              "text": "Recuerda una emoción que te traiga tranquilidad. ¿Cómo la sientes en tu cuerpo?"
+            },
+            {
+              "text": "¿En qué parte de tu cuerpo vive la emoción más profunda que no puedes expresar con palabras?"
+            }
+          ]
+        },
+        {
+          "name": "Señales del Cuerpo",
+          "description": "qué siente mi cuerpo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué emociones experimentas con más frecuencia a lo largo del día?"
+            },
+            {
+              "text": "¿Hay alguna emoción que viva en tu cuerpo constantemente, como un ruido de fondo?"
+            },
+            {
+              "text": "¿Qué le sucede a tu cuerpo cuando las emociones se vuelven muy intensas? ¿Qué señales te envía tu organismo?"
+            },
+            {
+              "text": "¿Qué le sucede a tu cuerpo cuando sientes cansancio o agotamiento emocional? ¿Qué señales te envía tu organismo?"
+            }
+          ]
+        },
+        {
+          "name": "Emociones y Máscaras",
+          "description": "mis verdaderos sentimientos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué emociones sientes cuando estás a solas contigo mismo y no muestras a los demás?"
+            },
+            {
+              "text": "¿Usas el humor o el sarcasmo para expresar tus sentimientos o para ocultarlos?"
+            },
+            {
+              "text": "Cuando alguien te pregunta: \"¿Qué estás sintiendo?\", ¿tu primer impulso es responder con honestidad o decir lo que esperan escuchar?"
+            },
+            {
+              "text": "¿Qué parte de ti mismo escondes tensando físicamente los músculos o bloqueándote?"
+            }
+          ]
+        },
+        {
+          "name": "Actitud hacia los sentimientos",
+          "description": "qué estoy sintiendo ahora mismo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Te permites simplemente sentir lo que hay, o a menudo piensas que deberías sentir algo diferente?"
+            },
+            {
+              "text": "¿Qué palabras tiernas y bondadosas puedes ofrecerle a tus emociones en lugar de criticarlas?"
+            },
+            {
+              "text": "¿Qué estado de ánimo te gustaría cultivar por la mañana? ¿Cómo se sentiría esto en tu cuerpo?"
+            }
+          ]
+        },
+        {
+          "name": "Capas Profundas",
+          "description": "lo que mi cuerpo me dice",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Si tu ansiedad fuera una maestra sabia, ¿qué te estaría enseñando?"
+            },
+            {
+              "text": "¿Qué te dicen los sentimientos que experimentas regularmente?"
+            },
+            {
+              "text": "¿Qué sentimientos tiernos y bondadosos puedes experimentar hacia ti mismo en este momento?"
+            }
+          ]
+        },
+        {
+          "name": "Regulación a través del cuerpo",
+          "description": "cómo el cuerpo me sana",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cómo puedes ayudar a tu cuerpo a manejar emociones intensas?"
+            },
+            {
+              "text": "¿Qué movimiento o caricia te ayuda a reencontrar tu equilibrio?"
+            },
+            {
+              "text": "¿Te das cuenta de cómo cambia tu respiración con diferentes emociones? ¿Qué le sucede a tu cuerpo cuando te sientes ansioso o alegre?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dinero y Autoestima",
+      "blocks": [
+        {
+          "name": "Origen de las Creencias",
+          "description": "quién me influyó",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué lecciones financieras aprendiste de tus padres? Tanto las buenas como las no tan útiles; todo es importante para comprender."
+            },
+            {
+              "text": "¿Qué creencias sobre el dinero has heredado de tu familia y entorno? ¿Cómo influyen en tu vida actualmente?"
+            },
+            {
+              "text": "¿Cómo se relacionaban tus padres con el dinero? ¿Qué aspectos de su enfoque notas en ti ahora?"
+            }
+          ]
+        },
+        {
+          "name": "Creencias Actuales",
+          "description": "mis reglas sobre el dinero",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué creencias sobre el dinero tienes ahora mismo?"
+            },
+            {
+              "text": "¿Qué creencias tienes actualmente sobre el dinero y cómo están influyendo en tu situación financiera?"
+            },
+            {
+              "text": "¿Cómo te relacionas con el dinero: ¿lo ves más como una oportunidad o como una limitación?"
+            },
+            {
+              "text": "¿Cómo te comportas con el dinero cuando experimentas estrés? ¿Qué podría revelar esto sobre tus creencias?"
+            }
+          ]
+        },
+        {
+          "name": "Relación con el Dinero y la Autoestima",
+          "description": "mi dinero y yo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué influye en tu sentido de merecer bienestar financiero?"
+            },
+            {
+              "text": "¿Tienes la creencia de que no eres lo suficientemente bueno para tener dinero? ¿De dónde proviene esa creencia?"
+            },
+            {
+              "text": "¿Qué harías en la vida si el dinero dejase de ser una limitación?"
+            }
+          ]
+        },
+        {
+          "name": "Miedos Financieros",
+          "description": "qué temo con el dinero",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué miedos financieros no te dejan dormir tranquilo por las noches?"
+            },
+            {
+              "text": "¿Qué es lo que más te asusta: el fracaso financiero o el éxito que cambiaría todo en tu vida?"
+            },
+            {
+              "text": "Si el dinero desapareciera, ¿qué perderías además del dinero mismo?"
+            }
+          ]
+        },
+        {
+          "name": "Situación Actual",
+          "description": "mi dinero hoy",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cómo describirías tu situación financiera actual?"
+            },
+            {
+              "text": "¿En qué estás invirtiendo específicamente tu dinero ahora mismo: en tu futuro (educación, activos, inversiones) o en el presente (comodidad, entretenimiento, compras de estatus)?"
+            },
+            {
+              "text": "¿Qué parte de tus ingresos destinas al desarrollo personal?"
+            }
+          ]
+        },
+        {
+          "name": "Sueños y Motivación",
+          "description": "qué sueño con comprar",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Con qué sueñas al imaginar la libertad financiera?"
+            },
+            {
+              "text": "¿Qué harías si tuvieras suficiente dinero para realizar cualquier plan que quisieras?"
+            },
+            {
+              "text": "Si tuvieras todos los recursos necesarios (tiempo, dinero, oportunidades), ¿a qué te gustaría dedicarte?"
+            }
+          ]
+        },
+        {
+          "name": "Objetivos y Estrategia",
+          "description": "a dónde quiero llegar",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué meta financiera específica deseas alcanzar en un año?"
+            },
+            {
+              "text": "¿Qué metas financieras te gustaría alcanzar en cinco años?"
+            },
+            {
+              "text": "¿Quién puede ayudarte en tu desarrollo financiero: un mentor, un libro o un curso?"
+            },
+            {
+              "text": "¿Cuál es el primer paso concreto que puedes dar esta semana para acercarte a tus metas financieras?"
+            }
+          ]
+        },
+        {
+          "name": "Éxito y Transformación",
+          "description": "hacia dónde me lleva el éxito",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿A qué te dedicarías si supieras que, en cualquier cosa que hagas, te espera el éxito?"
+            },
+            {
+              "text": "¿Cómo cambiará tu vida si logras la libertad financiera?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Crisis 27 / 45",
+      "blocks": [
+        {
+          "name": "Expectativas vs Realidad",
+          "description": "mi verdad sobre el pasado",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Quién imaginabas que serías a esta edad cuando eras joven?"
+            },
+            {
+              "text": "¿Quién eres realmente en este momento? ¿Coincide con tus expectativas?"
+            },
+            {
+              "text": "¿Qué ocurrió de manera diferente a como lo habías planeado?"
+            },
+            {
+              "text": "¿Por qué estás agradecido de que tu vida no haya salido como la planeaste?"
+            }
+          ]
+        },
+        {
+          "name": "Sabiduría de los Errores",
+          "description": "lo que me ha enseñado la vida",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué sabiduría hay en tus errores?"
+            },
+            {
+              "text": "¿Cuáles son las tres lecciones de vida más importantes que transmitirías a quienes vienen después de ti?"
+            },
+            {
+              "text": "Si pudieras cambiar algo de tu pasado, ¿qué cambiarías?"
+            },
+            {
+              "text": "¿Qué agradeces que haya hecho tu yo más joven?"
+            }
+          ]
+        },
+        {
+          "name": "Crisis Actual",
+          "description": "lo que no me satisface",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué en tu vida actual te está causando una crisis o una sensación de estancamiento?"
+            },
+            {
+              "text": "¿Has perdido el sentido en aquello que antes te daba energía?"
+            },
+            {
+              "text": "¿Qué cambios en la vida estás enfrentando actualmente, ya sea en relaciones, trabajo, tu visión de ti mismo o planes para el futuro?"
+            }
+          ]
+        },
+        {
+          "name": "Reevaluación de Valores",
+          "description": "qué se ha vuelto más importante",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué valores te parecían importantes antes pero han perdido su significado?"
+            },
+            {
+              "text": "¿Qué valores se han vuelto más importantes para ti que antes?"
+            },
+            {
+              "text": "Si pudieras vivir los próximos diez años de manera diferente, ¿qué cambiarías en tus prioridades y por qué?"
+            }
+          ]
+        },
+        {
+          "name": "Posibilidad de Cambio",
+          "description": "lo que está en mi poder",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Hay aspectos de tu vida que quieras cambiar de manera radical?"
+            },
+            {
+              "text": "¿Qué te impide cambiar eso que deseas cambiar?"
+            },
+            {
+              "text": "¿De qué estarías dispuesto a desprenderte para renovar tu vida?"
+            },
+            {
+              "text": "Si supieras que todo va a salir bien, ¿qué cambios te atreverías a hacer en tu vida?"
+            }
+          ]
+        },
+        {
+          "name": "Nuevo Sentido",
+          "description": "quién soy ahora",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cómo te ves a ti mismo/a en 10 o 15 años? Imagina y describe un día típico de esa vida futura."
+            },
+            {
+              "text": "¿En qué aspectos deseas reinventarte?"
+            },
+            {
+              "text": "¿Qué nuevo sentido de la vida se revela ante ti después de la crisis?"
+            }
+          ]
+        },
+        {
+          "name": "Acción y Transición",
+          "description": "mi camino para salir de la crisis",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué paso concreto puedes dar esta semana para comenzar tu transición?"
+            },
+            {
+              "text": "¿A quién le contarás acerca de tu crisis y buscarás apoyo?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ansiedad por la IA y el Futuro del Trabajo",
+      "blocks": [
+        {
+          "name": "Mi Valor",
+          "description": "lo que sé hacer",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué habilidades profesionales te hacen valioso e indispensable en tu trabajo actual?"
+            },
+            {
+              "text": "¿Qué aspectos de tu trabajo no pueden ser reemplazados por una máquina o la IA?"
+            },
+            {
+              "text": "¿Consideras que la inteligencia emocional es tu principal activo profesional? ¿Por qué?"
+            },
+            {
+              "text": "¿Qué haces, más allá de tu descripción del puesto, que valoran tus colegas?"
+            }
+          ]
+        },
+        {
+          "name": "Identidad Profesional",
+          "description": "en qué trabajo y de lo que me siento orgulloso",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién eres profesionalmente más allá de tus habilidades técnicas? ¿Qué te define como profesional?"
+            },
+            {
+              "text": "¿Qué te distingue de otras personas en tu área profesional?"
+            },
+            {
+              "text": "¿Qué habilidades o cualidades tuyas podrían volverse especialmente valiosas en un mundo donde la tecnología está transformando el entorno profesional?"
+            }
+          ]
+        },
+        {
+          "name": "Signos de Ansiedad",
+          "description": "¿Me gusta mi trabajo?",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué te preocupa más: la posibilidad de perder tu trabajo o volverte obsoleto profesionalmente?"
+            },
+            {
+              "text": "¿Con qué frecuencia experimentas ansiedad profesional respecto a la inteligencia artificial y las tecnologías?"
+            },
+            {
+              "text": "¿Qué situaciones en el trabajo intensifican tu miedo a no estar a la altura?"
+            },
+            {
+              "text": "¿Cuáles métodos sueles utilizar para lidiar con el miedo a la incompetencia profesional?"
+            }
+          ]
+        },
+        {
+          "name": "Reentrenamiento y Desarrollo",
+          "description": "cómo aprendo cosas nuevas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuántas horas a la semana dedicas a la recapacitación y al desarrollo profesional?"
+            },
+            {
+              "text": "¿Qué nuevas habilidades o cualidades quieres desarrollar el próximo año para sentirte más seguro de ti mismo en un mundo cambiante?"
+            },
+            {
+              "text": "¿Tienes un plan de desarrollo profesional para el caso de que tu rol actual sea automatizado?"
+            },
+            {
+              "text": "¿Qué persona, mentor o comunidad podría ayudarte a desarrollarte en el trabajo con nuevas tecnologías?"
+            }
+          ]
+        },
+        {
+          "name": "Repensar el Trabajo",
+          "description": "cómo veo el trabajo",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "Si la IA pudiera hacer tu trabajo, ¿qué te gustaría hacer en su lugar? ¿Qué valor único podrías aportar al mundo?"
+            },
+            {
+              "text": "Si tuvieras que empezar tu carrera desde cero en este momento, ¿qué estudiarías?"
+            },
+            {
+              "text": "¿Qué cualidades profesionales o experiencias prefieres mantener en privado? ¿Qué queda fuera del enfoque público de tu imagen profesional?"
+            }
+          ]
+        },
+        {
+          "name": "Mercado Laboral y Oportunidades",
+          "description": "nuevas oportunidades para mí",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué nuevos nichos profesionales están surgiendo gracias a la IA y la automatización?"
+            },
+            {
+              "text": "¿Cómo puedes usar la IA como aliada para desarrollar tu dominio en la profesión?"
+            },
+            {
+              "text": "¿Quiénes de tus colegas o personas en tu profesión se han adaptado exitosamente a las nuevas tecnologías? ¿Qué puedes aprender de ellos?"
+            }
+          ]
+        },
+        {
+          "name": "Acción y Estrategia",
+          "description": "mi plan de acción",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cuál es el primer paso concreto que darás esta semana para prepararte mejor ante los cambios en el mundo laboral?"
+            },
+            {
+              "text": "¿Qué nueva habilidad o conocimiento quieres adquirir en los próximos tres meses?"
+            },
+            {
+              "text": "¿Cómo harás seguimiento de tu progreso en la adaptación a los cambios profesionales?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Info-obesidad",
+      "blocks": [
+        {
+          "name": "Conciencia del Consumo",
+          "description": "a dónde se va mi tiempo",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cuánto tiempo al día pasas en plataformas digitales como redes sociales, noticias y aplicaciones de mensajería?"
+            },
+            {
+              "text": "¿Cuáles son las tres primeras aplicaciones que abres por la mañana?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que pasaste un día sin notificaciones, apagándolas completamente o activando el modo No molestar?"
+            },
+            {
+              "text": "¿Abres las aplicaciones con un propósito consciente o simplemente por costumbre?"
+            }
+          ]
+        },
+        {
+          "name": "Sentimientos y Señales",
+          "description": "cómo me siento",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué le sucede a tu cuerpo cuando la pantalla se llena de notificaciones? ¿Qué señales te envía tu organismo?"
+            },
+            {
+              "text": "¿Qué emociones surgen después de una hora en el flujo de información: tranquilidad, confusión o sobrecarga?"
+            },
+            {
+              "text": "Cuando sientes la necesidad de revisar algo en tu teléfono o computadora, ¿qué es lo que realmente necesitas en ese momento?"
+            }
+          ]
+        },
+        {
+          "name": "Miedos y Motivos",
+          "description": "de qué tengo miedo y qué quiero",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué tienes miedo de perderte en el flujo de información?"
+            },
+            {
+              "text": "Si dejaras de revisar las noticias durante una semana, ¿qué perderías y qué ganarías?"
+            },
+            {
+              "text": "¿Cómo te ayuda el consumo digital a evitar el aburrimiento, la soledad o la autorreflexión?"
+            }
+          ]
+        },
+        {
+          "name": "Límite y Saturación",
+          "description": "cuando hay suficiente información",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Dónde estableces el límite entre mantenerte bien informado y experimentar una sobrecarga de información?"
+            },
+            {
+              "text": "¿Cuánta información realmente necesitas en un día? ¿Cómo te das cuenta de que es suficiente?"
+            },
+            {
+              "text": "¿Qué contenido es realmente útil para ti y cuál consumes en piloto automático?"
+            }
+          ]
+        },
+        {
+          "name": "Del Consumo a la Creación",
+          "description": "cómo convertirse en un creador",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué pasaría si dejaras de consumir y comenzaras a crear?"
+            },
+            {
+              "text": "¿Qué contenido o idea te gustaría crear en vez de consumir sin parar?"
+            },
+            {
+              "text": "¿Con qué frecuencia escribes, dibujas o creas algo propio en comparación con el tiempo que dedicas a consumir contenido?"
+            }
+          ]
+        },
+        {
+          "name": "Identidad sin dígitos",
+          "description": "mi verdadero rostro",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo te ves a ti mismo sin tu huella digital, sin valoraciones ni \"likes\"?"
+            },
+            {
+              "text": "¿Qué partes de tu personalidad muestras en línea y cuáles mantienes ocultas?"
+            },
+            {
+              "text": "Si mañana desaparecieran todas tus cuentas digitales, ¿qué cambiaría respecto a quién eres?"
+            }
+          ]
+        },
+        {
+          "name": "Independencia",
+          "description": "quién soy sin internet",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Puedes pasar un día sin tu smartphone? ¿Cómo te sientes en ese caso?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que reflexionaste profundamente sobre algo confiando únicamente en tus propios pensamientos?"
+            },
+            {
+              "text": "¿Qué decisión has tomado en el último mes basándote únicamente en tu propia experiencia, sin consultar Google ni internet?"
+            }
+          ]
+        },
+        {
+          "name": "Acción y Equilibrio",
+          "description": "mis primeros pasos",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué límite digital vas a establecer para ti mismo/a esta semana?"
+            },
+            {
+              "text": "¿Qué aplicación o hábito estarías dispuesto a eliminar o limitar?"
+            },
+            {
+              "text": "¿Qué actividad fuera de línea quieres retomar en tu vida?"
+            },
+            {
+              "text": "¿Cómo harás seguimiento de tu progreso para crear un equilibrio digital?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Indefensión Aprendida 2.0",
+      "blocks": [
+        {
+          "name": "Donde Pierdo Mi Poder",
+          "description": "qué drena mi energía",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué es lo que más suele paralizarte en los momentos en que necesitas actuar?"
+            },
+            {
+              "text": "¿Dónde termina tu verdadero círculo de influencia? ¿Qué queda fuera de tu control?"
+            },
+            {
+              "text": "¿Qué situaciones en la vida te provocan una sensación de impotencia o desamparo?"
+            },
+            {
+              "text": "¿Qué le sucede a tu cuerpo cuando te sientes impotente? ¿Qué señales te envía?"
+            }
+          ]
+        },
+        {
+          "name": "Trampa informacional",
+          "description": "cuando dejo de intentar",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuáles son las fuentes de noticias e información que están moldeando tu visión del mundo?"
+            },
+            {
+              "text": "¿Cuánto tiempo al día dedicas a consumir información que te paraliza?"
+            },
+            {
+              "text": "¿De quién adoptas puntos de vista y creencias como propios, sin verificar si realmente corresponden a tu propia experiencia?"
+            }
+          ]
+        },
+        {
+          "name": "Miedos y Elección",
+          "description": "lo que me detiene",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué te da más miedo: el fracaso o la inacción?"
+            },
+            {
+              "text": "¿Qué te dice la voz interior que no puedes hacer algo? ¿De dónde crees que surgieron estas creencias?"
+            },
+            {
+              "text": "¿De qué esperanza ya te has dado por vencido? ¿Quieres recuperarla?"
+            }
+          ]
+        },
+        {
+          "name": "Ilusión de Control",
+          "description": "lo que quiero tener en mis manos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué pasaría si dejaras de intentar controlar lo que está fuera de tu alcance?"
+            },
+            {
+              "text": "¿En qué áreas de tu vida sientes que te esfuerzas mucho por cambiar algo, pero los resultados siguen siendo los mismos?"
+            },
+            {
+              "text": "Si te enfocaras únicamente en lo que realmente está en tu poder, ¿cómo cambiaría esto tu actitud hacia la vida?"
+            }
+          ]
+        },
+        {
+          "name": "Partes de la Personalidad y Resistencia",
+          "description": "quién dentro de mí tiene miedo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué parte de ti tiene miedo de actuar? ¿Qué está protegiendo?"
+            },
+            {
+              "text": "¿Qué obtienes al mantenerte indefenso? ¿Qué te aporta la inacción?"
+            },
+            {
+              "text": "Si una parte de ti tuviese miedo mientras otra estuviese lista para actuar, ¿qué diría esa parte preparada?"
+            }
+          ]
+        },
+        {
+          "name": "Competencia e Historial de Éxitos",
+          "description": "en qué soy bueno/a",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuándo fue la última vez que te sentiste competente y capaz de cambiar algo?"
+            },
+            {
+              "text": "¿Qué pequeñas acciones o hábitos te han ayudado a lograr resultados?"
+            },
+            {
+              "text": "¿En qué área de tu vida te sientes más influyente y capaz?"
+            }
+          ]
+        },
+        {
+          "name": "De la Indefensión a la Agencia",
+          "description": "hacia dónde me lleva el éxito",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién eres cuando no te paraliza la impotencia?"
+            },
+            {
+              "text": "¿Qué decisiones puedes tomar hoy para tener un mayor control sobre tu vida?"
+            },
+            {
+              "text": "Si tomaras completa responsabilidad por aquellas partes de tu vida que están en tus manos, ¿cómo podría esto cambiar tus decisiones y acciones?"
+            }
+          ]
+        },
+        {
+          "name": "Acción",
+          "description": "primeros pasos hacia el cambio",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué paso concreto puedes dar hoy para sentirte más seguro/a de tus capacidades?"
+            },
+            {
+              "text": "¿De qué preocupación habitual estás dispuesto/a a liberarte esta semana?"
+            },
+            {
+              "text": "¿Qué nuevo hábito introducirás para fortalecer tu sentido de competencia?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dependencia Parasocial",
+      "blocks": [
+        {
+          "name": "Cartografía de Mi Mundo",
+          "description": "mis relaciones reales",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cuántas personas en tu vida te conocen realmente tal como eres, sin máscaras ni filtros?"
+            },
+            {
+              "text": "¿Cuántas horas a la semana pasas con personas en persona? ¿Te parece suficiente?"
+            },
+            {
+              "text": "¿A cuáles de las personas que conoces solo virtualmente te gustaría conocer en la vida real?"
+            },
+            {
+              "text": "¿Qué tipo de contenido te ayuda a sentirte menos solo?"
+            }
+          ]
+        },
+        {
+          "name": "Fuentes de Cercanía",
+          "description": "quién me apoya",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De quién, entre las personas reales de tu vida, sientes que recibes el mayor apoyo emocional?"
+            },
+            {
+              "text": "¿De qué influencer, personaje o IA sientes que recibes apoyo y qué tienen específicamente que te hace sentir así?"
+            },
+            {
+              "text": "¿Qué necesidades de cercanía y comprensión satisface en ti la interacción con compañeros virtuales?"
+            },
+            {
+              "text": "¿Qué necesidad real satisface el contenido virtual para ti?"
+            }
+          ]
+        },
+        {
+          "name": "Escape y Evitación",
+          "description": "lo que evito en la vida",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué estás huyendo cuando caes en el desplazamiento infinito?"
+            },
+            {
+              "text": "¿Qué reemplaza para ti la virtualidad con respecto al contacto humano real y la intimidad?"
+            },
+            {
+              "text": "¿Qué personas reales o situaciones estás evitando a través de la pantalla?"
+            },
+            {
+              "text": "Si desconectaras todas tus relaciones virtuales por una semana, ¿qué extrañarías?"
+            }
+          ]
+        },
+        {
+          "name": "La Paradoja de la Proximidad",
+          "description": "cuando la pantalla está más cerca que las personas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Por qué las relaciones virtuales te resultan más fáciles que las reales?"
+            },
+            {
+              "text": "¿Cuáles son las ventajas de las relaciones virtuales para ti?"
+            },
+            {
+              "text": "¿Cuáles son los riesgos y dificultades de la intimidad virtual?"
+            }
+          ]
+        },
+        {
+          "name": "Yo Auténtico",
+          "description": "mi verdadero rostro",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuándo fue la última vez que sentiste una cercanía genuina, sin pantallas ni filtros?"
+            },
+            {
+              "text": "¿Quién eres cuando nadie ve tus publicaciones, reacciones y estado en línea?"
+            },
+            {
+              "text": "¿Qué aspectos de ti mismo muestras en línea pero ocultas en las interacciones cara a cara?"
+            },
+            {
+              "text": "Si mañana desaparecieran todas tus relaciones virtuales, ¿cambiaría algo de quién realmente eres?"
+            }
+          ]
+        },
+        {
+          "name": "Recuperación de la Autenticidad",
+          "description": "regresando a mi verdadero yo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué necesitas cambiar en tu vida para tener relaciones más auténticas?"
+            },
+            {
+              "text": "¿Qué necesidad real podrías empezar a satisfacer mediante relaciones humanas genuinas?"
+            },
+            {
+              "text": "¿A cuál de las personas cercanas te gustaría contarle aquello que normalmente solo compartes con interlocutores virtuales?"
+            },
+            {
+              "text": "¿Qué paso podrías dar hoy para recuperar una verdadera cercanía con alguien importante para ti?"
+            }
+          ]
+        },
+        {
+          "name": "Límites y Equilibrio",
+          "description": "cómo no perderse en línea",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué relaciones virtuales o contenidos puedes conservar porque realmente te ayudan?"
+            },
+            {
+              "text": "¿Cómo puedes disfrutar de Internet sin perder tus conexiones auténticas?"
+            },
+            {
+              "text": "¿Qué límites quieres establecer entre el mundo en línea y fuera de línea?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Vida Híbrida — Trabajo Remoto",
+      "blocks": [
+        {
+          "name": "Transformación del Espacio",
+          "description": "mi mundo antes y después",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cómo ha cambiado tu relación con el hogar tras adoptar el modo híbrido?"
+            },
+            {
+              "text": "¿Qué ha llegado a tu vida gracias al trabajo remoto?"
+            },
+            {
+              "text": "¿Qué perdiste cuando tu oficina se convirtió en tu dormitorio?"
+            },
+            {
+              "text": "¿Cómo ha cambiado tu espacio personal y tu energía tras la digitalización total?"
+            }
+          ]
+        },
+        {
+          "name": "Fatiga y Desencadenantes",
+          "description": "qué roba mis fuerzas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuántas reuniones virtuales a la semana comienzan a agotar tus recursos internos?"
+            },
+            {
+              "text": "¿Qué le sucede a tu cuerpo en momentos de cansancio? ¿Qué señales te está enviando?"
+            },
+            {
+              "text": "¿Qué hábitos digitales se han convertido en cadenas invisibles para ti?"
+            },
+            {
+              "text": "¿Cómo te señalan tu cuerpo y tu mente que estás agotado?"
+            }
+          ]
+        },
+        {
+          "name": "Sacrificios y Prioridades",
+          "description": "de qué renuncio",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué te estás privando al pasar cada vez más tiempo en el mundo digital?"
+            },
+            {
+              "text": "¿Qué cosas importantes en tu vida estás relegando por el trabajo?"
+            },
+            {
+              "text": "¿Cuánta energía consumes al mantener tu máscara profesional en diferentes situaciones?"
+            }
+          ]
+        },
+        {
+          "name": "Límites",
+          "description": "cuando hay suficiente información",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Dónde están tus límites entre el trabajo y la vida personal en este momento?"
+            },
+            {
+              "text": "¿Qué pasaría si desactivas las notificaciones después de las 18:00?"
+            },
+            {
+              "text": "¿Qué ritual o rutina marca tu transición del trabajo a la vida personal?"
+            },
+            {
+              "text": "¿Cómo se sienten las personas cercanas a ti con el hecho de que siempre estés conectado/a?"
+            }
+          ]
+        },
+        {
+          "name": "Separación de Roles",
+          "description": "qué es mío y qué es trabajo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Dónde termina tu rol profesional y comienza tu identidad personal?"
+            },
+            {
+              "text": "¿Cómo haces la transición de \"trabajador\" a \"persona\" en casa?"
+            },
+            {
+              "text": "¿Qué partes de ti no muestras en el trabajo?"
+            }
+          ]
+        },
+        {
+          "name": "Identidad y Huella Digital",
+          "description": "mi imagen online y offline",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién eres cuando apagas todas las notificaciones y guardas el teléfono lejos?"
+            },
+            {
+              "text": "¿Qué versión de ti creas en el mundo digital y qué queda tras bambalinas?"
+            },
+            {
+              "text": "Si mañana perdieras el acceso a internet por una semana, ¿quién descubrirías que eres?"
+            }
+          ]
+        },
+        {
+          "name": "Oportunidades de Hibridez",
+          "description": "mis ventajas hoy",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué ventajas de la vida híbrida valoras ya?"
+            },
+            {
+              "text": "¿Cómo puedes aprovechar mejor las oportunidades de un estilo de vida híbrido para tu desarrollo personal?"
+            },
+            {
+              "text": "¿Qué libertad te ha brindado el trabajo remoto?"
+            }
+          ]
+        },
+        {
+          "name": "Acción e Integración",
+          "description": "cómo lo reuniré todo",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué límite establecerás esta semana entre el trabajo y la vida personal?"
+            },
+            {
+              "text": "¿Qué ritual de desconexión del trabajo vas a incorporar en tu día?"
+            },
+            {
+              "text": "¿Cómo sabrás si el equilibrio se ha restablecido?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Autenticidad vs Algoritmos",
+      "blocks": [
+        {
+          "name": "Cartografía de Máscaras",
+          "description": "mis diferentes rostros",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué versiones diferentes de ti mismo creas en distintos contextos: redes sociales, trabajo, familia, grupos de amigos?"
+            },
+            {
+              "text": "¿Qué plataformas usas? ¿Eres la misma persona en todas ellas?"
+            },
+            {
+              "text": "¿Cuántas veces al día editas, filtras u ocultas tu imagen?"
+            },
+            {
+              "text": "¿Qué cambiaría en tu vida si ya no te esforzaras por adaptar tu imagen a las expectativas de los demás?"
+            }
+          ]
+        },
+        {
+          "name": "Contenido y Autenticidad",
+          "description": "mis publicaciones y yo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué contenido creas por aburrimiento, presión social o por el deseo de agradar a los demás?"
+            },
+            {
+              "text": "¿Qué tipo de contenido creas sinceramente, desde el corazón?"
+            },
+            {
+              "text": "¿Cómo se diferencia tu personalidad en internet de quién eres en la vida real?"
+            }
+          ]
+        },
+        {
+          "name": "Riesgos de Autenticidad",
+          "description": "lo que temo en mí mismo/a",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué partes de tu personalidad se vuelven invisibles en el ámbito digital?"
+            },
+            {
+              "text": "¿Qué parte de ti mismo ocultas por miedo al juicio ajeno?"
+            },
+            {
+              "text": "¿Qué consideras arriesgado al mostrar tus verdaderas emociones en línea?"
+            },
+            {
+              "text": "¿Qué personas o situaciones te llevan a usar una máscara?"
+            }
+          ]
+        },
+        {
+          "name": "La Frontera Entre Presentación y Censura",
+          "description": "cuando hay suficiente información",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Dónde trazas el límite entre una autopresentación saludable y la autocensura?"
+            },
+            {
+              "text": "¿Qué aspectos de tu vida prefieres mantener solo para ti y qué influye en esta decisión?"
+            },
+            {
+              "text": "¿Tienes personas o comunidades con las que puedas ser completamente tú mismo/a?"
+            }
+          ]
+        },
+        {
+          "name": "Elección entre aceptación y autenticidad",
+          "description": "ser uno mismo o gustar a otros",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Cuando tienes que elegir entre autenticidad y aceptación, ¿cómo decides?"
+            },
+            {
+              "text": "¿Qué contenido crearías si no existieran los \"me gusta\" ni las valoraciones?"
+            },
+            {
+              "text": "Si fueras completamente anónimo en línea, ¿quién serías?"
+            }
+          ]
+        },
+        {
+          "name": "Autenticidad en la Era de los Algoritmos",
+          "description": "mi verdadero rostro",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Dónde está tu autenticidad en este momento: en línea o fuera de línea?"
+            },
+            {
+              "text": "¿Qué partes de ti se sienten auténticas y no necesitan ningún filtro?"
+            },
+            {
+              "text": "Si tu versión en línea y tu versión en la vida real se encontraran, ¿qué se dirían la una a la otra?"
+            }
+          ]
+        },
+        {
+          "name": "Recuperación de la Autenticidad",
+          "description": "cómo encontrar tu verdadero yo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué faceta de ti mismo estás dispuesto a mostrar más abiertamente?"
+            },
+            {
+              "text": "¿Con quién te gustaría compartir tu versión más auténtica? ¿Quiénes son esas personas?"
+            },
+            {
+              "text": "¿Cuál sería ese único contenido auténtico que crearías si no tuvieras miedo?"
+            }
+          ]
+        },
+        {
+          "name": "Acción y Equilibrio",
+          "description": "cómo ser tú mismo en línea",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Qué verdad sobre ti mismo estás dispuesto a aceptar en este momento?"
+            },
+            {
+              "text": "¿Cómo medirás tu autenticidad, por los likes o por tu propia sensación interior?"
+            },
+            {
+              "text": "¿Qué ritual de desintoxicación digital podrías introducir en tu vida?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Eco-culpa y Ansiedad Climática",
+      "blocks": [
+        {
+          "name": "Mi Consumo",
+          "description": "mis compras y hábitos",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Qué productos y servicios consumes a diario? ¿Te has planteado alguna vez cuál es su origen?"
+            },
+            {
+              "text": "¿Qué hábitos de consumo heredaste de tus padres?"
+            },
+            {
+              "text": "¿Qué hábitos ecológicos practicas actualmente? ¿Qué te gustaría agregar o cambiar en tu consumo?"
+            },
+            {
+              "text": "¿Cuál es el costo ecológico de tu día típico?"
+            }
+          ]
+        },
+        {
+          "name": "Culpa y Responsabilidad",
+          "description": "¿Me gusta mi trabajo?",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cuánta energía desperdicias sintiendo culpa ecológica en lugar de pasar a la acción?"
+            },
+            {
+              "text": "¿Qué te asusta más: la incomodidad de cambiar tu estilo de vida o las consecuencias de la crisis climática?"
+            },
+            {
+              "text": "¿Dónde termina tu responsabilidad personal y comienza la responsabilidad sistémica?"
+            },
+            {
+              "text": "¿Con qué frecuencia te das cuenta de que estás paralizado por la culpa en vez de actuar?"
+            }
+          ]
+        },
+        {
+          "name": "Emociones y Negación",
+          "description": "lo que me oculto a mí mismo/a",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué dolor acerca de la naturaleza y su sufrimiento reprimes dentro de ti?"
+            },
+            {
+              "text": "¿Cuándo fue la última vez que te permitiste sentir ansiedad ecológica sin juzgarte?"
+            },
+            {
+              "text": "¿Qué racionalizas o qué niegas cuando se trata de temas ecológicos?"
+            }
+          ]
+        },
+        {
+          "name": "Elección Personal",
+          "description": "lo que está en mis manos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué decisión personal puedes tomar que tenga un impacto real?"
+            },
+            {
+              "text": "¿Qué pequeñas acciones estás llevando a cabo? ¿Tienen valor?"
+            },
+            {
+              "text": "Si supieras con certeza que tus acciones ayudarán al planeta, ¿qué cambiarías en tu vida?"
+            }
+          ]
+        },
+        {
+          "name": "Identidad y Sistema",
+          "description": "mi lugar en el mundo",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién eres más allá de tus hábitos de consumo?"
+            },
+            {
+              "text": "¿Cómo influye el sistema (corporaciones, estado, economía) en tus decisiones?"
+            },
+            {
+              "text": "¿Se puede ser ecológico dentro de un sistema no ecológico? ¿Cómo?"
+            }
+          ]
+        },
+        {
+          "name": "De la Culpa a la Acción",
+          "description": "qué hago por el planeta",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿De qué culpa ecológica estás dispuesto a liberarte?"
+            },
+            {
+              "text": "¿Qué pequeña acción podrías incorporar a tu vida desde hoy para sentirte más íntegro y completo en cuanto a temas ecológicos?"
+            },
+            {
+              "text": "¿Quién o qué puede ayudarte con tus decisiones ecológicas?"
+            },
+            {
+              "text": "¿Cómo vas a hacer seguimiento de tu progreso, por materiales o por tu sensación interior?"
+            }
+          ]
+        },
+        {
+          "name": "Activismo y Coherencia",
+          "description": "lo que hago por el planeta",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Hay alguna causa ambiental que te inspire y por qué?"
+            },
+            {
+              "text": "¿Cómo deseas participar: a través de acciones personales, informando a otros o mediante activismo?"
+            },
+            {
+              "text": "¿Qué papel quieres desempeñar en la creación de un mundo más saludable?"
+            },
+            {
+              "text": "¿De qué logros te sientes orgulloso/a? ¿Qué aspectos de tu vida te llenan de satisfacción?"
+            },
+            {
+              "text": "¿De qué logros te sientes más orgulloso?"
+            },
+            {
+              "text": "¿Cómo puedes disfrutar aún más del proceso de alcanzar tus objetivos ambientales?"
+            },
+            {
+              "text": "¿Qué hay de valioso en ti, independientemente de tus acciones y logros personales?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Síndrome del Impostor en la Era de LinkedIn",
+      "blocks": [
+        {
+          "name": "Síntomas y desencadenantes",
+          "description": "cuando te invade la duda",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿En qué momentos sientes que no eres lo suficientemente competente para desempeñar tu rol?"
+            },
+            {
+              "text": "¿Qué le sucede a tu autoestima cuando ves las publicaciones de éxito de tus colegas en las redes sociales?"
+            },
+            {
+              "text": "¿Temes que un día alguien te toque el hombro y te diga que no perteneces aquí y que te vayas?"
+            }
+          ]
+        },
+        {
+          "name": "Atribución de Méritos",
+          "description": "mis logros o suerte",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Con qué frecuencia atribuyes tus éxitos a simplemente haber tenido suerte, a que fue casualidad o a la ayuda del equipo?"
+            },
+            {
+              "text": "Anota tres hechos indiscutibles sobre tu carrera profesional (cifras, proyectos completados)."
+            },
+            {
+              "text": "¿Cuáles son los logros de los que te sientes genuinamente orgulloso/a, aunque nadie le haya dado \"me gusta\" a tu publicación?"
+            }
+          ]
+        },
+        {
+          "name": "Ruptura con la Realidad",
+          "description": "mi máscara en las redes sociales",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "Si comparas tu perfil público (currículum) con tu percepción interna, ¿qué tan grande es la brecha?"
+            },
+            {
+              "text": "¿Qué inseguridad profesional prefieres no compartir con tus colegas?"
+            },
+            {
+              "text": "¿Qué es lo peor que podría pasar si dijeras que no sabes la respuesta a esa pregunta?"
+            }
+          ]
+        },
+        {
+          "name": "Valor e Identidad",
+          "description": "lo que es importante para mí",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Cómo piensas sobre ti mismo más frecuentemente: a través de tus logros (soy quien logró esto) o a través de tus cualidades (soy de esta manera)?"
+            },
+            {
+              "text": "¿Quién eres sin tus cargos, proyectos y estatus profesional?"
+            },
+            {
+              "text": "¿Cómo puedes encontrar satisfacción en el proceso mismo de trabajar hacia tus metas y no solo en el momento de alcanzarlas?"
+            }
+          ]
+        },
+        {
+          "name": "Salir de la Carrera",
+          "description": "cómo vivir sin comparaciones",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿La opinión o aprobación de quién te parece todavía necesaria para sentirte como un profesional auténtico?"
+            },
+            {
+              "text": "¿Qué consejo le darías a un amigo si se sintiera tan inseguro como tú te sientes ahora mismo?"
+            },
+            {
+              "text": "¿Qué estás dispuesto a hacer hoy, sabiendo que eres lo suficientemente bueno para hacerlo?"
+            },
+            {
+              "text": "¿En qué área de tu vida inviertes la mayor parte de tu tiempo y energía?"
+            },
+            {
+              "text": "¿Por qué creo que esto va a funcionar? ¿En qué se basa mi confianza en este camino? Quizás haya una manera más efectiva; ¿cómo puedo averiguarlo?"
+            },
+            {
+              "text": "Si pudieras elegir sin limitaciones, ¿dónde te gustaría trabajar?"
+            },
+            {
+              "text": "🚨 ¿Qué te resulta más doloroso en este momento: recibir rechazos en las entrevistas de trabajo o seguir trabajando donde no te valoran como mereces?"
+            },
+            {
+              "text": "¿Te criticas por descansar cuando tienes mucho trabajo y muchas responsabilidades?"
+            },
+            {
+              "text": "¿Cuánto tiempo te durarían tus ahorros si decidieras hacer una pausa en el trabajo?"
+            },
+            {
+              "text": "¿Cómo te ayuda tu trabajo actual a lograr lo que realmente es importante para ti?"
+            },
+            {
+              "text": "¿Qué aspectos de tu trabajo actual no se alinean con las metas que realmente consideras importantes?"
+            },
+            {
+              "text": "¿Qué tan satisfecho te sientes con tu trabajo actual? Calíficalo en una escala del 1 al 10."
+            },
+            {
+              "text": "¿Cuál sería tu trabajo ideal?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ansiedad Dominical",
+      "blocks": [
+        {
+          "name": "Conexión a tierra",
+          "description": "lo que siente mi cuerpo",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cómo describirías tu estado actual en tres palabras? Por ejemplo, cansancio, inquietud, expectativa."
+            },
+            {
+              "text": "¿Cuándo el descanso deja de ser descanso? ¿Has notado alguna vez ese momento en que la relajación se convierte en una expectativa interna antes del lunes?"
+            },
+            {
+              "text": "¿Cómo te sientes respecto a cómo pasaste este fin de semana?"
+            },
+            {
+              "text": "Si mañana no fuera lunes, ¿cómo pasarías la noche?"
+            }
+          ]
+        },
+        {
+          "name": "Análisis de Monstruos",
+          "description": "mis principales miedos",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué evento o tarea específica de la próxima semana te causa mayor tensión?"
+            },
+            {
+              "text": "¿Esta tensión se debe al miedo a no poder con todo, al aburrimiento o a tener que lidiar con personas desagradables?"
+            },
+            {
+              "text": "En una escala del 1 al 10, ¿qué tan satisfecho estás con tu trabajo en general?"
+            },
+            {
+              "text": "¿Existe una amenaza real en lo que te preocupa, o es solo un hábito de preocuparte?"
+            }
+          ]
+        },
+        {
+          "name": "Límites y Recursos",
+          "description": "qué me ayudará",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué es lo más amable y cariñoso que puedes hacer por ti mismo en este momento?"
+            },
+            {
+              "text": "¿Qué pequeño ritual mañana por la mañana te ayudará a comenzar el día con más calma?"
+            },
+            {
+              "text": "¿Quién o qué puede ser tu apoyo en esta semana?"
+            }
+          ]
+        },
+        {
+          "name": "Verificación Global",
+          "description": "cuando la ansiedad no suelta",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "Si colocas en la balanza el miedo al cambio y el dolor de trabajar donde no te valoran, ¿qué se siente más pesado en este momento?"
+            },
+            {
+              "text": "El trabajo de tus sueños: ¿hay lugar para la ansiedad dominical?"
+            },
+            {
+              "text": "¿Qué paso darás esta semana para acercar un poco tu realidad a ese sueño?"
+            },
+            {
+              "text": "Si tu ansiedad dominical pudiera hablar, ¿qué trataría de decirte sobre tu vida?"
+            },
+            {
+              "text": "¿Seguirás sintiendo esto cada domingo dentro de 5 años?"
+            },
+            {
+              "text": "¿Qué necesitas cambiar en tu vida para que el domingo vuelva a ser simplemente domingo?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Culpa Parental por el Tiempo de Pantalla",
+      "blocks": [
+        {
+          "name": "Diagnóstico Honesto",
+          "description": "lo que realmente está pasando",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Cuántas horas al día pasa tu hijo frente a una pantalla y cuántas de esas horas son para que tú puedas descansar?"
+            },
+            {
+              "text": "¿Conoces la trama del juego o de los dibujos animados favoritos de tu hijo/a?"
+            },
+            {
+              "text": "¿Cuánto tiempo pasas en tu teléfono cuando tu hijo/a está en la misma habitación que tú?"
+            }
+          ]
+        },
+        {
+          "name": "Anatomía de la Culpa",
+          "description": "qué me está pasando",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Qué sientes en ese momento cuando le das la tablet a tu hijo: alivio, irritación o vergüenza?"
+            },
+            {
+              "text": "¿Qué miedo te invade más profundamente cuando piensas en el tiempo de pantalla de tu hijo?"
+            },
+            {
+              "text": "¿Crees que un buen padre debe entretener a su hijo 24/7 sin ayuda de la tecnología?"
+            }
+          ]
+        },
+        {
+          "name": "Significados Ocultos",
+          "description": "lo que se esconde detrás de la culpa",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "Cuando prohíbes los dispositivos o te enojas por ellos, ¿qué ansiedad estás tratando de calmar?"
+            },
+            {
+              "text": "Si recuerdas tu infancia, ¿qué te faltó que ahora intentas compensar (o prohibir) a tu hijo?"
+            },
+            {
+              "text": "¿Qué hay realmente detrás de tus discusiones con tu hijo sobre el teléfono? ¿Podría ser esta tu manera de conectar con él cuando no encuentras otros motivos para conversar?"
+            }
+          ]
+        },
+        {
+          "name": "Puente Digital",
+          "description": "qué hacer a continuación",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Y si la pantalla no es una pared entre ustedes sino una puerta? ¿Cómo puedes atravesar esa puerta junto con tu hijo?"
+            },
+            {
+              "text": "¿En quién te convertirás para tu hijo si dejas de ser censor y te conviertes en guía hacia el mundo digital?"
+            },
+            {
+              "text": "¿Qué ritual familiar sin dispositivos podrías introducir que les traiga verdadera alegría a ambos, en lugar de sentirse como una obligación saludable?"
+            },
+            {
+              "text": "¿Cuánto tiempo al día dedicas a monitorear los gráficos de criptomonedas?"
+            },
+            {
+              "text": "¿Qué canales y blogueros determinan tus decisiones de inversión?"
+            },
+            {
+              "text": "¿Qué creencias sobre el dinero y la tecnología influyen en tus decisiones al comprar dispositivos para tu hijo?"
+            },
+            {
+              "text": "¿Qué realmente impulsa tu deseo de ganar dinero rápido?"
+            },
+            {
+              "text": "¿Qué vacíos internos intentas llenar al seguir las tendencias de criptomonedas?"
+            },
+            {
+              "text": "¿De qué sentimiento incómodo sobre ti mismo huyes al pasar tiempo en el teléfono?"
+            },
+            {
+              "text": "¿Qué parte de tu vulnerabilidad ocultas detrás de tus hábitos digitales?"
+            },
+            {
+              "text": "¿Quién sientes que eres sin pantallas, notificaciones ni logros digitales?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FOMO de Criptomonedas",
+      "blocks": [
+        {
+          "name": "Pulso Digital",
+          "description": "dónde estoy con las criptos",
+          "type": "Foundation",
+          "questions": [
+            {
+              "text": "¿Con qué frecuencia revisas tu portafolio o los gráficos? Sé honesto: ¿una vez al día, cada hora o con cada notificación?"
+            },
+            {
+              "text": "¿El estado del mercado afecta tu estado de ánimo? Cuando el mercado está en rojo, ¿cómo se refleja esto en tu comunicación con tus seres queridos?"
+            },
+            {
+              "text": "¿Duermes con el móvil en la cama por miedo a perderte los cambios de precios durante la noche?"
+            }
+          ]
+        },
+        {
+          "name": "Espejo Social",
+          "description": "lo que piensan otras personas",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Los éxitos de quién en criptomonedas te generan sentimientos encontrados? ¿A quién sigues?"
+            },
+            {
+              "text": "¿Crees que otros están ganando dinero fácil y rápidamente mientras tú estás perdiendo oportunidades?"
+            },
+            {
+              "text": "¿Qué sentimiento es más fuerte: la alegría por tus ganancias o la molestia de que podrías haber ganado más?"
+            }
+          ]
+        },
+        {
+          "name": "Pensamiento Mágico",
+          "description": "mis sueños de dinero fácil",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Entraste al mundo cripto para preservar tu capital o para cambiar rápidamente tu vida y escapar de la realidad?"
+            },
+            {
+              "text": "¿Cómo te relacionas con la inversión en criptomonedas: como una estrategia bien pensada o como un juego de azar?"
+            },
+            {
+              "text": "¿Qué te da esa sensación de estar \"en el mercado\": conexión con el futuro, emoción, sentimiento de superioridad?"
+            }
+          ]
+        },
+        {
+          "name": "Identidad",
+          "description": "quién soy sin el hype",
+          "type": "Exploration",
+          "questions": [
+            {
+              "text": "¿Quién eres sin tus activos virtuales ni logros digitales?"
+            },
+            {
+              "text": "Si todo el mercado cripto desapareciera mañana, ¿qué habilidades reales y valores auténticos te quedarían?"
+            }
+          ]
+        },
+        {
+          "name": "Desintoxicación Cripto",
+          "description": "cómo dejar de hacer seguimiento",
+          "type": "Integration",
+          "questions": [
+            {
+              "text": "¿Cuánto dinero estás dispuesto a perder sin arrepentimientos y sin que afecte tu calidad de vida? (Tu verdadera tolerancia al riesgo)"
+            },
+            {
+              "text": "¿Qué reglas de bienestar digital estás dispuesto/a a implementar para recuperar tu sueño reparador?"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
