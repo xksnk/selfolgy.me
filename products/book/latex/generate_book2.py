@@ -75,16 +75,23 @@ args = parser.parse_args()
 LANG = args.lang
 CONFIG = LANG_CONFIG[LANG]
 
-# Загрузка данных из единого источника правды
-DATA_FILE = '/home/ksnk/microservices/critical/selfology-bot/intelligent_question_core/data/selfology_master.json'
+# Загрузка данных из соответствующего языкового файла
+BASE_PATH = '/home/ksnk/microservices/critical/selfology-bot/intelligent_question_core/data'
+DATA_FILES = {
+    'ru': f'{BASE_PATH}/selfology_master.json',
+    'en': f'{BASE_PATH}/selfology_master_en.json',
+    'es': f'{BASE_PATH}/selfology_master_es.json',
+}
+DATA_FILE = DATA_FILES[LANG]
 with open(DATA_FILE) as f:
     data = json.load(f)
 
-print(f"📚 Источник: selfology_master.json (v{data.get('version', '?')})")
+print(f"📚 Источник: {DATA_FILE.split('/')[-1]} (v{data.get('version', '?')})")
 print(f"🌍 Язык: {LANG}")
 
-# Преамбулы книги
-INTRO = r'''
+# Преамбулы книги - языкоспецифичные
+INTRO_TEXTS = {
+    'ru': r'''
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
 
@@ -128,9 +135,101 @@ INTRO = r'''
 
 \vspace{2em}
 {\centering\itshape Начнём с простого.\par}
-'''
+''',
+    'en': r'''
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
 
-WARNING = r'''
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont The Beginning\par}
+
+\vspace{2em}
+
+This book is designed as a descent.
+
+You'll start at the surface---where it's safe and clear. Gradually, you'll go deeper. By the end, you'll reach places few people ever visit.
+
+\vspace{1.5em}
+{\sffamily\bfseries Three Depths}
+
+\textbf{Part I: First Steps.} Warm-up. Simple questions to help you tune into honest conversation with yourself.
+
+\textbf{Part II: Exploration.} The work begins here. Questions will touch on things you haven't thought about. That's normal.
+
+\textbf{Part III: Deep Work.} The most important part. Only go here when you're ready. Don't rush.
+
+\vspace{1.5em}
+{\sffamily\bfseries Why This Way}
+
+We're made of layers. On top---what we know about ourselves and share easily. Deeper---what we know but don't like to admit. Even deeper---what we hide from ourselves.
+
+Jumping straight to the depths hurts and doesn't help. You need a gradual descent. This book is your guide.
+
+\newpage
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+
+{\sffamily\bfseries How to Proceed}
+
+\textbf{Sequentially.} Don't skip ahead. Each part prepares you for the next.
+
+\textbf{With pauses.} Take breaks between parts---a day, a week. Let it settle.
+
+\textbf{In writing.} A thought written by hand becomes more real. Don't answer in your head.
+
+\textbf{Honestly.} No one will check this book. Lying here means lying only to yourself.
+
+\vspace{2em}
+{\centering\itshape Let's start simple.\par}
+''',
+    'es': r'''
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont El Comienzo\par}
+
+\vspace{2em}
+
+Este libro esta disenado como un descenso.
+
+Comenzaras en la superficie---donde es seguro y claro. Gradualmente, iras mas profundo. Al final, llegaras a lugares que pocos visitan.
+
+\vspace{1.5em}
+{\sffamily\bfseries Tres Profundidades}
+
+\textbf{Parte I: Primeros pasos.} Calentamiento. Preguntas simples para ayudarte a sintonizar con una conversacion honesta contigo mismo.
+
+\textbf{Parte II: Exploracion.} Aqui comienza el trabajo. Las preguntas tocaran cosas en las que no habias pensado. Es normal.
+
+\textbf{Parte III: Trabajo profundo.} La parte mas importante. Solo ve aqui cuando estes listo. No te apresures.
+
+\vspace{1.5em}
+{\sffamily\bfseries Por que de esta manera}
+
+Estamos hechos de capas. Arriba---lo que sabemos de nosotros mismos y compartimos facilmente. Mas profundo---lo que sabemos pero no nos gusta admitir. Aun mas profundo---lo que nos ocultamos.
+
+Saltar directamente a las profundidades duele y no ayuda. Necesitas un descenso gradual. Este libro es tu guia.
+
+\newpage
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+
+{\sffamily\bfseries Como proceder}
+
+\textbf{Secuencialmente.} No te saltes partes. Cada parte te prepara para la siguiente.
+
+\textbf{Con pausas.} Toma descansos entre partes---un dia, una semana. Deja que se asiente.
+
+\textbf{Por escrito.} Un pensamiento escrito a mano se vuelve mas real. No respondas en tu cabeza.
+
+\textbf{Honestamente.} Nadie revisara este libro. Mentir aqui es mentirte solo a ti mismo.
+
+\vspace{2em}
+{\centering\itshape Empecemos con algo simple.\par}
+''',
+}
+
+WARNING_TEXTS = {
+    'ru': r'''
 \newpage
 \thispagestyle{empty}
 \vspace*{0.3\textheight}
@@ -157,9 +256,67 @@ WARNING = r'''
 
 \vspace{2em}
 {\centering\itshape Бережно относитесь к себе.\par}
-'''
+''',
+    'en': r'''
+\newpage
+\thispagestyle{empty}
+\vspace*{0.3\textheight}
 
-CONCLUSION = r'''
+{\centering\sffamily\bfseries\fontsize{18pt}{22pt}\selectfont Attention: Deep Work Ahead\par}
+
+\vspace{2em}
+
+The following section requires special care.
+
+Before continuing, make sure:
+
+\begin{itemize}
+\item You are in a safe place
+\item You have time and energy
+\item No one will disturb you
+\end{itemize}
+
+\vspace{1em}
+
+These questions may evoke strong emotions. That's normal---it means you're touching something important.
+
+If it becomes too overwhelming---stop. Take a break. Return later.
+
+\vspace{2em}
+{\centering\itshape Be gentle with yourself.\par}
+''',
+    'es': r'''
+\newpage
+\thispagestyle{empty}
+\vspace*{0.3\textheight}
+
+{\centering\sffamily\bfseries\fontsize{18pt}{22pt}\selectfont Atencion: Trabajo profundo\par}
+
+\vspace{2em}
+
+La siguiente seccion requiere especial cuidado.
+
+Antes de continuar, asegurate de que:
+
+\begin{itemize}
+\item Estas en un lugar seguro
+\item Tienes tiempo y energia
+\item Nadie te molestara
+\end{itemize}
+
+\vspace{1em}
+
+Estas preguntas pueden evocar emociones fuertes. Es normal---significa que estas tocando algo importante.
+
+Si se vuelve demasiado abrumador---detente. Toma un descanso. Vuelve mas tarde.
+
+\vspace{2em}
+{\centering\itshape Se amable contigo mismo.\par}
+''',
+}
+
+CONCLUSION_TEXTS = {
+    'ru': r'''
 \newpage
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
@@ -191,20 +348,118 @@ CONCLUSION = r'''
 
 \vspace{3em}
 {\centering\sffamily Selfology\par}
-'''
+''',
+    'en': r'''
+\newpage
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
 
-# Названия частей книги
-PART_NAMES = {
-    "Foundation": "Часть I: Первые шаги",
-    "Exploration": "Часть II: Исследование",
-    "Integration": "Часть III: Глубинная работа"
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont You've Reached the Bottom\par}
+
+\vspace{2em}
+
+In a good way.
+
+You've reached the deepest point. You've seen what usually stays in shadow. That takes courage---and you showed it.
+
+\vspace{1.5em}
+{\sffamily\bfseries What Now}
+
+What you wrote isn't just answers. It's a map of your inner world. It will change as you change.
+
+\textbf{In a month} reread your notes. You'll be surprised how your perception has shifted.
+
+\textbf{In a year} go through the book again. You'll be a different person---and your answers will be different.
+
+\vspace{1.5em}
+{\sffamily\bfseries One Final Question}
+
+What do you now know about yourself that you didn't know before this book?
+
+\vspace{3em}
+{\centering\itshape The path continues.\par}
+
+\vspace{3em}
+{\centering\sffamily Selfology\par}
+''',
+    'es': r'''
+\newpage
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont Has llegado al fondo\par}
+
+\vspace{2em}
+
+En el buen sentido.
+
+Has llegado al punto mas profundo. Has visto lo que usualmente permanece en la sombra. Eso requiere coraje---y lo demostraste.
+
+\vspace{1.5em}
+{\sffamily\bfseries Y ahora que}
+
+Lo que escribiste no son solo respuestas. Es un mapa de tu mundo interior. Cambiara a medida que tu cambies.
+
+\textbf{En un mes} relee tus notas. Te sorprendera como ha cambiado tu percepcion.
+
+\textbf{En un ano} vuelve a recorrer el libro. Seras una persona diferente---y tus respuestas seran diferentes.
+
+\vspace{1.5em}
+{\sffamily\bfseries Una ultima pregunta}
+
+Que sabes ahora de ti mismo que no sabias antes de este libro?
+
+\vspace{3em}
+{\centering\itshape El camino continua.\par}
+
+\vspace{3em}
+{\centering\sffamily Selfology\par}
+''',
 }
 
-PART_SUBTITLES = {
-    "Foundation": "Мягкое начало — знакомство с собой",
-    "Exploration": "Погружение — исследование паттернов",
-    "Integration": "Трансформация — интеграция открытий"
+INTRO = INTRO_TEXTS[LANG]
+WARNING = WARNING_TEXTS[LANG]
+CONCLUSION = CONCLUSION_TEXTS[LANG]
+
+# Nombres de partes - языкоспецифичные
+PART_NAMES_ALL = {
+    'ru': {
+        "Foundation": "Часть I: Первые шаги",
+        "Exploration": "Часть II: Исследование",
+        "Integration": "Часть III: Глубинная работа"
+    },
+    'en': {
+        "Foundation": "Part I: First Steps",
+        "Exploration": "Part II: Exploration",
+        "Integration": "Part III: Deep Work"
+    },
+    'es': {
+        "Foundation": "Parte I: Primeros pasos",
+        "Exploration": "Parte II: Exploracion",
+        "Integration": "Parte III: Trabajo profundo"
+    },
 }
+
+PART_SUBTITLES_ALL = {
+    'ru': {
+        "Foundation": "Мягкое начало — знакомство с собой",
+        "Exploration": "Погружение — исследование паттернов",
+        "Integration": "Трансформация — интеграция открытий"
+    },
+    'en': {
+        "Foundation": "Gentle start --- getting to know yourself",
+        "Exploration": "Diving in --- exploring patterns",
+        "Integration": "Transformation --- integrating discoveries"
+    },
+    'es': {
+        "Foundation": "Comienzo suave --- conocerte a ti mismo",
+        "Exploration": "Inmersion --- explorando patrones",
+        "Integration": "Transformacion --- integrando descubrimientos"
+    },
+}
+
+PART_NAMES = PART_NAMES_ALL[LANG]
+PART_SUBTITLES = PART_SUBTITLES_ALL[LANG]
 
 # Время по типу кластера (формат зависит от языка)
 def get_time(depth_type):
@@ -394,14 +649,18 @@ output = []
 
 # Преамбула
 year = __import__('datetime').datetime.now().strftime('%Y')
+POLYGLOSSIA_LANG = {'ru': 'russian', 'en': 'english', 'es': 'spanish'}[LANG]
+
 preamble = r'''% Selfology Book 2: Путь в глубину
 % Кластеры организованы по уровню глубины
-% Сгенерировано: ''' + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M') + r'''
+% Сгенерировано: ''' + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M') + f'''
+% Язык: {LANG}
 
-\documentclass[11pt,a4paper,oneside]{book}
-\usepackage{selfology-book}
+\\documentclass[11pt,a4paper,oneside]{{book}}
+\\usepackage{{selfology-book}}
+\\setdefaultlanguage{{{POLYGLOSSIA_LANG}}}
 
-\begin{document}
+\\begin{{document}}
 '''
 
 output.append(preamble)
@@ -442,12 +701,19 @@ output.append(CONCLUSION)
 
 output.append(r'\end{document}')
 
-# Сохранение
-with open('/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book2.tex', 'w') as f:
+# Сохранение - файл зависит от языка
+OUTPUT_FILES = {
+    'ru': '/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book2.tex',
+    'en': '/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book2-en.tex',
+    'es': '/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book2-es.tex',
+}
+OUTPUT_FILE = OUTPUT_FILES[LANG]
+
+with open(OUTPUT_FILE, 'w') as f:
     f.write("\n".join(output))
 
 total_clusters = sum(stats.values())
-print(f"\n✅ Сгенерировано: selfology-book2.tex")
+print(f"\n✅ Сгенерировано: {OUTPUT_FILE.split('/')[-1]}")
 print(f"   Foundation: {stats['Foundation']} кластеров")
 print(f"   Exploration: {stats['Exploration']} кластеров")
 print(f"   Integration: {stats['Integration']} кластеров")

@@ -71,16 +71,23 @@ args = parser.parse_args()
 LANG = args.lang
 CONFIG = LANG_CONFIG[LANG]
 
-# Загрузка данных из единого источника правды
-DATA_FILE = '/home/ksnk/microservices/critical/selfology-bot/intelligent_question_core/data/selfology_master.json'
+# Загрузка данных из соответствующего языкового файла
+BASE_PATH = '/home/ksnk/microservices/critical/selfology-bot/intelligent_question_core/data'
+DATA_FILES = {
+    'ru': f'{BASE_PATH}/selfology_master.json',
+    'en': f'{BASE_PATH}/selfology_master_en.json',
+    'es': f'{BASE_PATH}/selfology_master_es.json',
+}
+DATA_FILE = DATA_FILES[LANG]
 with open(DATA_FILE) as f:
     data = json.load(f)
 
-print(f"📚 Источник: selfology_master.json (v{data.get('version', '?')})")
+print(f"📚 Источник: {DATA_FILE.split('/')[-1]} (v{data.get('version', '?')})")
 print(f"🌍 Язык: {LANG}")
 
-# Преамбулы книги
-INTRO = r'''
+# Преамбулы книги - языкоспецифичные
+INTRO_TEXTS = {
+    'ru': r'''
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
 
@@ -139,9 +146,131 @@ INTRO = r'''
 
 \vspace{2em}
 {\centering\itshape Готовы? Тогда начнём.\par}
-'''
+''',
+    'en': r'''
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
 
-CONCLUSION = r'''
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont Welcome\par}
+
+\vspace{2em}
+
+This book is not a test or questionnaire. It's a space for meeting yourself.
+
+There are no right or wrong answers here. Only yours---honest, real, alive.
+
+\vspace{1.5em}
+{\sffamily\bfseries How This Book Works}
+
+You'll encounter three levels of questions:
+
+\textbf{Surface} --- light questions to warm up. They help you tune in and connect with yourself.
+
+\textbf{Exploration} --- deeper questions. This is where the real work begins. It may feel uncomfortable---that's normal.
+
+\textbf{Depth} --- the most important questions. They require strength, time, and a safe space.
+
+\vspace{1.5em}
+{\sffamily\bfseries The Aquarium Metaphor}
+
+Imagine your mind as an aquarium.
+
+At the top---crystal clear water. There you can see your thoughts, desires, and decisions clearly. But this part makes up only 10--20\%. This is your conscious mind.
+
+The remaining 80--90\% is murky water at the bottom. It's hard to see anything there. This is your subconscious---the place where the real reasons for your decisions, fears, and desires live.
+
+This book is like a sieve. You'll bring up thoughts and feelings from the bottom that usually remain invisible.
+
+\newpage
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+
+{\sffamily\bfseries How to Proceed}
+
+\textbf{Create space.} Choose a time when no one will disturb you.
+
+\textbf{Tune in.} Pour yourself your favorite drink. Get comfortable. Give yourself permission to be honest.
+
+\textbf{Write by hand.} When you write by hand, your brain processes information more deeply.
+
+\textbf{Don't rush.} Give yourself as much time as you need. One question might take a minute, or half an hour.
+
+\vspace{1.5em}
+{\sffamily\bfseries Safety Guidelines}
+
+You'll need energy for this journey.
+
+Don't try to complete everything in one sitting. Move at your own pace. Take breaks.
+
+If a question triggers strong emotions---that's a sign you've touched something important. Approach it gently.
+
+\vspace{2em}
+{\centering\itshape Ready? Let's begin.\par}
+''',
+    'es': r'''
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont Bienvenido\par}
+
+\vspace{2em}
+
+Este libro no es un test ni un cuestionario. Es un espacio para encontrarte contigo mismo.
+
+Aqui no hay respuestas correctas o incorrectas. Solo las tuyas---honestas, reales, vivas.
+
+\vspace{1.5em}
+{\sffamily\bfseries Como funciona este libro}
+
+Encontraras tres niveles de preguntas:
+
+\textbf{Superficie} --- preguntas ligeras para calentar. Te ayudan a sintonizar y conectar contigo mismo.
+
+\textbf{Exploracion} --- preguntas mas profundas. Aqui comienza el verdadero trabajo. Puede resultar incomodo---es normal.
+
+\textbf{Profundidad} --- las preguntas mas importantes. Requieren fuerza, tiempo y un espacio seguro.
+
+\vspace{1.5em}
+{\sffamily\bfseries La metafora del acuario}
+
+Imagina que tu mente es un acuario.
+
+Arriba---agua cristalina. Alli puedes ver claramente tus pensamientos, deseos y decisiones. Pero esta parte representa solo el 10--20\%. Es tu mente consciente.
+
+El 80--90\% restante es agua turbia en el fondo. Es dificil ver algo alli. Es tu subconsciente---el lugar donde viven las verdaderas razones de tus decisiones, miedos y deseos.
+
+Este libro es como un colador. Sacaras del fondo pensamientos y sentimientos que normalmente permanecen invisibles.
+
+\newpage
+\thispagestyle{empty}
+\vspace*{0.1\textheight}
+
+{\sffamily\bfseries Como proceder}
+
+\textbf{Crea espacio.} Elige un momento en que nadie te moleste.
+
+\textbf{Sintoniza.} Sirvete tu bebida favorita. Ponte comodo. Date permiso para ser honesto.
+
+\textbf{Escribe a mano.} Cuando escribes a mano, tu cerebro procesa la informacion mas profundamente.
+
+\textbf{No te apresures.} Date todo el tiempo que necesites. Una pregunta puede tomar un minuto o media hora.
+
+\vspace{1.5em}
+{\sffamily\bfseries Pautas de seguridad}
+
+Necesitaras energia para este viaje.
+
+No intentes completar todo de una vez. Avanza a tu propio ritmo. Toma descansos.
+
+Si una pregunta despierta emociones fuertes---es una senal de que has tocado algo importante. Acercate con delicadeza.
+
+\vspace{2em}
+{\centering\itshape Listo? Comencemos.\par}
+''',
+}
+
+CONCLUSION_TEXTS = {
+    'ru': r'''
 \newpage
 \thispagestyle{empty}
 \vspace*{0.2\textheight}
@@ -173,7 +302,77 @@ CONCLUSION = r'''
 
 \vspace{3em}
 {\centering\sffamily Selfology — искусство понимать себя.\par}
-'''
+''',
+    'en': r'''
+\newpage
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont In Closing\par}
+
+\vspace{2em}
+
+You've come a long way.
+
+It doesn't matter whether you answered all the questions or just some. What matters is that you started this conversation with yourself.
+
+\vspace{1.5em}
+{\sffamily\bfseries What to Do Next}
+
+\textbf{Reread your notes.} After a week, after a month. You'll be surprised how your perception changes.
+
+\textbf{Notice patterns.} Which themes repeat? Which questions were hardest to answer? Those are your growth points.
+
+\textbf{Return.} This book isn't meant for one-time use. You change. Your answers will change with you.
+
+\textbf{Take action.} Understanding is the first step. But real change happens through action.
+
+\vspace{2em}
+{\centering\itshape Self-discovery is not a destination, but a path.\par}
+
+\vspace{1em}
+{\centering\itshape You're already on it.\par}
+
+\vspace{3em}
+{\centering\sffamily Selfology --- the art of understanding yourself.\par}
+''',
+    'es': r'''
+\newpage
+\thispagestyle{empty}
+\vspace*{0.2\textheight}
+
+{\centering\sffamily\bfseries\fontsize{24pt}{28pt}\selectfont Para cerrar\par}
+
+\vspace{2em}
+
+Has recorrido un largo camino.
+
+No importa si respondiste todas las preguntas o solo algunas. Lo que importa es que comenzaste esta conversacion contigo mismo.
+
+\vspace{1.5em}
+{\sffamily\bfseries Que hacer a continuacion}
+
+\textbf{Relee tus notas.} Despues de una semana, despues de un mes. Te sorprendera como cambia tu percepcion.
+
+\textbf{Observa los patrones.} Que temas se repiten? Que preguntas fueron las mas dificiles de responder? Esos son tus puntos de crecimiento.
+
+\textbf{Regresa.} Este libro no es de un solo uso. Tu cambias. Tus respuestas cambiaran contigo.
+
+\textbf{Actua.} Comprender es el primer paso. Pero el cambio real ocurre a traves de la accion.
+
+\vspace{2em}
+{\centering\itshape El autoconocimiento no es un destino, sino un camino.\par}
+
+\vspace{1em}
+{\centering\itshape Ya estas en el.\par}
+
+\vspace{3em}
+{\centering\sffamily Selfology --- el arte de entenderte a ti mismo.\par}
+''',
+}
+
+INTRO = INTRO_TEXTS[LANG]
+CONCLUSION = CONCLUSION_TEXTS[LANG]
 
 # Время по типу кластера (формат зависит от языка)
 def get_time(depth_type):
@@ -335,14 +534,18 @@ output = []
 
 # Преамбула с использованием стиля
 year = __import__('datetime').datetime.now().strftime('%Y')
+POLYGLOSSIA_LANG = {'ru': 'russian', 'en': 'english', 'es': 'spanish'}[LANG]
+
 preamble = r'''% Selfology Book 1: Тематические программы
 % Полная книга - 29 программ, 190 кластеров
-% Сгенерировано: ''' + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M') + r'''
+% Сгенерировано: ''' + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M') + f'''
+% Язык: {LANG}
 
-\documentclass[11pt,a4paper,oneside]{book}
-\usepackage{selfology-book}
+\\documentclass[11pt,a4paper,oneside]{{book}}
+\\usepackage{{selfology-book}}
+\\setdefaultlanguage{{{POLYGLOSSIA_LANG}}}
 
-\begin{document}
+\\begin{{document}}
 '''
 
 output.append(preamble)
@@ -368,11 +571,18 @@ output.append(CONCLUSION)
 
 output.append(r'\end{document}')
 
-# Сохранение
-with open('/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book1.tex', 'w') as f:
+# Сохранение - файл зависит от языка
+OUTPUT_FILES = {
+    'ru': '/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book1.tex',
+    'en': '/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book1-en.tex',
+    'es': '/home/ksnk/microservices/critical/selfology-bot/products/book/latex/selfology-book1-es.tex',
+}
+OUTPUT_FILE = OUTPUT_FILES[LANG]
+
+with open(OUTPUT_FILE, 'w') as f:
     f.write("\n".join(output))
 
-print(f"\n✅ Сгенерировано: selfology-book1.tex")
+print(f"\n✅ Сгенерировано: {OUTPUT_FILE.split('/')[-1]}")
 print(f"   Программ: {len(data['programs'])}")
 print(f"   Кластеров: {data['metadata']['total_blocks']}")
 print(f"   Вопросов: {data['metadata']['total_questions']}")
