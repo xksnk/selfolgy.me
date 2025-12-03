@@ -4,7 +4,7 @@
   "metadata": {
     "total_programs": 29,
     "total_blocks": 190,
-    "total_questions": 657,
+    "total_questions": 655,
     "source_file": "research/Ты методолог по дизайну рефлексивных опросников..md",
     "cleaned_at": "2025-12-02T10:55:17.822515",
     "removed_garbage": 17,
@@ -455,7 +455,7 @@
             },
             {
               "position": 13,
-              "text": "Куда хочешь побывать и почему именно туда?",
+              "text": "Где хочешь побывать и почему именно там?",
               "format": "book_only",
               "id": "q_podumat_o_zhiznib3q4",
               "position_in_block": 4
@@ -636,7 +636,7 @@
             },
             {
               "position": 20,
-              "text": "Как ты относишься к себе — с теплотой или критично? Что влияет на это отношение?",
+              "text": "Как ты относишься к себе? С теплотой или критично? Что влияет на это отношение?",
               "format": "book_only",
               "id": "q_podumat_o_zhiznib4q5",
               "position_in_block": 5,
@@ -6219,13 +6219,6 @@
               ]
             },
             {
-              "position": 1,
-              "text": "Либо удалить оба модуля",
-              "format": "both",
-              "id": "q_3_kita_ochischeniyab4q3",
-              "position_in_block": 3
-            },
-            {
               "position": 2,
               "text": "Какие новые знания или навыки могли бы углубить твой опыт очищения и сделать его более целостным?",
               "format": "both",
@@ -6261,13 +6254,6 @@
                 "Заменено 'расширить' на 'углубить' и 'сделать более целостным' для темы интеграции",
                 "Создан полноценный вопрос вместо обрывка фразы"
               ]
-            },
-            {
-              "position": 3,
-              "text": "Либо объединить в одну программу \"Рефлексия и очищение\" (15-20 вопросов)",
-              "format": "both",
-              "id": "q_3_kita_ochischeniyab4q5",
-              "position_in_block": 5
             }
           ],
           "block_metadata": {
@@ -12641,7 +12627,7 @@
     },
     {
       "id": "program_krizis_30_40_50",
-      "name": "Кризис 30/40/50",
+      "name": "Кризис 27 / 45",
       "blocks": [
         {
           "id": "block_krizis_30_40_50ozhidaniya_vs_realnost",

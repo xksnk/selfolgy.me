@@ -68,9 +68,12 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
 
-% Переносы слов - разрешены для длинных заголовков
-\hyphenpenalty=500
-\exhyphenpenalty=500
+% Переносы слов - ЗАПРЕЩЕНЫ полностью
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+% Разрешаем растягивать пробелы в крайнем случае (вместо вылета за поля)
+\emergencystretch=5em
 
 % Запрет висячих строк
 \widowpenalty=10000
@@ -81,8 +84,9 @@
 % ============================================
 
 % Chapter = Program (28pt) — на отдельной странице
-\titleformat{\chapter}[display]
-  {\thispagestyle{empty}\vspace*{0.3\textheight}\sffamily\bfseries\fontsize{28pt}{32pt}\selectfont\color{primary}}
+% raggedright позволяет переносить длинные заголовки на 2+ строки
+\titleformat{\chapter}[block]
+  {\thispagestyle{empty}\vspace*{0.3\textheight}\raggedright\sffamily\bfseries\fontsize{28pt}{34pt}\selectfont\color{primary}}
   {}
   {0pt}
   {}
@@ -166,43 +170,28 @@
 }
 
 % ============================================
-% QUESTIONS - Вопрос + линии = единый блок
+% QUESTIONS - Только вопрос + воздух для размышлений
 % ============================================
 
-% Foundation: 2 линии
+% Foundation: лёгкие вопросы
 \newcommand{\questionF}[1]{%
-  \needspace{6\baselineskip}%
+  \needspace{3\baselineskip}%
   \par\noindent\textbf{#1}%
-  \par\vspace{0.8em}%
-  \foreach \i in {1,2} {%
-    \noindent\textcolor{linegray}{\rule{\linewidth}{0.4pt}}%
-    \par\vspace{0.8em}%
-  }%
-  \vspace{0.5em}%
+  \par\vspace{1.5em}%
 }
 
-% Exploration: 3 линии
+% Exploration: глубже
 \newcommand{\questionE}[1]{%
-  \needspace{7\baselineskip}%
+  \needspace{3\baselineskip}%
   \par\noindent\textbf{#1}%
-  \par\vspace{0.8em}%
-  \foreach \i in {1,2,3} {%
-    \noindent\textcolor{linegray}{\rule{\linewidth}{0.4pt}}%
-    \par\vspace{0.8em}%
-  }%
-  \vspace{0.8em}%
+  \par\vspace{2em}%
 }
 
-% Integration: 4 линии
+% Integration: самые глубокие
 \newcommand{\questionI}[1]{%
-  \needspace{8\baselineskip}%
+  \needspace{3\baselineskip}%
   \par\noindent\textbf{#1}%
-  \par\vspace{0.8em}%
-  \foreach \i in {1,2,3,4} {%
-    \noindent\textcolor{linegray}{\rule{\linewidth}{0.4pt}}%
-    \par\vspace{0.8em}%
-  }%
-  \vspace{1em}%
+  \par\vspace{2.5em}%
 }
 
 \endinput
