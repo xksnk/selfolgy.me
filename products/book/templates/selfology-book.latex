@@ -1,0 +1,343 @@
+% Selfology Book Template v2.0
+% Based on Perplexity Research Dec 2024
+% Montserrat + IBM Plex Sans, Stratification System
+% For use with Pandoc + XeLaTeX
+
+\documentclass[11pt,a4paper,oneside]{book}
+
+% ============================================
+% GEOMETRY - Premium Margins (25mm outer)
+% ============================================
+\usepackage[
+  a4paper,
+  inner=20mm,      % gutter (для переплёта)
+  outer=25mm,      % premium breathing room
+  top=20mm,
+  bottom=25mm,
+  headheight=14pt,
+  headsep=20pt,
+  footskip=30pt,
+  marginparwidth=20mm,  % для side margin notes
+  marginparsep=5mm
+]{geometry}
+
+% ============================================
+% FONTS - Montserrat (display) + IBM Plex Sans (body)
+% ============================================
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% Body text - IBM Plex Sans (humanist, warm, Cyrillic)
+\setmainfont{IBM Plex Sans}[
+  Scale = 1.0
+]
+
+% Headlines - Montserrat (geometric, modern, Cyrillic)
+\setsansfont{Montserrat}[
+  Scale = 1.0
+]
+
+% ============================================
+% LANGUAGE - Russian primary
+% ============================================
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+% ============================================
+% TYPOGRAPHY - Stratification Ready
+% ============================================
+\usepackage{microtype}
+
+% Без переносов (Swiss style)
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\tolerance=1000
+\emergencystretch=3em
+
+% Без висячих строк
+\widowpenalty=10000
+\clubpenalty=10000
+
+% Флаговая вёрстка
+\usepackage{ragged2e}
+\setlength{\RaggedRightParindent}{0pt}
+\RaggedRight
+
+% Интерлиньяж (base - will vary by depth)
+\usepackage{setspace}
+\setstretch{1.6}
+
+% Отступы абзацев
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% ============================================
+% COLORS - Warm palette
+% ============================================
+\usepackage{xcolor}
+\definecolor{primarytext}{HTML}{282828}     % Warm black
+\definecolor{secondarytext}{HTML}{666666}   % Medium gray (metadata)
+\definecolor{accent}{HTML}{1A4D2E}          % Deep forest green
+\definecolor{contextgray}{HTML}{555555}     % Program context in Book 2
+\definecolor{lightgray}{HTML}{D0D0D0}       % Lines
+\definecolor{foundationbg}{HTML}{FFFFFF}    % Pure white
+\definecolor{explorationbg}{HTML}{FAFAFA}   % 1% gray
+\definecolor{integrationbg}{HTML}{F7F7F7}   % 2% gray
+
+\color{primarytext}
+
+% ============================================
+% HEADERS - Typographic Hierarchy Matrix
+% Program: 28pt, Cluster: 16pt, Question: 13pt
+% ============================================
+\usepackage{titlesec}
+
+% Часть (Part) - для Book 2 части
+\titleformat{\part}[display]
+  {\sffamily\bfseries\fontsize{32pt}{36pt}\selectfont\color{primarytext}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\part}{0pt}{80pt}{40pt}
+
+% Глава (Chapter) - H1 = Program (28pt, weight 600)
+\titleformat{\chapter}[display]
+  {\sffamily\bfseries\fontsize{28pt}{32pt}\selectfont\color{primarytext}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\chapter}{0pt}{0pt}{2em}
+
+% Секция (Section) - H2 = Cluster (16pt, weight 600)
+\titleformat{\section}
+  {\sffamily\bfseries\fontsize{16pt}{20pt}\selectfont\color{primarytext}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{1.5em}{1em}
+
+% Подсекция (Subsection) - H3 = Program context (14pt, weight 400, gray)
+\titleformat{\subsection}
+  {\sffamily\fontsize{14pt}{18pt}\selectfont\color{contextgray}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{2em}{0.5em}
+
+% Без нумерации
+\setcounter{secnumdepth}{-1}
+
+% ============================================
+% RUNNING HEADERS - Navigation
+% ============================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+% Левая страница - номер
+\fancyhead[L]{\small\sffamily\color{secondarytext}\thepage}
+% Правая страница - название главы (программы)
+\fancyhead[R]{\small\sffamily\color{secondarytext}\rightmark}
+
+% Убрать линию
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Для plain страниц (начало главы)
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\small\sffamily\color{secondarytext}\thepage}
+}
+
+% ============================================
+% MARGIN NOTES - Side metadata (Book 1)
+% ============================================
+\usepackage{marginnote}
+\renewcommand*{\marginfont}{\footnotesize\sffamily\color{secondarytext}}
+
+% ============================================
+% ANSWER LINES - Variable by depth
+% ============================================
+\usepackage{tikz}
+
+% Foundation: 2 lines
+\newcommand{\answerlinesFoundation}{%
+  \par\vspace{1em}%
+  \foreach \i in {1,2} {%
+    \noindent\textcolor{lightgray}{%
+      \rule{\linewidth}{0.4pt}%
+    }%
+    \par\vspace{1em}%
+  }%
+  \vspace{1em}%
+}
+
+% Exploration: 3 lines
+\newcommand{\answerlinesExploration}{%
+  \par\vspace{1em}%
+  \foreach \i in {1,2,3} {%
+    \noindent\textcolor{lightgray}{%
+      \rule{\linewidth}{0.4pt}%
+    }%
+    \par\vspace{1em}%
+  }%
+  \vspace{1.5em}%
+}
+
+% Integration: 4 lines
+\newcommand{\answerlinesIntegration}{%
+  \par\vspace{1em}%
+  \foreach \i in {1,2,3,4} {%
+    \noindent\textcolor{lightgray}{%
+      \rule{\linewidth}{0.4pt}%
+    }%
+    \par\vspace{1em}%
+  }%
+  \vspace{2em}%
+}
+
+% Default (3 lines)
+\newcommand{\answerlines}[1][3]{%
+  \par\vspace{1em}%
+  \foreach \i in {1,...,#1} {%
+    \noindent\textcolor{lightgray}{%
+      \rule{\linewidth}{0.4pt}%
+    }%
+    \par\vspace{1em}%
+  }%
+  \vspace{1em}%
+}
+
+% ============================================
+% SPECIAL ELEMENTS
+% ============================================
+
+% Время (без emoji, в margin или inline)
+\newcommand{\clustertime}[1]{%
+  \par\vspace{0.5em}%
+  {\small\sffamily\color{secondarytext}\texttildelow#1 мин}%
+  \par\vspace{1em}%
+}
+
+% Описание кластера
+\newcommand{\clusterdesc}[1]{%
+  {\itshape\color{secondarytext}#1}%
+  \par%
+}
+
+% Metadata inline (Book 2 style)
+\newcommand{\metadata}[1]{%
+  {\small\sffamily\color{secondarytext}#1}%
+  \par\vspace{1em}%
+}
+
+% Предупреждение (без emoji)
+\newcommand{\warningblock}[1]{%
+  \par\vspace{2em}%
+  {\itshape\color{secondarytext}#1}%
+  \par\vspace{2em}%
+}
+
+% Разделитель между кластерами
+\newcommand{\clustersep}{%
+  \par\vspace{1.5em}%
+}
+
+% Разделитель между программами (symbol)
+\newcommand{\programsep}{%
+  \par\vspace{1.5em}%
+  \begin{center}%
+    \textcolor{lightgray}{\textbullet}%
+  \end{center}%
+  \par\vspace{1em}%
+}
+
+% ============================================
+% LISTS
+% ============================================
+\usepackage{enumitem}
+\setlist[itemize]{
+  leftmargin=*,
+  labelsep=8pt,
+  itemsep=0.5em,
+  parsep=0pt
+}
+\setlist[enumerate]{
+  leftmargin=*,
+  labelsep=8pt,
+  itemsep=0.5em,
+  parsep=0pt
+}
+
+% ============================================
+% PANDOC COMPATIBILITY
+% ============================================
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Поддержка изображений
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Ссылки
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+
+% ============================================
+% TITLE PAGE
+% ============================================
+$if(title)$
+\title{$title$}
+$endif$
+$if(subtitle)$
+\newcommand{\subtitle}{$subtitle$}
+$endif$
+$if(author)$
+\author{$author$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+% ============================================
+% DOCUMENT
+% ============================================
+\begin{document}
+
+% Титульная страница
+$if(title)$
+\begin{titlepage}
+\newgeometry{margin=40mm}
+\vspace*{0.3\textheight}
+{\sffamily\bfseries\fontsize{36pt}{40pt}\selectfont $title$\par}
+\vspace{20pt}
+$if(subtitle)$
+{\sffamily\fontsize{18pt}{22pt}\selectfont\color{secondarytext}\subtitle\par}
+$endif$
+\vfill
+$if(author)$
+{\sffamily\large $author$\par}
+$endif$
+\vspace{20pt}
+$if(date)$
+{\sffamily\color{secondarytext}$date$\par}
+$endif$
+\restoregeometry
+\end{titlepage}
+$endif$
+
+% Пустая страница после титула
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+% Основной контент
+$body$
+
+\end{document}
