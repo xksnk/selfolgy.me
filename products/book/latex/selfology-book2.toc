@@ -1,0 +1,6 @@
+\xpginauxfiletrue 
+\selectlanguage *{russian}
+\contentsline {chapter}{Часть I: Первые шаги}{4}{}%
+\contentsline {chapter}{Часть II: Исследование}{37}{}%
+\contentsline {chapter}{Часть III: Глубинная работа}{159}{}%
+\xpginauxfilefalse 

@@ -14,6 +14,8 @@ import argparse
 # ============================================
 LANG_CONFIG = {
     'ru': {
+        'book_title': '29 программ\\\\самопознания',
+        'book_subtitle': 'Вопросы, которые меняют жизнь',
         'time_format': '{0} – {1} мин',  # с пробелами вокруг тире
         'quotes': ('«', '»'),             # кавычки-ёлочки
         'widows': [
@@ -28,6 +30,8 @@ LANG_CONFIG = {
         ],
     },
     'en': {
+        'book_title': '29 Programs\\\\of Self-Discovery',
+        'book_subtitle': 'Questions that change your life',
         'time_format': '{0}–{1} min',     # слитно с en-dash
         'quotes': ('"', '"'),             # английские кавычки
         'widows': [
@@ -42,6 +46,8 @@ LANG_CONFIG = {
         ],
     },
     'es': {
+        'book_title': '29 Programas\\\\de Autoconocimiento',
+        'book_subtitle': 'Preguntas que cambian tu vida',
         'time_format': '{0}-{1} min',     # обычный дефис (RAE)
         'quotes': ('«', '»'),             # кавычки-ёлочки (как в русском)
         'widows': [
@@ -120,7 +126,7 @@ INTRO = r'''
 
 \textbf{Пишите от руки.} Когда вы пишете рукой, мозг обрабатывает информацию глубже.
 
-\textbf{Не торопитесь.} У каждого вопроса указано рекомендуемое время. Но это лишь ориентир.
+\textbf{Не торопитесь.} Дайте себе столько времени, сколько нужно. Один вопрос может занять минуту, а может — полчаса.
 
 \vspace{1.5em}
 {\sffamily\bfseries Техника безопасности}
@@ -130,15 +136,6 @@ INTRO = r'''
 Не пытайтесь пройти всё за один раз. Двигайтесь в своём темпе. Делайте перерывы.
 
 Если какой-то вопрос вызывает сильные эмоции — это знак того, что вы коснулись чего-то важного. Побудьте с этим бережно.
-
-\vspace{1.5em}
-{\sffamily\bfseries Время на разделы}
-
-\textbf{5 – 10 минут} — вопросы уровня Поверхность
-
-\textbf{10 – 20 минут} — вопросы уровня Исследование
-
-\textbf{15 – 30 минут} — вопросы уровня Глубина
 
 \vspace{2em}
 {\centering\itshape Готовы? Тогда начнём.\par}
@@ -337,6 +334,7 @@ def generate_program(prog, is_first=True):
 output = []
 
 # Преамбула с использованием стиля
+year = __import__('datetime').datetime.now().strftime('%Y')
 preamble = r'''% Selfology Book 1: Тематические программы
 % Полная книга - 29 программ, 190 кластеров
 % Сгенерировано: ''' + __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M') + r'''
@@ -348,6 +346,14 @@ preamble = r'''% Selfology Book 1: Тематические программы
 '''
 
 output.append(preamble)
+
+# Обложка
+book_title = CONFIG['book_title']
+book_subtitle = CONFIG['book_subtitle']
+output.append(f"\\bookcover{{{book_title}}}{{{book_subtitle}}}{{{year}}}")
+
+# Оглавление
+output.append("\\booktoc")
 
 # Вступление
 output.append(INTRO)

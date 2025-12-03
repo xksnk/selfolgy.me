@@ -1,0 +1,32 @@
+\xpginauxfiletrue 
+\selectlanguage *{russian}
+\contentsline {chapter}{Подумать о~жизни}{5}{}%
+\contentsline {chapter}{Подумать о~карьере или бизнесе}{14}{}%
+\contentsline {chapter}{Задуматься о~здоровье}{21}{}%
+\contentsline {chapter}{Изучить себя}{27}{}%
+\contentsline {chapter}{Улучшить эмоциональное состояние}{34}{}%
+\contentsline {chapter}{Перебрать цели}{41}{}%
+\contentsline {chapter}{Мечтатели}{48}{}%
+\contentsline {chapter}{Рефлексия}{55}{}%
+\contentsline {chapter}{3 кита очищения}{60}{}%
+\contentsline {chapter}{Ресурс}{65}{}%
+\contentsline {chapter}{Границы личности}{71}{}%
+\contentsline {chapter}{Работа со страхами}{80}{}%
+\contentsline {chapter}{Разобраться в~отношениях}{90}{}%
+\contentsline {chapter}{Выгорание Ресурс}{100}{}%
+\contentsline {chapter}{Исцеление прошлого}{108}{}%
+\contentsline {chapter}{Тело и~эмоции}{118}{}%
+\contentsline {chapter}{Деньги и~самоценность}{125}{}%
+\contentsline {chapter}{Кризис 27 / 45}{134}{}%
+\contentsline {chapter}{AI-тревожность и~будущее работы}{142}{}%
+\contentsline {chapter}{Инфо-ожирение}{150}{}%
+\contentsline {chapter}{Выученная беспомощность 2.0}{159}{}%
+\contentsline {chapter}{Паразоциальная зависимость}{168}{}%
+\contentsline {chapter}{Гибридная жизнь --- работа на~«удалёнке»}{176}{}%
+\contentsline {chapter}{Аутентичность vs Алгоритмы}{185}{}%
+\contentsline {chapter}{Эко-вина и~климат-тревога}{194}{}%
+\contentsline {chapter}{Синдром самозванца в~эпоху LinkedIn}{202}{}%
+\contentsline {chapter}{Воскресная тревога}{209}{}%
+\contentsline {chapter}{Родительская вина за~экранное время}{214}{}%
+\contentsline {chapter}{Криптовалютное FOMO}{220}{}%
+\xpginauxfilefalse 

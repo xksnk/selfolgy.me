@@ -4,7 +4,7 @@
   "metadata": {
     "total_programs": 29,
     "total_blocks": 190,
-    "total_questions": 655,
+    "total_questions": 650,
     "source_file": "research/Ты методолог по дизайну рефлексивных опросников..md",
     "cleaned_at": "2025-12-02T10:55:17.822515",
     "removed_garbage": 17,
@@ -13277,7 +13277,7 @@
             },
             {
               "position": 3,
-              "text": "Твоя эмоциональная интеллигентность — это твой главный профессиональный актив? Как?",
+              "text": "Считаешь ли ты эмоциональный интеллект своим главным профессиональным активом? Почему?",
               "format": "ai_only",
               "id": "q_ai_trevozhnost_i_buduschee_rabotyb1q3",
               "position_in_block": 3
@@ -15880,7 +15880,7 @@
     },
     {
       "id": "program_gibridnaya_zhizn",
-      "name": "Гибридная жизнь",
+      "name": "Гибридная жизнь — работа на «удалёнке»",
       "blocks": [
         {
           "id": "block_gibridnaya_zhizntransformatsiya_prostranstva",
@@ -19261,89 +19261,13 @@
               "position_in_block": 3
             },
             {
-              "position": 1,
-              "text": "Сколько часов в день твой ребенок проводит перед экраном?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q4",
-              "position_in_block": 4
+              "text": "Если бы воскресная тревога могла говорить — что она пытается тебе сказать о твоей жизни?"
             },
             {
-              "position": 2,
-              "text": "Какие приложения чаще всего выбирает твой ребенок?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q5",
-              "position_in_block": 5
+              "text": "Через 5 лет ты всё ещё будешь испытывать это чувство каждое воскресенье?"
             },
             {
-              "position": 3,
-              "text": "Что ты чувствуешь, когда видишь ребенка с гаджетом?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q6",
-              "position_in_block": 6
-            },
-            {
-              "position": 4,
-              "text": "Какие эмоции скрываются за твоим запретом на гаджеты?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q7",
-              "position_in_block": 7
-            },
-            {
-              "position": 5,
-              "text": "Как твой страх технологий влияет на отношения с ребенком?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q8",
-              "position_in_block": 8
-            },
-            {
-              "position": 6,
-              "text": "Что на самом деле вызывает тревогу, когда ты думаешь об ограничении экранного времени?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q9",
-              "position_in_block": 9,
-              "original_text": "Чего на самом деле ты боишься, когда ограничиваешь экранное время?",
-              "metadata": {
-                "classification": {
-                  "journey_stage": "EXPLORING",
-                  "depth_level": "CONSCIOUS",
-                  "domain": "IDENTITY",
-                  "energy_dynamic": "HEAVY"
-                },
-                "psychology": {
-                  "complexity": 3,
-                  "emotional_weight": 4,
-                  "insight_potential": 3,
-                  "safety_level": 2,
-                  "trust_requirement": 3
-                },
-                "processing_hints": {
-                  "recommended_model": "claude-3.5-sonnet",
-                  "batch_compatible": true,
-                  "requires_context": false
-                }
-              },
-              "core_id": "q_036",
-              "match_confidence": 0.85,
-              "ai_changes": [
-                "Убрал слово 'боишься' — слишком прямолинейно",
-                "Заменил на 'вызывает тревогу' — мягче и точнее по контексту",
-                "Сохранил связь с экранным временем из варианта 1",
-                "Сделал вопрос более приглашающим к размышлению"
-              ]
-            },
-            {
-              "position": 7,
-              "text": "Какую травму собственного детства ты проецируешь на ребенка?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q10",
-              "position_in_block": 10
-            },
-            {
-              "position": 8,
-              "text": "Кем ты станешь как родитель, приняв цифровой мир ребенка?",
-              "format": "both",
-              "id": "q_voskresnaya_trevogab4q11",
-              "position_in_block": 11
+              "text": "Что должно измениться в твоей жизни, чтобы воскресенье снова стало просто воскресеньем?"
             }
           ],
           "block_metadata": {
